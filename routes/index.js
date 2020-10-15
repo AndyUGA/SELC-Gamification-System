@@ -16,7 +16,7 @@ function convertToArray(dataArray, doc) {
 router.get("/", function (req, res) {
 
 
-  db.collection("users").orderBy("points", "desc").get().then(function (querySnapshot) {
+  db.collection("users").orderBy("firstName", "ASC").get().then(function (querySnapshot) {
     let dataArray = [];
     querySnapshot.forEach(function (doc) {
 

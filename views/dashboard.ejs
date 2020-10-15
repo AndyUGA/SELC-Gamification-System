@@ -60,19 +60,18 @@
       <table class="table table-sm">
         <thead class="thead-blue text-white">
           <tr>
-            <th scope="col">Place</th>
+       
             <th scope="col">Name</th>
             <th scope="col">Email</th>
+            <th scope="col"> Team</th>
           </tr>
         </thead>
         <tbody>
           <% for(var i = 0; i < dataArray.length; i++) { %>
           <tr>
-            <th scope="row">
-              <%= i + 1%>
-            </th>
             <td> <%= dataArray[i].firstName %> <%= dataArray[i].lastName %></td>
             <td> <%= dataArray[i].email %></td>
+            <td> <%= dataArray[i].teamName %></td>
           </tr>
           <% } %>
         </tbody>
