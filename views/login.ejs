@@ -1,0 +1,86 @@
+<div class="container-fluid gradient-bg ">
+
+
+<div class="container-fluid container-xl">
+  <div class="row min-vh-100 align-items-center justify-content-center py-5">
+    <div class="col-12 col-xl-6 bg-red">
+      <form class = "w-100" id="login">
+
+        <div class="form-group">
+
+          <label for="exampleInputEmail1">Email address</label>
+          <input type="email" class="form-control" name="login">
+
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Password</label>
+          <input type="password" class="form-control" name="password">
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+          Login
+        </button>
+      </form>
+
+
+    </div>
+    <div class = "col-12 col-xl-6 px-0">
+      <img class = "img-fluid maxHeight" src = "./Images/Signup/bg2.png">
+    </div>
+  </div>
+</div>
+</div>
+
+
+
+<script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-auth.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+
+<script>
+  window.addEventListener("DOMContentLoaded", () => {
+    const firebaseConfig = {
+      apiKey: "AIzaSyCic5UWC0fXladccjESHt2eEUFR3GCpu7k",
+      authDomain: "test-73b01.firebaseapp.com",
+      databaseURL: "https://test-73b01.firebaseio.com",
+      projectId: "test-73b01",
+      storageBucket: "test-73b01.appspot.com",
+      messagingSenderId: "622256382010",
+      appId: "1:622256382010:web:305e70e752a5a757c2d503"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE);
+    document
+      .getElementById("login")
+      .addEventListener("submit", (event) => {
+        event.preventDefault();
+        const login = event.target.login.value;
+        const password = event.target.password.value;
+
+        firebase
+          .auth()
+          .signInWithEmailAndPassword(login, password)
+          .then(({ user }) => {
+            return user.getIdToken().then((idToken) => {
+              return fetch("/sessionLogin", {
+                method: "POST",
+                headers: {
+                  Accept: "application/json",
+                  "Content-Type": "application/json",
+                  "CSRF-Token": Cookies.get("XSRF-TOKEN"),
+                },
+                body: JSON.stringify({ idToken }),
+              });
+            });
+          })
+          .then(() => {
+            return firebase.auth().signOut();
+          })
+          .then(() => {
+            window.location.assign("profile");
+          });
+        return false;
+      });
+  });
+</script>

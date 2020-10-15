@@ -1,0 +1,41 @@
+$UVSASE-blue: #009fb7;
+$UVSASE-dark-blue: #114b5f;
+
+
+.dark-blue-bg-color {
+    background-color: $UVSASE-blue;
+}
+
+.thead-blue {
+    background-color: $UVSASE-blue;
+}
+
+.btn-UVSASE-darkblue {
+    background-color: $UVSASE-dark-blue;
+    color: #FFFFFF;
+    font-weight: bold;
+}
+
+.btn-UVSASE-darkblue:hover {
+    color: $UVSASE-blue;
+}
+
+.maxIconSize {
+    height: 64px;
+    width: 64px;
+}
+
+.card-admin-text {
+    color: white;
+    font-size: 1.5rem;
+}
+
+.workshopName {
+    font-size: 16px;
+    text-align: center;
+}
+
+.numberRegistered {
+    font-size: 12px;
+    text-align: center;
+}

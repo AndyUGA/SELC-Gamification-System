@@ -1,0 +1,37 @@
+.dark-blue-bg-color {
+  background-color: #009fb7;
+}
+
+.thead-blue {
+  background-color: #009fb7;
+}
+
+.btn-UVSASE-darkblue {
+  background-color: #114b5f;
+  color: #FFFFFF;
+  font-weight: bold;
+}
+
+.btn-UVSASE-darkblue:hover {
+  color: #009fb7;
+}
+
+.maxIconSize {
+  height: 64px;
+  width: 64px;
+}
+
+.card-admin-text {
+  color: white;
+  font-size: 1.5rem;
+}
+
+.workshopName {
+  font-size: 16px;
+  text-align: center;
+}
+
+.numberRegistered {
+  font-size: 12px;
+  text-align: center;
+}

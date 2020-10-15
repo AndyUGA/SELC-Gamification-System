@@ -1,0 +1,31 @@
+$UVSASE-blue: #009fb7;
+$UVSASE-dark-blue: #114b5f;
+
+
+.bg-red {
+    background-color: $UVSASE-blue;
+    padding: 2rem;
+    height: 550px;
+    display: flex;
+    align-items: center;
+}
+
+.maxHeight {
+    max-height: 100%;
+}
+
+label {
+    color: white;
+ 
+}
+
+.gradient-bg {
+    background: rgb(255,195,0);
+    background: linear-gradient(90deg, rgba(255,195,0,0.7412756309148265) 0%, rgba(65,186,219,1) 89%);
+}
+
+@media screen and (min-width: 1200px) {
+    .maxHeight {
+        max-height: 550px;
+    }
+}

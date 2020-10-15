@@ -1,0 +1,83 @@
+<div class="container">
+  <div class="row mt-5">
+    <div class="col-12 col-md-6 mb-5 mb-md-0">
+      <div class="card dark-blue-bg-color align-items-center">
+        <img src="./Images/Dashboard/personIcon2.svg" class="card-img-top maxIconSize mt-3" alt="...">
+        <div class="card-body">
+          <h5 class="card-admin-text">
+            <%= dataArray.length %> Accounts
+          </h5>
+        </div>
+        <div class="d-flex justify-content-around w-100 mb-3">
+
+          <a href="/pointsForm" class="btn btn-UVSASE-darkblue btn-lg " tabindex="-1" role="button" aria-disabled="true">
+            Edit Points
+          </a>
+
+          <a href="/teamForm" class="btn btn-UVSASE-darkblue btn-lg " tabindex="-1" role="button" aria-disabled="true">
+            Edit Teams
+          </a>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6">
+      <div class="card dark-blue-bg-color align-items-center">
+        <img src="./Images/Dashboard/workshopIcon.svg" class="card-img-top maxIconSize mt-3" alt="...">
+        <div class="card-body">
+          <h5 class="card-admin-text">
+            <div class="row">
+              <table class="table table-sm text-white border-top-0">
+                <thead>
+                  <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Registered</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% for(var i = 0; i < dataArray2.length; i++) {  %>
+                  <tr>
+                    <td>
+                      <%= dataArray2[i].name %>
+                    </td>
+                    <td class="text-center">
+                      <%= dataArray2[i].attendees.length %>
+                    </td>
+                  </tr>
+                  <% } %>
+                </tbody>
+              </table>
+            </div>
+          </h5>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col">
+      <table class="table table-sm">
+        <thead class="thead-blue text-white">
+          <tr>
+            <th scope="col">Place</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for(var i = 0; i < dataArray.length; i++) { %>
+          <tr>
+            <th scope="row">
+              <%= i + 1%>
+            </th>
+            <td> <%= dataArray[i].firstName %> <%= dataArray[i].lastName %></td>
+            <td> <%= dataArray[i].email %></td>
+          </tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</div>
