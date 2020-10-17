@@ -1,5 +1,6 @@
 $UVSASE-blue: #009fb7;
 $UVSASE-dark-blue: #114b5f;
+$UVSAE-Yellow: #fed766;
 
 
 .bg-red {
@@ -22,6 +23,21 @@ label {
 .gradient-bg {
     background: rgb(255,195,0);
     background: linear-gradient(90deg, rgba(255,195,0,0.7412756309148265) 0%, rgba(65,186,219,1) 89%);
+}
+
+.login-button {
+    background-color: $UVSASE-dark-blue;
+    color: white;
+    width: 100%;
+}
+
+.login-button:hover {
+    color: $UVSASE-blue;
+}
+
+.error {
+    color: $UVSAE-Yellow;
+    display: none;
 }
 
 @media screen and (min-width: 1200px) {

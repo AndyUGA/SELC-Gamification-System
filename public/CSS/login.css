@@ -24,6 +24,21 @@ label {
   background: linear-gradient(90deg, rgba(255, 195, 0, 0.741276) 0%, #41badb 89%);
 }
 
+.login-button {
+  background-color: #114b5f;
+  color: white;
+  width: 100%;
+}
+
+.login-button:hover {
+  color: #009fb7;
+}
+
+.error {
+  color: #fed766;
+  display: none;
+}
+
 @media screen and (min-width: 1200px) {
   .maxHeight {
     max-height: 550px;

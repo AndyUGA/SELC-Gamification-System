@@ -9,7 +9,10 @@
 .btn-UVSASE-darkblue {
   background-color: #114b5f;
   color: #FFFFFF;
-  font-weight: bold;
+}
+
+.UVSASE-Yellow {
+  color: white;
 }
 
 .btn-UVSASE-darkblue:hover {
@@ -19,6 +22,10 @@
 .maxIconSize {
   height: 64px;
   width: 64px;
+}
+
+.workshopText {
+  font-size: 1.2rem;
 }
 
 .card-admin-text {

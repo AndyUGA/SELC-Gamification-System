@@ -1,6 +1,6 @@
 $UVSASE-blue: #009fb7;
 $UVSASE-dark-blue: #114b5f;
-
+$UVSAE-Yellow: #fed766;
 
 .dark-blue-bg-color {
     background-color: $UVSASE-blue;
@@ -13,7 +13,10 @@ $UVSASE-dark-blue: #114b5f;
 .btn-UVSASE-darkblue {
     background-color: $UVSASE-dark-blue;
     color: #FFFFFF;
-    font-weight: bold;
+}
+
+.UVSASE-Yellow {
+    color: white;
 }
 
 .btn-UVSASE-darkblue:hover {
@@ -23,6 +26,10 @@ $UVSASE-dark-blue: #114b5f;
 .maxIconSize {
     height: 64px;
     width: 64px;
+}
+
+.workshopText {
+    font-size: 1.2rem;
 }
 
 .card-admin-text {

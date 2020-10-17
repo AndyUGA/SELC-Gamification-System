@@ -47,7 +47,7 @@ router.get("/", function (req, res) {
 router.get("/leaderboard", function (req, res) {
 
 
-  db.collection("users").orderBy("points").get().then(function (querySnapshot) {
+  db.collection("users").orderBy("points", "DESC").get().then(function (querySnapshot) {
     let dataArray = [];
     querySnapshot.forEach(function (doc) {
 

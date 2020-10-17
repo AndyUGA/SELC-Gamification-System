@@ -17,11 +17,14 @@
           <input type="password" class="form-control" name="password">
         </div>
 
-        <button type="submit" class="btn btn-primary">
+        <button type="submit" class="btn login-button">
           Login
         </button>
+        <div class="error pt-3">
+          There was an error with the account information. Please try again.
+        </div>
       </form>
-
+     
 
     </div>
     <div class = "col-12 col-xl-6 px-0">
@@ -79,7 +82,14 @@
           })
           .then(() => {
             window.location.assign("profile");
-          });
+          })
+          .catch(function(err) {
+            console.log(84, err);
+            $(".error").show();
+            event.target.login.value = "";
+            event.target.password.value = "";
+          })
+          ;
         return false;
       });
   });
