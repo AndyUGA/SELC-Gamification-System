@@ -10,16 +10,25 @@
                     <select id="currentUser" class="form-control" name="currentUser">
 
                         <% for(var i=0; i < dataArray.length; i++) { %>
-                        <option> <%= dataArray[i].firstName %> <%= dataArray[i].lastName %>
-                            (<%= dataArray[i].email %>) - <%= dataArray[i].points %> Current Points </option>
-                        <% } %>
+                            <option>
+                                <%= dataArray[i].firstName %>
+                                    <%= dataArray[i].lastName %>
+                                        (
+                                        <%= dataArray[i].email %>) -
+                                            <%= dataArray[i].points %> Current Points
+                            </option>
+                            <% } %>
                     </select>
 
                 </div>
-                
+
                 <div class="form-group">
                     <label for="exampleInputPassword1">
-                        Points to Add
+                        Points
+                        <!-- 
+                         <br> Use positive numbers to add / Use negative numbers to subtract
+                         -->
+
                     </label>
                     <input id="points" type="number" class="form-control" name="points">
                 </div>
@@ -53,11 +62,11 @@
                 currentUser,
             }),
         })
-        .then(response => {
-            window.location = "/pointsForm";
-        })
-        .catch(function(err) {
-           console.log(61, err);
-        });
+            .then(response => {
+                window.location = "/pointsForm";
+            })
+            .catch(function (err) {
+                console.log(61, err);
+            });
     }
 </script>

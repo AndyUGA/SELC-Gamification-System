@@ -7,7 +7,7 @@ const expressLayouts = require('express-ejs-layouts');
 
 const serviceAccount = require("./serviceAccountKey.json");
 admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
+  credential: admin.credential.cert(process.env.testapi),
   databaseURL: process.env.databaseURL,
 });
 
