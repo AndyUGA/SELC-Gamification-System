@@ -1,5 +1,5 @@
 
-require('dotenv').config()
+
 const express = require("express");
 const router = express.Router();
 const admin = require("firebase-admin");
@@ -28,8 +28,6 @@ router.get("/", function (req, res) {
 
         convertToArray(dataArray2, doc);
       });
-      console.log(31, dataArray2);
-      console.log(32, dataArray2[0].attendees.length);
       res.render("dashboard.ejs", {
         layout: 'Layout/layout.ejs',
         pagename: "dashboard",
@@ -75,7 +73,6 @@ router.get("/test", function (req, res) {
       convertToArray(dataArray, doc);
     });
     
-    console.log(77, dataArray);
     res.render("test.ejs", {
       layout: 'Layout/layout.ejs',
       pagename: "test",
@@ -101,7 +98,6 @@ router.get("/pointsForm", function (req, res) {
         querySnapshot.forEach(function (doc) {
           convertToArray(dataArray, doc);
         });
-        console.log(81, dataArray);
         res.render("pointsForm.ejs", {
           layout: 'Layout/layout.ejs',
           dataArray,
@@ -164,15 +160,15 @@ router.post("/modifyPoints", function (req, res) {
   let endIndexOfEmail = currentUser.indexOf(")");
 
   let userEmail = currentUser.substring((startIndexOfEmail + 1), endIndexOfEmail);
-
+  console.log(163, userEmail);
 
   db.collection("users").where("email", "==", userEmail).get().then(function (querySnapshot) {
     let dataArray = [];
     querySnapshot.forEach(function (doc) {
-
+      console.log(168, doc);
       convertToArray(dataArray, doc);
     });
-
+    console.log(171, dataArray);
     let currentUserUID = dataArray[0].uid;
     let currentUserPoints = dataArray[0].points;
 
@@ -180,9 +176,9 @@ router.post("/modifyPoints", function (req, res) {
     currentDB.update({
       points: req.body.points + currentUserPoints,
     })
-
+    console.log(179, "Points updated!");
   });
-
+  console.log(181);
   res.redirect(301, "/");
 
 

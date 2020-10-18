@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const cookieParser = require("cookie-parser");
 const csrf = require("csurf");
 const bodyParser = require("body-parser");
@@ -5,9 +7,12 @@ const express = require("express");
 const admin = require("firebase-admin");
 const expressLayouts = require('express-ejs-layouts');
 
-const serviceAccount = require("./serviceAccountKey.json");
+const serviceAccount = require("./serviceAccountKey.js").config;
+const serviceAccountConfig = JSON.parse(JSON.stringify(serviceAccount))
+
+
 admin.initializeApp({
-  credential: admin.credential.cert(process.env.testapi),
+  credential: admin.credential.cert(serviceAccountConfig),
   databaseURL: process.env.databaseURL,
 });
 
