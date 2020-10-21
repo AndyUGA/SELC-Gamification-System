@@ -176,7 +176,21 @@ router.post("/modifyPoints", function (req, res) {
     currentDB.update({
       points: req.body.points + currentUserPoints,
     })
-    console.log(179, "Points updated!");
+
+    const currentTeam = dataArray[0].teamName;
+    let currentTeamPoints = 0;
+    db.collection("teams").where("team", "==", currentTeam).get().then(function (querySnapshot) {
+      querySnapshot.forEach(function (doc) {
+        currentTeamPoints = doc.data().points;
+        const pointsDB = db.collection("teams").doc(currentTeam);
+        pointsDB.update({
+          points: req.body.points + currentTeamPoints,
+        })
+      });
+    });
+
+ 
+
   });
   console.log(181);
   res.redirect(301, "/");
