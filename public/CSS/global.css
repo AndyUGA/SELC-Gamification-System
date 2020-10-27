@@ -1,7 +1,7 @@
 * {
-  font-family: 'Raleway   ', sans-serif;
+  font-family: 'Raleway', sans-serif;
 }
 
-.test {
-  text-transform: capitalize;
+body {
+  background-color: #F8F9FA;
 }

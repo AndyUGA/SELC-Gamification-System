@@ -11,8 +11,12 @@
   color: #FFFFFF;
 }
 
-.UVSASE-Yellow {
-  color: white;
+.workshop-background-color {
+  background-color: transparent;
+}
+
+.text-UVSASE-blue {
+  color: #009fb7;
 }
 
 .btn-UVSASE-darkblue:hover {
@@ -45,4 +49,31 @@
 
 .columnName {
   color: #fed766 !important;
+}
+
+.account-registered-number {
+  font-size: 4rem;
+  text-align: center;
+  color: #009fb7;
+  font-weight: 300;
+}
+
+.account-registered-title {
+  font-size: 1.5rem;
+  color: #009fb7;
+  text-align: center;
+  font-weight: bold;
+}
+
+.dashboard-card-img {
+  height: 100px;
+  width: 100px;
+  margin-top: 1rem;
+}
+
+.dashboard-card {
+  background-color: transparent;
+  border: solid 1px #009fb7;
+  -webkit-box-shadow: 0 0 35px 0 rgba(154, 161, 171, 0.15);
+          box-shadow: 0 0 35px 0 rgba(154, 161, 171, 0.15);
 }
