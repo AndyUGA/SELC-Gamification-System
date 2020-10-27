@@ -1,6 +1,6 @@
 $UVSASE-blue: #009fb7;
 $UVSASE-dark-blue: #114b5f;
-$UVSAE-Yellow: #fed766;
+$UVSASE-Yellow: #fed766;
 
 .dark-blue-bg-color {
     background-color: $UVSASE-blue;
@@ -45,4 +45,8 @@ $UVSAE-Yellow: #fed766;
 .numberRegistered {
     font-size: 12px;
     text-align: center;
+}
+
+.columnName {
+    color: $UVSASE-Yellow !important;
 }
