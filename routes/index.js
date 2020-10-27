@@ -15,29 +15,47 @@ function convertToArray(dataArray, doc) {
 
 router.get("/", function (req, res) {
 
+  let filter = req.query.filter || "firstName";
 
-  db.collection("users").orderBy("firstName", "ASC").get().then(function (querySnapshot) {
-    let dataArray = [];
-    querySnapshot.forEach(function (doc) {
+  const sessionCookie = req.cookies.session || "";
+  admin
+    .auth()
+    .verifySessionCookie(sessionCookie, true /** checkRevoked */)
+    .then(() => {
 
-      convertToArray(dataArray, doc);
-    });
-    db.collection("workshops").get().then(function (querySnapshot) {
-      let dataArray2 = [];
-      querySnapshot.forEach(function (doc) {
+      db.collection("users").orderBy(filter, "ASC").get().then(function (querySnapshot) {
+        let dataArray = [];
+        querySnapshot.forEach(function (doc) {
 
-        convertToArray(dataArray2, doc);
+          convertToArray(dataArray, doc);
+        });
+        db.collection("workshops").get().then(function (querySnapshot) {
+          let dataArray2 = [];
+          querySnapshot.forEach(function (doc) {
+
+            convertToArray(dataArray2, doc);
+          });
+          res.render("dashboard.ejs", {
+            layout: 'Layout/layout.ejs',
+            pagename: "dashboard",
+            title: "Dashboard",
+            dataArray,
+            dataArray2
+          });
+        });
+
       });
-      res.render("dashboard.ejs", {
-        layout: 'Layout/layout.ejs',
-        pagename: "dashboard",
-        title: "Dashboard",
-        dataArray,
-        dataArray2
-      });
+
+
+
+    })
+    .catch((error) => {
+      console.log(100, error);
+      res.redirect("/login");
     });
 
-  });
+
+
 
 
 });
@@ -72,7 +90,7 @@ router.get("/test", function (req, res) {
 
       convertToArray(dataArray, doc);
     });
-    
+
     res.render("test.ejs", {
       layout: 'Layout/layout.ejs',
       pagename: "test",
@@ -189,7 +207,7 @@ router.post("/modifyPoints", function (req, res) {
       });
     });
 
- 
+
 
   });
   console.log(181);
