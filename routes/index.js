@@ -80,6 +80,28 @@ router.get("/leaderboard", function (req, res) {
 
 });
 
+router.get("/workshops", function (req, res) {
+
+
+  db.collection("workshops").orderBy("name", "ASC").get().then(function (querySnapshot) {
+    let dataArray = [];
+    querySnapshot.forEach(function (doc) {
+
+      convertToArray(dataArray, doc);
+    });
+
+    console.log(93, dataArray);
+    res.render("workshops.ejs", {
+      layout: 'Layout/layout.ejs',
+      pagename: "workshops",
+      title: "workshops",
+      dataArray,
+    });
+  });
+
+
+});
+
 
 router.get("/test", function (req, res) {
 
@@ -168,6 +190,8 @@ router.get("/teamForm", function (req, res) {
 
 
 });
+
+
 
 router.post("/modifyPoints", function (req, res) {
 
