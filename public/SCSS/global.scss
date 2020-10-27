@@ -1,4 +1,6 @@
-
+$UVSASE-blue: #009fb7;
+$UVSASE-dark-blue: #114b5f;
+$UVSASE-Yellow: #fed766;
 
 * {
     font-family: 'Raleway', sans-serif;
@@ -6,6 +8,14 @@
 
 
 
-body{
+body {
     background-color: #F8F9FA;
+}
+
+.nav-link {
+    color: $UVSASE-blue !important;
+}
+
+.navbar-brand {
+    color: $UVSASE-dark-blue !important;
 }

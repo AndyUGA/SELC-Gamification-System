@@ -59,7 +59,6 @@
 }
 
 .account-registered-title {
-  font-size: 1.5rem;
   color: #009fb7;
   text-align: center;
   font-weight: bold;
@@ -76,4 +75,18 @@
   border: solid 1px #009fb7;
   -webkit-box-shadow: 0 0 35px 0 rgba(154, 161, 171, 0.15);
           box-shadow: 0 0 35px 0 rgba(154, 161, 171, 0.15);
+}
+
+.table th, .table td {
+  border-top: none !important;
+}
+
+.card-hover:hover {
+  background-color: #114b5f;
+}
+
+@media screen and (min-width: 776px) {
+  .dashboard-card-img {
+    margin-top: 0rem;
+  }
 }

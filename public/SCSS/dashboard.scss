@@ -36,7 +36,6 @@ $UVSASE-Yellow: #fed766;
 
 .workshopText {
     font-size: 1.2rem;
-    
 }
 
 .card-admin-text {
@@ -66,7 +65,6 @@ $UVSASE-Yellow: #fed766;
 }
 
 .account-registered-title {
-    font-size: 1.5rem;
     color: $UVSASE-blue;
     text-align: center;
     font-weight: bold;
@@ -82,4 +80,18 @@ $UVSASE-Yellow: #fed766;
     background-color: transparent;
     border: solid 1px $UVSASE-blue;
     box-shadow: 0 0 35px 0 rgba(154,161,171,.15);
+}
+
+.table th, .table td {
+    border-top: none !important;
+}
+
+.card-hover:hover {
+    background-color: $UVSASE-dark-blue;
+}
+
+@media screen and (min-width: 776px) {
+    .dashboard-card-img {
+        margin-top: 0rem;
+    }
 }
