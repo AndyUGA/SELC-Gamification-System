@@ -56,6 +56,31 @@
     </div>
   </div>
 
+
+  <div class="row my-5">
+    <div class="col-6">
+      <div class="card dashboard-card">
+        <div class="row no-gutters">
+
+          <div class="col-md-8">
+            <div class="card-body">
+              <div class="account-registered-number">
+                <%= dataArray.length %>
+              </div>
+              <div class="account-registered-title">
+                Accounts Registered
+              </div>
+
+            </div>
+          </div>
+          <div class="col-md-4">
+            <img src="./Images/Dashboard/accountRegistered.svg" class="card-img dashboard-card-img" alt="...">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="row mt-5">
     <div class="col">
       <table class="table table-sm">
@@ -63,20 +88,20 @@
           <tr>
 
             <th scope="col">
-              <a class = "columnName" href="/?filter=lastName">
+              <a class="columnName" href="/?filter=lastName">
                 Name
               </a>
 
             </th>
             <th scope="col">
-              
-              <a class = "columnName" href="/?filter=email">
+
+              <a class="columnName" href="/?filter=email">
                 Email
               </a>
             </th>
-            <th scope="col"> 
-              
-              <a class = "columnName" href="/?filter=teamName">
+            <th scope="col">
+
+              <a class="columnName" href="/?filter=teamName">
                 Team
               </a>
             </th>

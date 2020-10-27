@@ -50,3 +50,27 @@ $UVSASE-Yellow: #fed766;
 .columnName {
     color: $UVSASE-Yellow !important;
 }
+
+.account-registered-number {
+    font-size: 4rem;
+    text-align: center;
+    color: $UVSASE-blue;
+    font-weight: 300;
+}
+
+.account-registered-title {
+    font-size: 1.5rem;
+    color: $UVSASE-blue;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dashboard-card-img {
+    padding: 2rem;
+}
+
+.dashboard-card {
+    background-color: transparent;
+    border: solid 1px $UVSASE-blue;
+    box-shadow: 0 0 35px 0 rgba(154,161,171,.15);
+}
