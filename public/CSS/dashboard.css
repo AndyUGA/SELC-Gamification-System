@@ -11,8 +11,12 @@
   color: #FFFFFF;
 }
 
-.UVSASE-Yellow {
-  color: white;
+.workshop-background-color {
+  background-color: transparent;
+}
+
+.text-UVSASE-blue {
+  color: #009fb7;
 }
 
 .btn-UVSASE-darkblue:hover {
@@ -62,7 +66,9 @@
 }
 
 .dashboard-card-img {
-  padding: 2rem;
+  height: 100px;
+  width: 100px;
+  margin-top: 1rem;
 }
 
 .dashboard-card {

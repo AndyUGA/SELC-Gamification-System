@@ -1,5 +1,7 @@
 <div class="container">
   <div class="row mt-5">
+
+    <!--
     <div class="col-12 col-md-6 mb-5 mb-md-0">
       <div class="card dark-blue-bg-color align-items-center">
         <img src="./Images/Dashboard/personIcon2.svg" class="card-img-top maxIconSize mt-3" alt="...">
@@ -22,18 +24,45 @@
         </div>
       </div>
     </div>
+  -->
+
+
+   
+      <div class="col col-md-6">
+        <div class="card dashboard-card">
+          <div class="row no-gutters">
+
+            <div class="col-md-7 order-2">
+              <div class="card-body">
+                <div class="account-registered-number">
+                  <%= dataArray.length %>
+                </div>
+                <div class="account-registered-title">
+                  Accounts Registered
+                </div>
+
+              </div>
+            </div>
+            <div class="col col-md-5 order-1 d-flex justify-content-center align-items-center">
+              <img src="./Images/Dashboard/accountRegistered.svg" class="card-img dashboard-card-img" alt="...">
+            </div>
+          </div>
+        </div>
+      </div>
+    
+
 
     <div class="col-12 col-md-6">
-      <div class="card dark-blue-bg-color align-items-center">
-        <img src="./Images/Dashboard/workshopIcon.svg" class="card-img-top maxIconSize mt-3" alt="...">
+      <div class="card workshop-background-color dashboard-card align-items-center">
+        <img src="./Images/Dashboard/workshops.svg" class="card-img-top maxIconSize mt-3" alt="...">
         <div class="card-body w-100">
           <h5 class="card-admin-text">
             <div class="row">
-              <table class="table table-sm text-white">
+              <table class="table table-sm text-UVSASE-blue">
                 <thead>
                   <tr>
-                    <th class="text-center UVSASE-Yellow" scope="col">Name</th>
-                    <th class="text-center UVSASE-Yellow" scope="col">Registered</th>
+                    <th class="text-center" scope="col">Workshop</th>
+                    <th class="text-center" scope="col">Registered</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -43,7 +72,7 @@
                       <%= dataArray2[i].name %>
                     </td>
                     <td class="text-center">
-                      <%= dataArray2[i].attendees.length %> of <%= dataArray2[i].max %>
+                      <%= dataArray2[i].attendees.length %> / <%= dataArray2[i].max %>
                     </td>
                   </tr>
                   <% } %>
@@ -57,32 +86,10 @@
   </div>
 
 
-  <div class="row my-5">
-    <div class="col-6">
-      <div class="card dashboard-card">
-        <div class="row no-gutters">
 
-          <div class="col-md-8">
-            <div class="card-body">
-              <div class="account-registered-number">
-                <%= dataArray.length %>
-              </div>
-              <div class="account-registered-title">
-                Accounts Registered
-              </div>
-
-            </div>
-          </div>
-          <div class="col-md-4">
-            <img src="./Images/Dashboard/accountRegistered.svg" class="card-img dashboard-card-img" alt="...">
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <div class="row mt-5">
-    <div class="col">
+    <div class="col-12">
       <table class="table table-sm">
         <thead class="thead-blue text-white">
           <tr>
