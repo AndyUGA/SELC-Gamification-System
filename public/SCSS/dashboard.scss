@@ -7,7 +7,12 @@ $UVSASE-Yellow: #fed766;
 }
 
 .thead-blue {
-    background-color: $UVSASE-blue;
+    background-color: #F8F9FA;
+    border-bottom: 3px solid $UVSASE-blue !important;
+}
+
+.border-color {
+    border: solid $UVSASE-blue 3px !important;
 }
 
 .btn-UVSASE-darkblue {
@@ -54,7 +59,8 @@ $UVSASE-Yellow: #fed766;
 }
 
 .columnName {
-    color: $UVSASE-Yellow !important;
+    color: $UVSASE-blue !important;
+    font-size: 1.5rem;
 }
 
 .account-registered-number {
@@ -82,7 +88,7 @@ $UVSASE-Yellow: #fed766;
     box-shadow: 0 0 35px 0 rgba(154,161,171,.15);
 }
 
-.table th, .table td {
+.no-border-top {
     border-top: none !important;
 }
 
@@ -90,8 +96,24 @@ $UVSASE-Yellow: #fed766;
     background-color: $UVSASE-dark-blue;
 }
 
+.filterIcon {
+    display: none;
+    height: 20px;
+    width: 20px;
+}
+
+
+
+
+@media screen and (min-width: 448px) {
+    .filterIcon {
+        display: inline-block;
+    }
+}
+
 @media screen and (min-width: 776px) {
     .dashboard-card-img {
         margin-top: 0rem;
     }
 }
+

@@ -52,113 +52,121 @@
 
     <!-- Edit Teams Card Component -->
     <div class="col-12 col-md-3 my-5 my-md-0">
-      <a href = "/teamForm">   
-      <div class="card dashboard-card card-hover">
-        <div class="row no-gutters d-flex justify-content-center">
-          <div class="col-md-7 order-2 account-registered-title">
+      <a href="/teamForm">
+        <div class="card dashboard-card card-hover">
+          <div class="row no-gutters d-flex justify-content-center">
+            <div class="col-md-7 order-2 account-registered-title">
               Edit Teams
-          </div>
-          <div class="col-12 order-1 d-flex justify-content-center align-items-center">
-            <img src="./Images/Dashboard/editTeams.svg" class="card-img dashboard-card-img" alt="...">
+            </div>
+            <div class="col-12 order-1 d-flex justify-content-center align-items-center">
+              <img src="./Images/Dashboard/editTeams.svg" class="card-img dashboard-card-img" alt="...">
+            </div>
           </div>
         </div>
-      </div>
-    </a>
+      </a>
     </div>
 
     <!-- Edit Points Card Component -->
     <div class="col-12 col-md-3 ">
-      <a href = "/pointsForm">   
-      <div class="card dashboard-card card-hover">
-        <div class="row no-gutters d-flex justify-content-center">
+      <a href="/pointsForm">
+        <div class="card dashboard-card card-hover">
+          <div class="row no-gutters d-flex justify-content-center">
 
-          <div class="col-md-7 order-2 account-registered-title">
+            <div class="col-md-7 order-2 account-registered-title">
               Edit Points
-          </div>
-          <div class="col-12 order-1 d-flex justify-content-center align-items-center">
-            <img src="./Images/Dashboard/editPoints.svg" class="card-img dashboard-card-img" alt="...">
+            </div>
+            <div class="col-12 order-1 d-flex justify-content-center align-items-center">
+              <img src="./Images/Dashboard/editPoints.svg" class="card-img dashboard-card-img" alt="...">
+            </div>
           </div>
         </div>
-      </div>
-    </a>
+      </a>
     </div>
 
 
-  
+
   </div>
 
-
+  <!-- Workshop Table Card Component-->
   <div class="row">
-      <!-- Workshop Table Card Component-->
-      <div class="col-12 col-md-6 pt-5 ">
-        <div class="card workshop-background-color dashboard-card align-items-center">
-          <img src="./Images/Dashboard/workshops.svg" class="card-img-top maxIconSize my-3" alt="...">
-          <div class="px-5 w-100">
-            <h5 class="card-admin-text">
-              <div class="row">
-                <table class="table table-sm text-UVSASE-blue">
-                  <thead>
-                    <tr>
-                      <th class="text-center" scope="col">Workshop</th>
-                      <th class="text-center" scope="col">Registered</th>
-                    </tr>
-                  </thead>
-                  <tbody class="workshop-card">
-                    <% for(var i = 0; i < dataArray2.length; i++) {  %>
-                    <tr class="workshopText">
-                      <td class="text-center">
-                        <%= dataArray2[i].name %>
-                      </td>
-                      <td class="text-center">
-                        <%= dataArray2[i].attendees.length %> / <%= dataArray2[i].max %>
-                      </td>
-                    </tr>
-                    <% } %>
-                  </tbody>
-                </table>
-              </div>
-            </h5>
-          </div>
+
+    <div class="col-12 col-md-6 pt-5 ">
+      <div class="card workshop-background-color dashboard-card align-items-center">
+        <img src="./Images/Dashboard/workshops.svg" class="card-img-top maxIconSize my-3" alt="...">
+        <div class="px-5 w-100">
+          <h5 class="card-admin-text">
+            <div class="row">
+              <table class="table table-sm text-UVSASE-blue">
+                <thead>
+                  <tr>
+                    <th class="text-center no-border-top" scope="col">Workshop</th>
+                    <th class="text-center no-border-top" scope="col">Registered</th>
+                  </tr>
+                </thead>
+                <tbody class="workshop-card">
+                  <% for(var i = 0; i < dataArray2.length; i++) {  %>
+                  <tr class="workshopText">
+                    <td class="text-center no-border-top">
+                      <%= dataArray2[i].name %>
+                    </td>
+                    <td class="text-center no-border-top">
+                      <%= dataArray2[i].attendees.length %> / <%= dataArray2[i].max %>
+                    </td>
+                  </tr>
+                  <% } %>
+                </tbody>
+              </table>
+            </div>
+          </h5>
         </div>
       </div>
+    </div>
   </div>
 
+  <!-- Table Data for users-->
   <div class="row mt-5">
     <div class="col-12">
-      <table class="table">
-        <thead class="thead-blue">
-          <tr>
+      <div class="table-responsive">
 
-            <th scope="col">
-              <a class="columnName" href="/?filter=lastName">
-                Name
-              </a>
 
-            </th>
-            <th scope="col">
+        <table class="table">
+          <thead class="thead-blue">
+            <tr class = "border-color">
 
-              <a class="columnName" href="/?filter=email">
-                Email
-              </a>
-            </th>
-            <th scope="col">
+              <th scope="col">
+                <a class="columnName" href="/?filter=lastName">
+                  Name 
+                  <img class = "img-fluid filterIcon" src = "./Images/Dashboard/filterIcon.svg"> 
+                </a>
 
-              <a class="columnName" href="/?filter=teamName">
-                Team
-              </a>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <% for(var i = 0; i < dataArray.length; i++) { %>
-          <tr>
-            <td> <%= dataArray[i].firstName %> <%= dataArray[i].lastName %></td>
-            <td> <%= dataArray[i].email %></td>
-            <td> <%= dataArray[i].teamName %></td>
-          </tr>
-          <% } %>
-        </tbody>
-      </table>
+              </th>
+              <th scope="col">
+
+                <a class="columnName" href="/?filter=email">
+                  Email
+                  <img class = "img-fluid filterIcon" src = "./Images/Dashboard/filterIcon.svg"> 
+                </a>
+              </th>
+              <th scope="col">
+
+                <a class="columnName" href="/?filter=teamName">
+                  Team
+                  <img class = "img-fluid filterIcon" src = "./Images/Dashboard/filterIcon.svg"> 
+                </a>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <% for(var i = 0; i < dataArray.length; i++) { %>
+            <tr>
+              <td> <%= dataArray[i].firstName %> <%= dataArray[i].lastName %></td>
+              <td> <%= dataArray[i].email %></td>
+              <td> <%= dataArray[i].teamName %></td>
+            </tr>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>

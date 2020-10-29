@@ -3,7 +3,12 @@
 }
 
 .thead-blue {
-  background-color: #009fb7;
+  background-color: #F8F9FA;
+  border-bottom: 3px solid #009fb7 !important;
+}
+
+.border-color {
+  border: solid #009fb7 3px !important;
 }
 
 .btn-UVSASE-darkblue {
@@ -48,7 +53,8 @@
 }
 
 .columnName {
-  color: #fed766 !important;
+  color: #009fb7 !important;
+  font-size: 1.5rem;
 }
 
 .account-registered-number {
@@ -77,12 +83,24 @@
           box-shadow: 0 0 35px 0 rgba(154, 161, 171, 0.15);
 }
 
-.table th, .table td {
+.no-border-top {
   border-top: none !important;
 }
 
 .card-hover:hover {
   background-color: #114b5f;
+}
+
+.filterIcon {
+  display: none;
+  height: 20px;
+  width: 20px;
+}
+
+@media screen and (min-width: 448px) {
+  .filterIcon {
+    display: inline-block;
+  }
 }
 
 @media screen and (min-width: 776px) {

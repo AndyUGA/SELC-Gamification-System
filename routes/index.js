@@ -202,15 +202,15 @@ router.post("/modifyPoints", function (req, res) {
   let endIndexOfEmail = currentUser.indexOf(")");
 
   let userEmail = currentUser.substring((startIndexOfEmail + 1), endIndexOfEmail);
-  console.log(163, userEmail);
+
 
   db.collection("users").where("email", "==", userEmail).get().then(function (querySnapshot) {
     let dataArray = [];
     querySnapshot.forEach(function (doc) {
-      console.log(168, doc);
+
       convertToArray(dataArray, doc);
     });
-    console.log(171, dataArray);
+
     let currentUserUID = dataArray[0].uid;
     let currentUserPoints = dataArray[0].points;
 
@@ -234,7 +234,7 @@ router.post("/modifyPoints", function (req, res) {
 
 
   });
-  console.log(181);
+
   res.redirect(301, "/");
 
 
@@ -271,6 +271,48 @@ router.post("/modifyTeam", function (req, res) {
 
 
 });
+
+router.post("/registerWorkshop", (req, res) => {
+  console.log(req.body);
+
+
+
+
+
+  db.collection("users").where("email", "==", req.body.userEmail).get().then(function (querySnapshot) {
+    let dataArray = [];
+    querySnapshot.forEach(function (doc) {
+
+      convertToArray(dataArray, doc);
+    });
+
+    let currentUserUID = dataArray[0].uid;
+    console.log(dataArray[0]);
+   
+
+    const currentDB = db.collection("users").doc(currentUserUID);
+    currentDB.update({
+      workshops: [
+        ...dataArray[0].workshops,
+        req.body.selectedWorkshop
+      ]
+    })
+
+    db.collection("workshops").doc(req.body.selectedWorkshop).update({
+      attendees: admin.firestore.FieldValue.arrayUnion(`${dataArray[0].firstName} ${dataArray[0].lastName}`)
+     });
+  });
+
+ 
+
+
+
+
+});
+
+
+
+
 
 
 
