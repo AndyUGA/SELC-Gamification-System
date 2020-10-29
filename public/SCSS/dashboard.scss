@@ -7,7 +7,12 @@ $UVSASE-Yellow: #fed766;
 }
 
 .thead-blue {
-    background-color: $UVSASE-blue;
+    background-color: #F8F9FA;
+    border-bottom: 3px solid $UVSASE-blue !important;
+}
+
+.border-color {
+    border: solid $UVSASE-blue 3px !important;
 }
 
 .btn-UVSASE-darkblue {
@@ -36,7 +41,6 @@ $UVSASE-Yellow: #fed766;
 
 .workshopText {
     font-size: 1.2rem;
-    
 }
 
 .card-admin-text {
@@ -55,7 +59,8 @@ $UVSASE-Yellow: #fed766;
 }
 
 .columnName {
-    color: $UVSASE-Yellow !important;
+    color: $UVSASE-blue !important;
+    font-size: 1.5rem;
 }
 
 .account-registered-number {
@@ -66,7 +71,6 @@ $UVSASE-Yellow: #fed766;
 }
 
 .account-registered-title {
-    font-size: 1.5rem;
     color: $UVSASE-blue;
     text-align: center;
     font-weight: bold;
@@ -83,3 +87,33 @@ $UVSASE-Yellow: #fed766;
     border: solid 1px $UVSASE-blue;
     box-shadow: 0 0 35px 0 rgba(154,161,171,.15);
 }
+
+.no-border-top {
+    border-top: none !important;
+}
+
+.card-hover:hover {
+    background-color: $UVSASE-dark-blue;
+}
+
+.filterIcon {
+    display: none;
+    height: 20px;
+    width: 20px;
+}
+
+
+
+
+@media screen and (min-width: 448px) {
+    .filterIcon {
+        display: inline-block;
+    }
+}
+
+@media screen and (min-width: 776px) {
+    .dashboard-card-img {
+        margin-top: 0rem;
+    }
+}
+

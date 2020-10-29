@@ -53,7 +53,7 @@
     };
 
     firebase.initializeApp(firebaseConfig);
-    firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE);
+    //firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE);
     document
       .getElementById("login")
       .addEventListener("submit", (event) => {
@@ -78,10 +78,7 @@
             });
           })
           .then(() => {
-            return firebase.auth().signOut();
-          })
-          .then(() => {
-            window.location.assign("/");
+            window.location.assign("/profile");
           })
           .catch(function(err) {
             console.log(84, err);

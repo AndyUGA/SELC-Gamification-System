@@ -5,3 +5,11 @@
 body {
   background-color: #F8F9FA;
 }
+
+.nav-link {
+  color: #009fb7 !important;
+}
+
+.navbar-brand {
+  color: #114b5f !important;
+}
