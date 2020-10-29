@@ -77,6 +77,7 @@ router.post("/sessionSignup", (req, res) => {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         created:admin.firestore.Timestamp.now(),
+        workshops: [],
     });
 
     const idToken = req.body.idToken.toString();

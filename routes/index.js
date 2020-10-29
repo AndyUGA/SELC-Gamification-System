@@ -13,6 +13,26 @@ function convertToArray(dataArray, doc) {
   return dataArray.push(doc.data());
 }
 
+function getCurrentUserData(email) {
+
+  db.collection("users").where("email", "==", email).get().then(function (querySnapshot) {
+    querySnapshot.forEach(function (doc) {
+
+
+      return doc.data();
+    });
+  });
+}
+
+router.get("/test", function (req, res) {
+
+  getCurrentUserData("test@gmail.com");
+
+
+
+});
+
+
 router.get("/", function (req, res) {
 
   let filter = req.query.filter || "firstName";
@@ -81,48 +101,58 @@ router.get("/leaderboard", function (req, res) {
 });
 
 router.get("/workshops", function (req, res) {
-
-
-  db.collection("workshops").orderBy("name", "ASC").get().then(function (querySnapshot) {
-    let dataArray = [];
+  let currentUserInfo = [];
+  let dataArray = [];
+ 
+  db.collection("users").where("email", "==", "test@gmail.com").get().then(function (querySnapshot) {
+    
     querySnapshot.forEach(function (doc) {
 
-      convertToArray(dataArray, doc);
+      convertToArray(currentUserInfo, doc);
     });
 
-    console.log(93, dataArray);
-    res.render("workshops.ejs", {
-      layout: 'Layout/layout.ejs',
-      pagename: "workshops",
-      title: "workshops",
-      dataArray,
+  }).then(function() {
+    db.collection("workshops").orderBy("identifier", "ASC").get().then(function (querySnapshot) {
+
+      querySnapshot.forEach(function (doc) {
+  
+        convertToArray(dataArray, doc);
+      
+      });
+  
+      let tempWorkshops = [...dataArray];
+      let userCurrentWorkshops = currentUserInfo[0].workshops;
+  
+    
+     
+      for(let i = 0; i < userCurrentWorkshops.length; i++) {
+       
+        for(let j = 0; j < dataArray.length; j++) {
+     
+          if(userCurrentWorkshops[i] == dataArray[j].name) {
+            tempWorkshops[j].show = false;      
+          }
+        }
+      }
+   
+   
+      console.log(146, tempWorkshops);
+      res.render("workshops.ejs", {
+        layout: 'Layout/layout.ejs',
+        pagename: "workshops",
+        title: "workshops",
+        dataArray: tempWorkshops,
+      });
     });
   });
+
+ 
 
 
 });
 
 
-router.get("/test", function (req, res) {
 
-
-  db.collection("users").orderBy("points").get().then(function (querySnapshot) {
-    let dataArray = [];
-    querySnapshot.forEach(function (doc) {
-
-      convertToArray(dataArray, doc);
-    });
-
-    res.render("test.ejs", {
-      layout: 'Layout/layout.ejs',
-      pagename: "test",
-      title: "test",
-      dataArray,
-    });
-  });
-
-
-});
 
 router.get("/pointsForm", function (req, res) {
 
@@ -273,10 +303,6 @@ router.post("/modifyTeam", function (req, res) {
 });
 
 router.post("/registerWorkshop", (req, res) => {
-  console.log(req.body);
-
-
-
 
 
   db.collection("users").where("email", "==", req.body.userEmail).get().then(function (querySnapshot) {
@@ -287,23 +313,29 @@ router.post("/registerWorkshop", (req, res) => {
     });
 
     let currentUserUID = dataArray[0].uid;
-    console.log(dataArray[0]);
-   
+
+
 
     const currentDB = db.collection("users").doc(currentUserUID);
     currentDB.update({
       workshops: [
         ...dataArray[0].workshops,
-        req.body.selectedWorkshop
+        req.body.workshopName
       ]
+    }).then(() => {
+      console.log("Added workshop to profile!");
     })
+
 
     db.collection("workshops").doc(req.body.selectedWorkshop).update({
       attendees: admin.firestore.FieldValue.arrayUnion(`${dataArray[0].firstName} ${dataArray[0].lastName}`)
-     });
+    }).then(function() {
+      console.log("Successfully registered for workshop!");
+      res.redirect("/Workshops")
+    });
   });
 
- 
+
 
 
 

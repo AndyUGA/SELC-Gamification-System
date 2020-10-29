@@ -7,7 +7,7 @@
 
             <th scope="col">Name</th>
             <th scope="col">Spots left</th>
-            <th scope="col">Register </th>
+            <th scope="col"> </th>
           </tr>
         </thead>
         <tbody>
@@ -15,7 +15,7 @@
 
           <% for(var i = 0; i < dataArray.length; i++) { %>
 
-
+            <% if(dataArray[i].show != false) { %>
           <tr>
             <td>
               <%= dataArray[i].name %>
@@ -33,14 +33,12 @@
 
 
                 </button>
-                <input id = "Workshop<%=(i+1)%>" type = "hidden" value = "Workshop<%=(i+1)%>"/>
-                <div class = "hidden selectedWorkshop<%= (i+1) %>">
-                  Workshop<%= (i + 1) %>
-                </div>
+                <input id = "Workshop<%=(i+1)%>" type = "hidden" value = "<%= dataArray[i].name %>"/>
+               
               </form>
             </td>
           </tr>
-
+      <%  } %>
           <% } %>
 
 
@@ -97,7 +95,8 @@
               },
               body: JSON.stringify({
                 userEmail,
-                selectedWorkshop: event.target[1].id
+                selectedWorkshop: event.target[1].id,
+                workshopName: event.target[1].value,
               }),
             });
 
