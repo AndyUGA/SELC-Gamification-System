@@ -3,10 +3,12 @@
 const express = require("express");
 const router = express.Router();
 const admin = require("firebase-admin");
+const db = admin.firestore();
+
+var currentUserEmail;
 
 
 
-const db = admin.firestore()
 
 function convertToArray(dataArray, doc) {
 
@@ -101,10 +103,12 @@ router.get("/leaderboard", function (req, res) {
 });
 
 router.get("/workshops", function (req, res) {
+
+  console.log(107, currentUserEmail);
   let currentUserInfo = [];
   let dataArray = [];
- 
-  db.collection("users").where("email", "==", "test@gmail.com").get().then(function (querySnapshot) {
+  
+  db.collection("users").where("email", "==", currentUserEmail).get().then(function (querySnapshot) {
     
     querySnapshot.forEach(function (doc) {
 
@@ -343,6 +347,12 @@ router.post("/registerWorkshop", (req, res) => {
 });
 
 
+router.post("/saveUserEmail", function (req, res) {
+
+  console.log(350, req.body.userEmail);
+  currentUserEmail = req.body.userEmail;
+  console.log(352, currentUserEmail);
+});
 
 
 

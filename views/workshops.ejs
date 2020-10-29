@@ -44,7 +44,6 @@
 
         </tbody>
       </table>
-
     </div>
   </div>
 </div>
@@ -73,6 +72,7 @@
     if (user) {
      
       userEmail = user.email;
+      $("#currentUserEmail").val(userEmail);
     } else {
       console.log(58, "user not signed in");
     }
