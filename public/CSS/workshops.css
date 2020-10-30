@@ -10,3 +10,23 @@
   height: 64px;
   width: 64px;
 }
+
+.confirmation-message {
+  background-color: transparent;
+  border: 1px solid #009fb7;
+  -webkit-box-shadow: 0 0 35px 0 rgba(154, 161, 171, 0.15);
+          box-shadow: 0 0 35px 0 rgba(154, 161, 171, 0.15);
+}
+
+.workshop-border {
+  border: 3px solid #009fb7;
+}
+
+.workshop-font-color {
+  color: #009fb7;
+  font-weight: bold;
+}
+
+th {
+  color: #114b5f;
+}

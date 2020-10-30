@@ -5,6 +5,9 @@ $UVSASE-dark-blue: #114b5f;
 $UVSAE-Yellow: #fed766;
 
 .leaderboard-thead {
-    background-color: $UVSASE-blue;
-    color: white;
+
+    color: black;
+    background-color: transparent;
+    border: solid 3px $UVSASE-blue !important;
+    box-shadow: 0 0 35px 0 rgba(154,161,171,.15);
 }

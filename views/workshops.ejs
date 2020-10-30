@@ -3,9 +3,9 @@
     <div class="col">
       <table class="table">
         <thead class="leaderboard-thead">
-          <tr>
+          <tr class = "workshop-border">
 
-            <th scope="col">Name</th>
+            <th scope="col">Workshop Name</th>
             <th scope="col">Spots left</th>
             <th scope="col"> </th>
           </tr>
@@ -14,7 +14,7 @@
 
           <% if(registeredWorkshopNumber == 3)  { %>
       
-            <div class="card align-items-center mb-3"   >
+            <div class="card align-items-center mb-3 confirmation-message"   >
               <img src="./Images/Workshops/confirmation.svg" class="card-img-top maxIconSize mt-3" alt="...">
               <div class="card-body">
                 <h5 class="card-title">
@@ -28,7 +28,7 @@
 
           <% for(var i = 0; i < dataArray.length; i++) { %>
           <% if(dataArray[i].show != false) { %>
-          <tr>
+          <tr class = "workshop-font-color">
             <td>
               <%= dataArray[i].name %>
             </td>
