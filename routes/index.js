@@ -104,7 +104,7 @@ router.get("/leaderboard", function (req, res) {
 
 router.get("/workshops", function (req, res) {
 
-  console.log(107, currentUserEmail);
+ 
   let currentUserInfo = [];
   let dataArray = [];
   
@@ -126,7 +126,7 @@ router.get("/workshops", function (req, res) {
   
       let tempWorkshops = [...dataArray];
       let userCurrentWorkshops = currentUserInfo[0].workshops;
-  
+      let registeredWorkshopNumber = currentUserInfo[0].workshops.length;
     
      
       for(let i = 0; i < userCurrentWorkshops.length; i++) {
@@ -146,6 +146,7 @@ router.get("/workshops", function (req, res) {
         pagename: "workshops",
         title: "workshops",
         dataArray: tempWorkshops,
+        registeredWorkshopNumber,
       });
     });
   });
@@ -335,6 +336,7 @@ router.post("/registerWorkshop", (req, res) => {
       attendees: admin.firestore.FieldValue.arrayUnion(`${dataArray[0].firstName} ${dataArray[0].lastName}`)
     }).then(function() {
       console.log("Successfully registered for workshop!");
+
       res.redirect("/Workshops")
     });
   });
