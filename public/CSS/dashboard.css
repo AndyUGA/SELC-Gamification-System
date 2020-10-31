@@ -98,6 +98,11 @@
   width: 20px;
 }
 
+.user-info {
+  color: #009fb7;
+  font-size: 1.2rem;
+}
+
 @media screen and (min-width: 448px) {
   .filterIcon {
     display: inline-block;
