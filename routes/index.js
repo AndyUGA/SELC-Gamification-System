@@ -35,7 +35,7 @@ function getEmail(fullname) {
       convertToArray(dataArray, doc);
     });
     console.log(36, "Returning " + dataArray[0].email);
-    currentEmail =  dataArray[0].email;
+    currentEmail = dataArray[0].email;
 
   });
   return currentEmail;
@@ -44,6 +44,7 @@ function getEmail(fullname) {
 router.get("/", function (req, res) {
 
   let filter = req.query.filter || "firstName";
+  let teamName = [];
 
   const sessionCookie = req.cookies.session || "";
   admin
@@ -57,18 +58,36 @@ router.get("/", function (req, res) {
 
           convertToArray(dataArray, doc);
         });
+
+
         db.collection("workshops").get().then(function (querySnapshot) {
           let dataArray2 = [];
           querySnapshot.forEach(function (doc) {
 
             convertToArray(dataArray2, doc);
           });
-          res.render("dashboard.ejs", {
-            layout: 'Layout/layout.ejs',
-            pagename: "dashboard",
-            title: "Dashboard",
-            dataArray,
-            dataArray2
+
+
+          db.collection("teams").get().then(function (querySnapshot) {
+            let teamsData = [];
+
+            querySnapshot.forEach(function (doc) {
+
+              convertToArray(teamsData, doc);
+            });
+
+           
+  
+            console.log(78, teamsData);
+            res.render("dashboard.ejs", {
+              layout: 'Layout/layout.ejs',
+              pagename: "dashboard",
+              title: "Dashboard",
+              dataArray,
+              dataArray2,
+              teamsData,
+            });
+
           });
         });
 
@@ -342,7 +361,14 @@ router.post("/modifyTeam", function (req, res) {
     const currentDB = db.collection("users").doc(currentUserUID);
     currentDB.update({
       teamName: req.body.teamName,
-    })
+    }).then(() => {
+      console.log(377, "Adding " + dataArray[0].firstName + " " + dataArray[0].lastName);
+      const teamDB = db.collection("teams").doc(req.body.teamName)
+
+      teamDB.update({
+        attendees: admin.firestore.FieldValue.arrayUnion(`${dataArray[0].firstName} ${dataArray[0].lastName}`)
+      })
+    });
 
   });
 

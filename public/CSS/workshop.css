@@ -1,4 +1,15 @@
 .workshop-title {
   color: #009fb7;
   font-size: 3rem;
+  font-weight: bold;
+}
+
+.workshop-registered {
+  font-size: 2.5rem;
+  font-weight: lighter;
+}
+
+.workshop-registered-font {
+  font-size: 2rem;
+  font-weight: lighter;
 }

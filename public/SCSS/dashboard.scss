@@ -2,6 +2,10 @@ $UVSASE-blue: #009fb7;
 $UVSASE-dark-blue: #114b5f;
 $UVSASE-Yellow: #fed766;
 
+.uvsase-blue {
+    color: $UVSASE-blue;
+}
+
 .dark-blue-bg-color {
     background-color: $UVSASE-blue;
 }
@@ -114,6 +118,19 @@ $UVSASE-Yellow: #fed766;
 
 .workshop-link:hover {
     color: $UVSASE-Yellow;
+}
+
+.teamName-title {
+    font-size: 2rem;
+    font-weight: bold;
+    text-decoration: underline;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.teanName-names {
+    text-align: center;
+    margin-bottom: .5rem;
 }
 
 

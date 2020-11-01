@@ -1,3 +1,7 @@
+.uvsase-blue {
+  color: #009fb7;
+}
+
 .dark-blue-bg-color {
   background-color: #009fb7;
 }
@@ -109,6 +113,19 @@
 
 .workshop-link:hover {
   color: #fed766;
+}
+
+.teamName-title {
+  font-size: 2rem;
+  font-weight: bold;
+  text-decoration: underline;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.teanName-names {
+  text-align: center;
+  margin-bottom: .5rem;
 }
 
 @media screen and (min-width: 448px) {
