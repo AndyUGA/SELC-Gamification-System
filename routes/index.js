@@ -26,6 +26,20 @@ function getCurrentUserData(email) {
   });
 }
 
+function getEmail(fullname) {
+  let currentEmail;
+  db.collection("users").where("fullname", "==", fullname).get().then(function (querySnapshot) {
+    let dataArray = [];
+    querySnapshot.forEach(function (doc) {
+
+      convertToArray(dataArray, doc);
+    });
+    console.log(36, "Returning " + dataArray[0].email);
+    currentEmail =  dataArray[0].email;
+
+  });
+  return currentEmail;
+}
 
 router.get("/", function (req, res) {
 
@@ -94,7 +108,7 @@ router.get("/leaderboard", function (req, res) {
 
 });
 
-router.get("/workshops", function (req, res) {
+router.get("/register-workshops", function (req, res) {
 
 
   let currentUserInfo = [];
@@ -132,11 +146,11 @@ router.get("/workshops", function (req, res) {
       }
 
 
-      console.log(146, tempWorkshops);
-      res.render("workshops.ejs", {
+
+      res.render("register-workshops.ejs", {
         layout: 'Layout/layout.ejs',
-        pagename: "workshops",
-        title: "workshops",
+        pagename: "register-workshops",
+        title: "Register for Workshops!",
         dataArray: tempWorkshops,
         registeredWorkshopNumber,
       });
@@ -149,25 +163,35 @@ router.get("/workshops", function (req, res) {
 });
 
 
-router.get("/workshops/:workshopName", function (req, res) {
+router.get("/workshop/:workshopName", function (req, res) {
+
 
   let workshopName = req.params.workshopName;
-  console.log(155, workshopName);
-  db.collection("workshops").where("name", "==", "Self-improvement").get().then(function (querySnapshot) {
-    let dataArray = [];
 
-    let columnHeader = ['Name', 'Email'];
+  db.collection("workshops").where("name", "==", workshopName).get().then(function (querySnapshot) {
+    let dataArray = [];
+    let currentEmails = [];
+
+    let columnHeader = ['Name'];
     querySnapshot.forEach(function (doc) {
 
       convertToArray(dataArray, doc);
     });
-    console.log(161, dataArray);
 
- 
-    res.render("test.ejs", {
+    // for (let i = 0; i < dataArray[0].attendees.length; i++) {
+    //   let tempEmail;
+    //   console.log(178, dataArray[0].attendees[i]);
+    //   tempEmail = getEmail(dataArray[0].attendees[i]);
+    //   console.log(183, tempEmail);
+    // }
+
+    // console.log(186, dataArray);
+    // console.log(187, currentEmails);
+
+    res.render("workshop.ejs", {
       layout: 'Layout/table-layout.ejs',
-      pagename: "Account Overview",
-      title: "Account Overview",
+      pagename: "workshop",
+      title: workshopName,
       columnHeader,
       workshopName,
       dataArray,

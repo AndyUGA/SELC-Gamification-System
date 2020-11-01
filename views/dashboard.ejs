@@ -107,7 +107,10 @@
                   <% for(var i = 0; i < dataArray2.length; i++) {  %>
                   <tr class="workshopText">
                     <td class="text-center no-border-top">
-                      <%= dataArray2[i].name %>
+                      <a class = "workshop-link" href ="/workshop/<%= dataArray2[i].name %>">
+                        <%= dataArray2[i].name %>
+                      </a>
+                     
                     </td>
                     <td class="text-center no-border-top">
                       <%= dataArray2[i].attendees.length %> / <%= dataArray2[i].max %>

@@ -94,7 +94,7 @@ $UVSASE-Yellow: #fed766;
 }
 
 .card-hover:hover {
-    background-color: $UVSASE-dark-blue;
+    background-color: $UVSASE-Yellow;
 }
 
 .filterIcon {
@@ -108,6 +108,13 @@ $UVSASE-Yellow: #fed766;
     font-size: 1.2rem;
 }
 
+.workshop-link {
+    color: $UVSASE-blue;
+}
+
+.workshop-link:hover {
+    color: $UVSASE-Yellow;
+}
 
 
 

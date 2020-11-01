@@ -1,0 +1,24 @@
+<div class = "text-center my-5 workshop-title">
+    <%= workshopName %>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <% for(let i = 0; i < columnHeader.length; i++)  {  %>
+            <th class = "text-center" scope="col">
+                <%= columnHeader[i] %>
+            </th>
+            <% } %>
+        </tr>
+    </thead>
+    <tbody class = "text-center">
+        <% for(let i = 0; i < dataArray[0].attendees.length; i++)  {  %>
+            <tr>
+                <td>
+                    <%= dataArray[0].attendees[i] %>
+                </td>
+            </tr>
+            <% } %>
+       
+    </tbody>
+</table>

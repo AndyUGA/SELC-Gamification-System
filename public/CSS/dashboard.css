@@ -89,7 +89,7 @@
 }
 
 .card-hover:hover {
-  background-color: #114b5f;
+  background-color: #fed766;
 }
 
 .filterIcon {
@@ -101,6 +101,14 @@
 .user-info {
   color: #009fb7;
   font-size: 1.2rem;
+}
+
+.workshop-link {
+  color: #009fb7;
+}
+
+.workshop-link:hover {
+  color: #fed766;
 }
 
 @media screen and (min-width: 448px) {
