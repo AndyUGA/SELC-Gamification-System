@@ -13,3 +13,23 @@ body {
 .navbar-brand {
   color: #114b5f !important;
 }
+
+.dashboard-card {
+  background-color: transparent;
+  border: solid 1px #009fb7;
+  -webkit-box-shadow: 0 0 35px 0 rgba(154, 161, 171, 0.15);
+          box-shadow: 0 0 35px 0 rgba(154, 161, 171, 0.15);
+}
+
+.text-UVSASE-blue {
+  color: #009fb7;
+}
+
+.no-border-top {
+  border-top: none !important;
+}
+
+.maxIconSize {
+  height: 70px;
+  width: 70px;
+}

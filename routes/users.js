@@ -12,6 +12,7 @@ router.get("/login", function (req, res) {
         layout: 'Layout/layout.ejs',
         pagename: "login",
         title: "Login",
+        isLoggedIn: false,
     }
     );
 });
@@ -21,12 +22,18 @@ router.get("/signup", function (req, res) {
         layout: 'Layout/layout.ejs',
         pagename: "signup",
         title: "Signup",
+        isLoggedIn: false,
     });
 });
 
 router.get("/profile", function (req, res) {
     const sessionCookie = req.cookies.session || "";
-  
+    let isLoggedIn = false;
+    if(sessionCookie) {
+        isLoggedIn = true;
+    }
+ 
+    
     admin
         .auth()
         .verifySessionCookie(sessionCookie, true /** checkRevoked */)
@@ -35,6 +42,7 @@ router.get("/profile", function (req, res) {
                 layout: 'Layout/layout.ejs',
                 pagename: "profile",
                 title: "Profile",
+                isLoggedIn,
             });
         })
         .catch((error) => {

@@ -34,11 +34,22 @@ function getEmail(fullname) {
 
       convertToArray(dataArray, doc);
     });
-    console.log(36, "Returning " + dataArray[0].email);
+  
     currentEmail = dataArray[0].email;
 
   });
   return currentEmail;
+}
+
+function isLoggedIn(req) {
+
+  const sessionCookie = req.cookies.session || "";
+  let isLoggedIn = false;
+  if(sessionCookie) {
+      isLoggedIn = true;
+  }
+
+  return isLoggedIn;
 }
 
 router.get("/", function (req, res) {
@@ -47,6 +58,9 @@ router.get("/", function (req, res) {
   let teamName = [];
 
   const sessionCookie = req.cookies.session || "";
+
+  let isUserLoggedIn = isLoggedIn(req);
+
   admin
     .auth()
     .verifySessionCookie(sessionCookie, true /** checkRevoked */)
@@ -78,7 +92,6 @@ router.get("/", function (req, res) {
 
            
   
-            console.log(78, teamsData);
             res.render("dashboard.ejs", {
               layout: 'Layout/layout.ejs',
               pagename: "dashboard",
@@ -86,6 +99,7 @@ router.get("/", function (req, res) {
               dataArray,
               dataArray2,
               teamsData,
+              isLoggedIn: isUserLoggedIn,
             });
 
           });
@@ -108,7 +122,7 @@ router.get("/", function (req, res) {
 });
 
 router.get("/leaderboard", function (req, res) {
-
+  let isUserLoggedIn = isLoggedIn(req);
 
   db.collection("users").orderBy("points", "DESC").get().then(function (querySnapshot) {
     let dataArray = [];
@@ -121,6 +135,7 @@ router.get("/leaderboard", function (req, res) {
       pagename: "leaderboard",
       title: "Leaderboard",
       dataArray,
+      isLoggedIn: isUserLoggedIn,
     });
   });
 
@@ -128,7 +143,7 @@ router.get("/leaderboard", function (req, res) {
 });
 
 router.get("/register-workshops", function (req, res) {
-
+ let isUserLoggedIn = isLoggedIn(req);
 
   let currentUserInfo = [];
   let dataArray = [];
@@ -172,6 +187,7 @@ router.get("/register-workshops", function (req, res) {
         title: "Register for Workshops!",
         dataArray: tempWorkshops,
         registeredWorkshopNumber,
+        isLoggedIn: isUserLoggedIn,
       });
     });
   });
@@ -184,7 +200,7 @@ router.get("/register-workshops", function (req, res) {
 
 router.get("/workshop/:workshopName", function (req, res) {
 
-
+  let isUserLoggedIn = isLoggedIn(req);
   let workshopName = req.params.workshopName;
 
   db.collection("workshops").where("name", "==", workshopName).get().then(function (querySnapshot) {
@@ -197,16 +213,6 @@ router.get("/workshop/:workshopName", function (req, res) {
       convertToArray(dataArray, doc);
     });
 
-    // for (let i = 0; i < dataArray[0].attendees.length; i++) {
-    //   let tempEmail;
-    //   console.log(178, dataArray[0].attendees[i]);
-    //   tempEmail = getEmail(dataArray[0].attendees[i]);
-    //   console.log(183, tempEmail);
-    // }
-
-    // console.log(186, dataArray);
-    // console.log(187, currentEmails);
-
     res.render("workshop.ejs", {
       layout: 'Layout/table-layout.ejs',
       pagename: "workshop",
@@ -214,6 +220,7 @@ router.get("/workshop/:workshopName", function (req, res) {
       columnHeader,
       workshopName,
       dataArray,
+      isLoggedIn: isUserLoggedIn,
     });
 
   });
@@ -221,11 +228,38 @@ router.get("/workshop/:workshopName", function (req, res) {
 
 });
 
+router.get("/accountOverview", function (req, res) {
+
+  let isUserLoggedIn = isLoggedIn(req);
+
+  db.collection("users").get().then(function (querySnapshot) {
+    let dataArray = [];
+
+    let columnHeader = ['Name', 'Email', 'Team'];
+    querySnapshot.forEach(function (doc) {
+
+      convertToArray(dataArray, doc);
+    });
+
+ 
+    res.render("account-overview.ejs", {
+      layout: 'Layout/layout.ejs',
+      pagename: "account-overview",
+      title: "Account Overview",
+      columnHeader,
+      dataArray,
+      isLoggedIn: isUserLoggedIn,
+    });
+
+  });
+
+
+});
 
 router.get("/pointsForm", function (req, res) {
 
   const sessionCookie = req.cookies.session || "";
-
+  let isUserLoggedIn = isLoggedIn(req);
   admin
     .auth()
     .verifySessionCookie(sessionCookie, true /** checkRevoked */)
@@ -241,6 +275,7 @@ router.get("/pointsForm", function (req, res) {
           dataArray,
           pagename: "pointsForm",
           title: "Modify Points",
+          isLoggedIn: isUserLoggedIn,
         });
       });
 
@@ -258,7 +293,7 @@ router.get("/pointsForm", function (req, res) {
 router.get("/teamForm", function (req, res) {
 
   const sessionCookie = req.cookies.session || "";
-
+  let isUserLoggedIn = isLoggedIn(req);
   admin
     .auth()
     .verifySessionCookie(sessionCookie, true /** checkRevoked */)
@@ -269,12 +304,13 @@ router.get("/teamForm", function (req, res) {
         querySnapshot.forEach(function (doc) {
           convertToArray(dataArray, doc);
         });
-        //console.log(125, dataArray);
+ 
         res.render("teamForm.ejs", {
           layout: 'Layout/layout.ejs',
           dataArray,
           pagename: "pointsForm",
           title: "Modify Team",
+          isLoggedIn: isUserLoggedIn,
         });
       });
 
@@ -362,7 +398,7 @@ router.post("/modifyTeam", function (req, res) {
     currentDB.update({
       teamName: req.body.teamName,
     }).then(() => {
-      console.log(377, "Adding " + dataArray[0].firstName + " " + dataArray[0].lastName);
+     
       const teamDB = db.collection("teams").doc(req.body.teamName)
 
       teamDB.update({
@@ -398,14 +434,14 @@ router.post("/registerWorkshop", (req, res) => {
         req.body.workshopName
       ]
     }).then(() => {
-      console.log("Added workshop to profile!");
+
     })
 
 
     db.collection("workshops").doc(req.body.selectedWorkshop).update({
       attendees: admin.firestore.FieldValue.arrayUnion(`${dataArray[0].firstName} ${dataArray[0].lastName}`)
     }).then(function () {
-      console.log("Successfully registered for workshop!");
+     
 
       res.redirect("/Workshops")
     });
@@ -421,9 +457,9 @@ router.post("/registerWorkshop", (req, res) => {
 
 router.post("/saveUserEmail", function (req, res) {
 
-  console.log(350, req.body.userEmail);
+
   currentUserEmail = req.body.userEmail;
-  console.log(352, currentUserEmail);
+ 
 });
 
 
