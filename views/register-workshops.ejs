@@ -3,20 +3,32 @@
     <div class="col">
       <table class="table">
         <thead class="leaderboard-thead">
-          <tr>
+          <tr class = "workshop-border">
 
-            <th scope="col">Name</th>
+            <th scope="col">Workshop Name</th>
             <th scope="col">Spots left</th>
             <th scope="col"> </th>
           </tr>
         </thead>
         <tbody>
 
+          <% if(registeredWorkshopNumber == 3)  { %>
+      
+            <div class="card align-items-center mb-3 confirmation-message"   >
+              <img src="./Images/Workshops/confirmation.svg" class="card-img-top maxIconSize mt-3" alt="...">
+              <div class="card-body">
+                <h5 class="card-title">
+                  You have successfully registered for 3 workshops!
+                </h5>
+              
+               
+              </div>
+            </div>
+          <% } %>
 
           <% for(var i = 0; i < dataArray.length; i++) { %>
-
-            <% if(dataArray[i].show != false) { %>
-          <tr>
+          <% if(dataArray[i].show != false) { %>
+          <tr class = "workshop-font-color">
             <td>
               <%= dataArray[i].name %>
             </td>
@@ -24,21 +36,22 @@
               <%= dataArray[i].max - dataArray[i].attendees.length %> / <%= dataArray[i].max %>
             </td>
             <td>
-
-              <form id = "workshopRegister">
+              <form id="workshopRegister">
+                <% if(registeredWorkshopNumber != 3)  { %>
                 <button type="submit" class="btn btn-UVSASE-darkBlue">
                   <div class="text-white">
                     Register
                   </div>
-
-
                 </button>
-                <input id = "Workshop<%=(i+1)%>" type = "hidden" value = "<%= dataArray[i].name %>"/>
-               
+                <% } else { %>
+                <button type="button" class="btn btn-secondary btn-lg" disabled>Register</button>
+                <% } %>
+                <input id="Workshop<%=(i+1)%>" type="hidden" value="<%= dataArray[i].name %>" />
+
               </form>
             </td>
           </tr>
-      <%  } %>
+          <%  } %>
           <% } %>
 
 
@@ -70,7 +83,7 @@
   let userEmail = "";
   auth.onAuthStateChanged(function (user) {
     if (user) {
-     
+
       userEmail = user.email;
       $("#currentUserEmail").val(userEmail);
     } else {
@@ -79,28 +92,31 @@
   });
 
   document
-      .addEventListener("submit", (event) => {
-        event.preventDefault();
+    .addEventListener("submit", (event) => {
+      event.preventDefault();
 
-  
-        console.log(88,event.target[1].id);
- 
 
-        return fetch("/registerWorkshop", {
-              method: "POST",
-              headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-                "CSRF-Token": Cookies.get("XSRF-TOKEN"),
-              },
-              body: JSON.stringify({
-                userEmail,
-                selectedWorkshop: event.target[1].id,
-                workshopName: event.target[1].value,
-              }),
-            });
+      console.log(88, event.target[1].id);
 
-      });
+
+      return fetch("/registerWorkshop", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          "CSRF-Token": Cookies.get("XSRF-TOKEN"),
+        },
+        body: JSON.stringify({
+          userEmail,
+          selectedWorkshop: event.target[1].id,
+          workshopName: event.target[1].value,
+        }),
+      })
+        .then(() => {
+          location.reload();
+        });
+
+    });
 
 
 

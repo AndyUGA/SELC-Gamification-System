@@ -2,6 +2,10 @@ $UVSASE-blue: #009fb7;
 $UVSASE-dark-blue: #114b5f;
 $UVSASE-Yellow: #fed766;
 
+.uvsase-blue {
+    color: $UVSASE-blue;
+}
+
 .dark-blue-bg-color {
     background-color: $UVSASE-blue;
 }
@@ -35,8 +39,8 @@ $UVSASE-Yellow: #fed766;
 }
 
 .maxIconSize {
-    height: 64px;
-    width: 64px;
+    height: 70px;
+    width: 70px;
 }
 
 .workshopText {
@@ -74,11 +78,12 @@ $UVSASE-Yellow: #fed766;
     color: $UVSASE-blue;
     text-align: center;
     font-weight: bold;
+    padding-bottom: 10px;
 }
 
 .dashboard-card-img {
     height: 100px;
-    width: 100px;
+    width: 70px;
     margin-top: 1rem;
 }
 
@@ -93,7 +98,7 @@ $UVSASE-Yellow: #fed766;
 }
 
 .card-hover:hover {
-    background-color: $UVSASE-dark-blue;
+    background-color: $UVSASE-Yellow;
 }
 
 .filterIcon {
@@ -102,6 +107,31 @@ $UVSASE-Yellow: #fed766;
     width: 20px;
 }
 
+.user-info {
+    color: $UVSASE-blue;
+    font-size: 1.2rem;
+}
+
+.workshop-link {
+    color: $UVSASE-blue;
+}
+
+.workshop-link:hover {
+    color: $UVSASE-Yellow;
+}
+
+.teamName-title {
+    font-size: 2rem;
+    font-weight: bold;
+    text-decoration: underline;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.teanName-names {
+    text-align: center;
+    margin-bottom: .5rem;
+}
 
 
 
