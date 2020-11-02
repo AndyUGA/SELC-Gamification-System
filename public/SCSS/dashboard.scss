@@ -28,9 +28,7 @@ $UVSASE-Yellow: #fed766;
     background-color: transparent;
 }
 
-.text-UVSASE-blue {
-    color: $UVSASE-blue;
-}
+
 
 
 
@@ -38,10 +36,7 @@ $UVSASE-Yellow: #fed766;
     color: $UVSASE-blue;
 }
 
-.maxIconSize {
-    height: 70px;
-    width: 70px;
-}
+
 
 .workshopText {
     font-size: 1.2rem;
@@ -87,15 +82,8 @@ $UVSASE-Yellow: #fed766;
     margin-top: 1rem;
 }
 
-.dashboard-card {
-    background-color: transparent;
-    border: solid 1px $UVSASE-blue;
-    box-shadow: 0 0 35px 0 rgba(154,161,171,.15);
-}
 
-.no-border-top {
-    border-top: none !important;
-}
+
 
 .card-hover:hover {
     background-color: $UVSASE-Yellow;
@@ -121,7 +109,7 @@ $UVSASE-Yellow: #fed766;
 }
 
 .teamName-title {
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: bold;
     text-decoration: underline;
     text-align: center;
@@ -131,6 +119,7 @@ $UVSASE-Yellow: #fed766;
 .teanName-names {
     text-align: center;
     margin-bottom: .5rem;
+    font-size: 1.2rem;
 }
 
 

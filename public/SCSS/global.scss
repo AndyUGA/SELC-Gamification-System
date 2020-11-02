@@ -19,3 +19,22 @@ body {
 .navbar-brand {
     color: $UVSASE-dark-blue !important;
 }
+
+.dashboard-card {
+    background-color: transparent;
+    border: solid 1px $UVSASE-blue;
+    box-shadow: 0 0 35px 0 rgba(154,161,171,.15);
+}
+
+.text-UVSASE-blue {
+    color: $UVSASE-blue;
+}
+
+.no-border-top {
+    border-top: none !important;
+}
+
+.maxIconSize {
+    height: 70px;
+    width: 70px;
+}

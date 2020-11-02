@@ -1,0 +1,65 @@
+<div class="container">
+  
+
+    <div class="row">
+
+        <div class="col-12 col-md pt-5 ">
+          <div class="card workshop-background-color dashboard-card align-items-center">
+            <img src="./Images/Dashboard/accounts.svg" class="card-img-top maxIconSize my-3" alt="...">
+            <div class="px-5 w-100">
+              <h5 class="card-admin-text">
+                <div class="row">
+                  <table class="table table-responsive-md text-UVSASE-blue">
+                    <thead>
+                      <tr>
+                        <th class="text-center" scope="col">
+                            Name
+                        </th>
+                        <th class="text-center" scope="col">
+                            Email
+                        </th>
+                        <th class="text-center" scope="col">
+                            Team
+                        </th>
+                        <th class="text-center" scope="col">
+                            Workshops
+                        </th>
+                        <th class="text-center" scope="col">
+                            Points
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody class="workshop-card">
+                      <% for(var i = 0; i < dataArray.length; i++) {  %>
+                      <tr class="workshopText">
+                        <td class="text-center ">
+                            <%= dataArray[i].firstName %>
+                        </td>
+                        <td class="text-center">
+                            <%= dataArray[i].email %>
+                        </td>
+                        <td class="text-center">
+                            <%= dataArray[i].teamName %>
+                        </td>
+
+                        <td class="text-center">
+                            <a href="#">
+                                View Workshops
+                            </a>
+                            
+                        </td>
+                        <td class="text-center">
+                            <%= dataArray[i].points %>
+                        </td>
+                     
+                      </tr>
+                      <% } %>
+                    </tbody>
+                  </table>
+                </div>
+              </h5>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>
