@@ -34,7 +34,7 @@ function getEmail(fullname) {
 
       convertToArray(dataArray, doc);
     });
-  
+
     currentEmail = dataArray[0].email;
 
   });
@@ -45,8 +45,8 @@ function isLoggedIn(req) {
 
   const sessionCookie = req.cookies.session || "";
   let isLoggedIn = false;
-  if(sessionCookie) {
-      isLoggedIn = true;
+  if (sessionCookie) {
+    isLoggedIn = true;
   }
 
   return isLoggedIn;
@@ -90,8 +90,8 @@ router.get("/", function (req, res) {
               convertToArray(teamsData, doc);
             });
 
-           
-  
+
+
             res.render("dashboard.ejs", {
               layout: 'Layout/layout.ejs',
               pagename: "dashboard",
@@ -143,7 +143,7 @@ router.get("/leaderboard", function (req, res) {
 });
 
 router.get("/register-workshops", function (req, res) {
- let isUserLoggedIn = isLoggedIn(req);
+  let isUserLoggedIn = isLoggedIn(req);
 
   let currentUserInfo = [];
   let dataArray = [];
@@ -179,7 +179,7 @@ router.get("/register-workshops", function (req, res) {
         }
       }
 
-
+      console.log(182, tempWorkshops);
 
       res.render("register-workshops.ejs", {
         layout: 'Layout/layout.ejs',
@@ -196,7 +196,6 @@ router.get("/register-workshops", function (req, res) {
 
 
 });
-
 
 router.get("/workshop/:workshopName", function (req, res) {
 
@@ -241,7 +240,7 @@ router.get("/accountOverview", function (req, res) {
       convertToArray(dataArray, doc);
     });
 
- 
+
     res.render("account-overview.ejs", {
       layout: 'Layout/layout.ejs',
       pagename: "account-overview",
@@ -304,7 +303,7 @@ router.get("/teamForm", function (req, res) {
         querySnapshot.forEach(function (doc) {
           convertToArray(dataArray, doc);
         });
- 
+
         res.render("teamForm.ejs", {
           layout: 'Layout/layout.ejs',
           dataArray,
@@ -324,6 +323,52 @@ router.get("/teamForm", function (req, res) {
 
 
 });
+
+router.get("/profile/:fullName", function (req, res) {
+  let isUserLoggedIn = isLoggedIn(req);
+  let currentUser = req.params.fullName;
+
+  db.collection("users").where("fullName", "==", currentUser).get().then(function (querySnapshot) {
+    let dataArray = [];
+    querySnapshot.forEach(function (doc) {
+
+      convertToArray(dataArray, doc);
+    });
+
+    console.log(339, dataArray);
+
+    const currentDB = db.collection("users").doc(dataArray[0].uid);
+    currentDB.update({
+      notes: [
+        ...dataArray[0].notes,
+        currentUser,
+      ]
+     
+    })
+
+
+    res.render("publicProfile.ejs", {
+      layout: 'Layout/table-layout.ejs',
+      pagename: "publicProfile",
+      title: "Profile",
+      dataArray,
+      isLoggedIn: isUserLoggedIn,
+    });
+
+  });
+
+
+
+
+
+
+
+
+
+});
+
+
+
 
 
 
@@ -398,7 +443,7 @@ router.post("/modifyTeam", function (req, res) {
     currentDB.update({
       teamName: req.body.teamName,
     }).then(() => {
-     
+
       const teamDB = db.collection("teams").doc(req.body.teamName)
 
       teamDB.update({
@@ -441,7 +486,7 @@ router.post("/registerWorkshop", (req, res) => {
     db.collection("workshops").doc(req.body.selectedWorkshop).update({
       attendees: admin.firestore.FieldValue.arrayUnion(`${dataArray[0].firstName} ${dataArray[0].lastName}`)
     }).then(function () {
-     
+
 
       res.redirect("/Workshops")
     });
@@ -455,11 +500,12 @@ router.post("/registerWorkshop", (req, res) => {
 });
 
 
+
 router.post("/saveUserEmail", function (req, res) {
 
 
   currentUserEmail = req.body.userEmail;
- 
+
 });
 
 
