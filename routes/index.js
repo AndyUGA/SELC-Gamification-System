@@ -376,7 +376,7 @@ router.get("/lovebox", function (req, res) {
 
       convertToArray(dataArray, doc);
     });
-    console.log(395, dataArray[0].message);
+    console.log(395, dataArray);
 
     res.render("lovebox.ejs", {
       layout: 'Layout/layout.ejs',
@@ -399,7 +399,7 @@ router.get("/loveboxQueue", function (req, res) {
 
       convertToArray(dataArray, doc);
     });
-    console.log(395, dataArray);
+    //console.log(395, dataArray);
 
     res.render("loveboxQueue.ejs", {
       layout: 'Layout/layout.ejs',
@@ -541,25 +541,59 @@ router.post("/registerWorkshop", (req, res) => {
 
 });
 
+//Approve lovebox messages from queue
 router.post("/approveMessage", function (req, res) {
 
   const message = req.body.message;
 
+  db.collection("lovebox").get().then(function (querySnapshot) {
+    let dataArray = [];
+    querySnapshot.forEach(function (doc) {
 
-  const messagesDB = db.collection("lovebox").doc('Messages');
+      convertToArray(dataArray, doc);
+    });
+    console.log(555, dataArray);
+
+
+
+
+    const messagesDB = db.collection("lovebox").doc('Messages');
+    const queueDB = db.collection("lovebox").doc('queue');
+
+
+    messagesDB.update({
+      message: [
+        ...dataArray[0].message,
+        message,
+      ]
+    })
+
+    queueDB.update({
+      pendingMessages: admin.firestore.FieldValue.arrayRemove(message),
+    })
+
+    console.log("Message added to lovebox");
+    res.redirect('/loveboxQueue');
+  });
+});
+
+//Add lovebox message to queue
+router.post("/addMessageToQueue", function (req, res) {
+
+  const message = req.body.message;
+
+
+
   const queueDB = db.collection("lovebox").doc('queue');
 
   queueDB.update({
-    pendingMessages: admin.firestore.FieldValue.arrayRemove(message),
+    pendingMessages: admin.firestore.FieldValue.arrayUnion(message),
   })
 
-  messagesDB.update({
-    message: admin.firestore.FieldValue.arrayUnion(message),
-  })
-  console.log("Message added to lovebox");
-  res.redirect('/loveboxQueue');
+
+  console.log("Message added to queue");
+  res.redirect('/lovebox');
 });
-
 
 
 
