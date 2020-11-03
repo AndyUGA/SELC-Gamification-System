@@ -343,7 +343,7 @@ router.get("/profile/:fullName", function (req, res) {
         ...dataArray[0].notes,
         currentUser,
       ]
-     
+
     })
 
 
@@ -367,9 +367,51 @@ router.get("/profile/:fullName", function (req, res) {
 
 });
 
+router.get("/lovebox", function (req, res) {
+  let isUserLoggedIn = isLoggedIn(req);
+
+  db.collection("lovebox").get().then(function (querySnapshot) {
+    let dataArray = [];
+    querySnapshot.forEach(function (doc) {
+
+      convertToArray(dataArray, doc);
+    });
+    console.log(395, dataArray[0].message);
+
+    res.render("lovebox.ejs", {
+      layout: 'Layout/layout.ejs',
+      pagename: "lovebox",
+      title: "Lovebox",
+      dataArray: dataArray[0].message,
+      isLoggedIn: isUserLoggedIn,
+    });
+
+  });
+});
 
 
+router.get("/loveboxQueue", function (req, res) {
+  let isUserLoggedIn = isLoggedIn(req);
 
+  db.collection("lovebox").get().then(function (querySnapshot) {
+    let dataArray = [];
+    querySnapshot.forEach(function (doc) {
+
+      convertToArray(dataArray, doc);
+    });
+    console.log(395, dataArray);
+
+    res.render("loveboxQueue.ejs", {
+      layout: 'Layout/layout.ejs',
+      pagename: "loveboxqueue",
+      title: "Lovebox Queue",
+      dataArray,
+      isLoggedIn: isUserLoggedIn,
+    });
+
+  });
+
+});
 
 
 router.post("/modifyPoints", function (req, res) {
@@ -498,6 +540,26 @@ router.post("/registerWorkshop", (req, res) => {
 
 
 });
+
+router.post("/approveMessage", function (req, res) {
+
+  const message = req.body.message;
+
+
+  const messagesDB = db.collection("lovebox").doc('Messages');
+  const queueDB = db.collection("lovebox").doc('queue');
+
+  queueDB.update({
+    pendingMessages: admin.firestore.FieldValue.arrayRemove(message),
+  })
+
+  messagesDB.update({
+    message: admin.firestore.FieldValue.arrayUnion(message),
+  })
+  console.log("Message added to lovebox");
+  res.redirect('/loveboxQueue');
+});
+
 
 
 

@@ -1,0 +1,70 @@
+<div class="container">
+    <div class="row mt-5">
+        <div class="col">
+            <div class="text-center lovebox-title">
+                LoveBox Queue
+            </div>
+
+            <table class="table table-responsive-sm">
+                <thead>
+                    <tr class="text-center">
+
+                        <th scope="col">Message</th>
+                        <th scope="col">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for(var i = 0; i < dataArray[1].pendingMessages.length; i++) { %>
+                    <tr class="text-center">
+                        <td>
+                            <input disabled type = "text" id = "<%= dataArray[1].pendingMessages[i] %>" value = <%= dataArray[1].pendingMessages[i] %>>
+                        </td>
+                        <td>
+                            <form action="/approveMessage" class="form-horizontal " method="post">
+                                <button type="submit" class="btn btn-primary">
+                                    Approve
+                                </button>
+                                <input type = "hidden" value = <%= dataArray[1].pendingMessages[i] %>>
+                            </form>
+                        </td>
+                    </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+<script>
+
+    document
+      .addEventListener("submit", (event) => {
+        event.preventDefault();
+        
+      
+        let message = event.target[1].value;
+  
+  
+        return fetch("/approveMessage", {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            "CSRF-Token": Cookies.get("XSRF-TOKEN"),
+          },
+          body: JSON.stringify({
+            message
+          }),
+        })
+          .then(() => {
+            console.log("Reloading page");
+            location.reload();
+            
+          });
+  
+      });
+  
+  
+  
+  </script>
