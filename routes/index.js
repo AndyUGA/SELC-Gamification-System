@@ -376,8 +376,7 @@ router.get("/lovebox", function (req, res) {
 
       convertToArray(dataArray, doc);
     });
-    console.log(395, dataArray);
-
+    console.log(379, ...dataArray[1].pendingMessages);
     res.render("lovebox.ejs", {
       layout: 'Layout/layout.ejs',
       pagename: "lovebox",
@@ -399,7 +398,7 @@ router.get("/loveboxQueue", function (req, res) {
 
       convertToArray(dataArray, doc);
     });
-    //console.log(395, dataArray);
+
 
     res.render("loveboxQueue.ejs", {
       layout: 'Layout/layout.ejs',
@@ -552,9 +551,6 @@ router.post("/approveMessage", function (req, res) {
 
       convertToArray(dataArray, doc);
     });
-    console.log(555, dataArray);
-
-
 
 
     const messagesDB = db.collection("lovebox").doc('Messages');
@@ -567,14 +563,30 @@ router.post("/approveMessage", function (req, res) {
         message,
       ]
     })
+    db.collection("lovebox").get().then(function (querySnapshot) {
+      let dataArray = [];
+   
+      querySnapshot.forEach(function (doc) {
+  
+        convertToArray(dataArray, doc);
+      });
+
+      let pendingMessages = dataArray[1].pendingMessages;
+ 
+      for(let i = 0; i < pendingMessages.length; i++) {
+        if(pendingMessages[i] == message) {
+            pendingMessages.splice(i,1);
+        }
+      }
 
     queueDB.update({
-      pendingMessages: admin.firestore.FieldValue.arrayRemove(message),
+      pendingMessages
     })
 
     console.log("Message added to lovebox");
     res.redirect('/loveboxQueue');
   });
+});
 });
 
 //Add lovebox message to queue
@@ -582,19 +594,29 @@ router.post("/addMessageToQueue", function (req, res) {
 
   const message = req.body.message;
 
+  db.collection("lovebox").get().then(function (querySnapshot) {
+    let dataArray = [];
+    querySnapshot.forEach(function (doc) {
+
+      convertToArray(dataArray, doc);
+    });
+  
 
 
-  const queueDB = db.collection("lovebox").doc('queue');
+    const queueDB = db.collection("lovebox").doc('queue');
 
-  queueDB.update({
-    pendingMessages: admin.firestore.FieldValue.arrayUnion(message),
-  })
+    queueDB.update({
+      pendingMessages: [
+        ...dataArray[1].pendingMessages,
+        message,
+      ]
+    })
 
 
-  console.log("Message added to queue");
-  res.redirect('/lovebox');
+    console.log("Message added to queue");
+    res.redirect('/lovebox');
+  });
 });
-
 
 
 router.post("/saveUserEmail", function (req, res) {
