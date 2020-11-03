@@ -34,7 +34,7 @@ function getEmail(fullname) {
 
       convertToArray(dataArray, doc);
     });
-  
+
     currentEmail = dataArray[0].email;
 
   });
@@ -45,8 +45,8 @@ function isLoggedIn(req) {
 
   const sessionCookie = req.cookies.session || "";
   let isLoggedIn = false;
-  if(sessionCookie) {
-      isLoggedIn = true;
+  if (sessionCookie) {
+    isLoggedIn = true;
   }
 
   return isLoggedIn;
@@ -90,8 +90,8 @@ router.get("/", function (req, res) {
               convertToArray(teamsData, doc);
             });
 
-           
-  
+
+
             res.render("dashboard.ejs", {
               layout: 'Layout/layout.ejs',
               pagename: "dashboard",
@@ -143,7 +143,7 @@ router.get("/leaderboard", function (req, res) {
 });
 
 router.get("/register-workshops", function (req, res) {
- let isUserLoggedIn = isLoggedIn(req);
+  let isUserLoggedIn = isLoggedIn(req);
 
   let currentUserInfo = [];
   let dataArray = [];
@@ -179,7 +179,7 @@ router.get("/register-workshops", function (req, res) {
         }
       }
 
-
+      console.log(182, tempWorkshops);
 
       res.render("register-workshops.ejs", {
         layout: 'Layout/layout.ejs',
@@ -196,7 +196,6 @@ router.get("/register-workshops", function (req, res) {
 
 
 });
-
 
 router.get("/workshop/:workshopName", function (req, res) {
 
@@ -241,7 +240,7 @@ router.get("/accountOverview", function (req, res) {
       convertToArray(dataArray, doc);
     });
 
- 
+
     res.render("account-overview.ejs", {
       layout: 'Layout/layout.ejs',
       pagename: "account-overview",
@@ -304,7 +303,7 @@ router.get("/teamForm", function (req, res) {
         querySnapshot.forEach(function (doc) {
           convertToArray(dataArray, doc);
         });
- 
+
         res.render("teamForm.ejs", {
           layout: 'Layout/layout.ejs',
           dataArray,
@@ -325,6 +324,94 @@ router.get("/teamForm", function (req, res) {
 
 });
 
+router.get("/profile/:fullName", function (req, res) {
+  let isUserLoggedIn = isLoggedIn(req);
+  let currentUser = req.params.fullName;
+
+  db.collection("users").where("fullName", "==", currentUser).get().then(function (querySnapshot) {
+    let dataArray = [];
+    querySnapshot.forEach(function (doc) {
+
+      convertToArray(dataArray, doc);
+    });
+
+    console.log(339, dataArray);
+
+    const currentDB = db.collection("users").doc(dataArray[0].uid);
+    currentDB.update({
+      notes: [
+        ...dataArray[0].notes,
+        currentUser,
+      ]
+
+    })
+
+
+    res.render("publicProfile.ejs", {
+      layout: 'Layout/table-layout.ejs',
+      pagename: "publicProfile",
+      title: "Profile",
+      dataArray,
+      isLoggedIn: isUserLoggedIn,
+    });
+
+  });
+
+
+
+
+
+
+
+
+
+});
+
+router.get("/lovebox", function (req, res) {
+  let isUserLoggedIn = isLoggedIn(req);
+
+  db.collection("lovebox").get().then(function (querySnapshot) {
+    let dataArray = [];
+    querySnapshot.forEach(function (doc) {
+
+      convertToArray(dataArray, doc);
+    });
+    console.log(395, dataArray);
+
+    res.render("lovebox.ejs", {
+      layout: 'Layout/layout.ejs',
+      pagename: "lovebox",
+      title: "Lovebox",
+      dataArray: dataArray[0].message,
+      isLoggedIn: isUserLoggedIn,
+    });
+
+  });
+});
+
+
+router.get("/loveboxQueue", function (req, res) {
+  let isUserLoggedIn = isLoggedIn(req);
+
+  db.collection("lovebox").get().then(function (querySnapshot) {
+    let dataArray = [];
+    querySnapshot.forEach(function (doc) {
+
+      convertToArray(dataArray, doc);
+    });
+    //console.log(395, dataArray);
+
+    res.render("loveboxQueue.ejs", {
+      layout: 'Layout/layout.ejs',
+      pagename: "loveboxqueue",
+      title: "Lovebox Queue",
+      dataArray,
+      isLoggedIn: isUserLoggedIn,
+    });
+
+  });
+
+});
 
 
 router.post("/modifyPoints", function (req, res) {
@@ -398,7 +485,7 @@ router.post("/modifyTeam", function (req, res) {
     currentDB.update({
       teamName: req.body.teamName,
     }).then(() => {
-     
+
       const teamDB = db.collection("teams").doc(req.body.teamName)
 
       teamDB.update({
@@ -441,7 +528,7 @@ router.post("/registerWorkshop", (req, res) => {
     db.collection("workshops").doc(req.body.selectedWorkshop).update({
       attendees: admin.firestore.FieldValue.arrayUnion(`${dataArray[0].firstName} ${dataArray[0].lastName}`)
     }).then(function () {
-     
+
 
       res.redirect("/Workshops")
     });
@@ -454,12 +541,67 @@ router.post("/registerWorkshop", (req, res) => {
 
 });
 
+//Approve lovebox messages from queue
+router.post("/approveMessage", function (req, res) {
+
+  const message = req.body.message;
+
+  db.collection("lovebox").get().then(function (querySnapshot) {
+    let dataArray = [];
+    querySnapshot.forEach(function (doc) {
+
+      convertToArray(dataArray, doc);
+    });
+    console.log(555, dataArray);
+
+
+
+
+    const messagesDB = db.collection("lovebox").doc('Messages');
+    const queueDB = db.collection("lovebox").doc('queue');
+
+
+    messagesDB.update({
+      message: [
+        ...dataArray[0].message,
+        message,
+      ]
+    })
+
+    queueDB.update({
+      pendingMessages: admin.firestore.FieldValue.arrayRemove(message),
+    })
+
+    console.log("Message added to lovebox");
+    res.redirect('/loveboxQueue');
+  });
+});
+
+//Add lovebox message to queue
+router.post("/addMessageToQueue", function (req, res) {
+
+  const message = req.body.message;
+
+
+
+  const queueDB = db.collection("lovebox").doc('queue');
+
+  queueDB.update({
+    pendingMessages: admin.firestore.FieldValue.arrayUnion(message),
+  })
+
+
+  console.log("Message added to queue");
+  res.redirect('/lovebox');
+});
+
+
 
 router.post("/saveUserEmail", function (req, res) {
 
 
   currentUserEmail = req.body.userEmail;
- 
+
 });
 
 

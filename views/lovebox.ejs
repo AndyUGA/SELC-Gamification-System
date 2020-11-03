@@ -1,0 +1,58 @@
+<div class="container">
+    <div class="row mt-5">
+        <div class="col">
+            <div class="text-center lovebox-title mb-5">
+                SELC LoveBox
+            </div>
+            <div class="d-flex justify-content-center mb-5">
+                <form>
+                    <input id="messagetoApprove" class="text-left" type="text" placeholder="Type message">
+                    <button type="submit" class="btn btn-primary">
+                        Submit
+                    </button>
+                </form>
+            </div>
+
+            <% for(var i = 0; i < dataArray.length; i++) { %>
+            <div class="d-flex justify-content-center">
+                <div class="text-left mb-3">
+                    <%= dataArray[i] %>
+                </div>
+            </div>
+            <% } %>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+<script>
+
+    document
+        .addEventListener("submit", (event) => {
+            event.preventDefault();
+
+            let message = document.getElementById("messagetoApprove").value;
+            //let message = event.target[1].value;
+           
+
+            return fetch("/addMessageToQueue", {
+                method: "POST",
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                    "CSRF-Token": Cookies.get("XSRF-TOKEN"),
+                },
+                body: JSON.stringify({
+                    message
+                }),
+            })
+                .then(() => {
+                    console.log("Reloading page");
+                    location.reload();
+
+                });
+
+        });
+
+
+
+</script>
