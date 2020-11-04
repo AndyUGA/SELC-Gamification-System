@@ -121,6 +121,19 @@ router.get("/", function (req, res) {
 
 });
 
+router.get("/lillian", function (req, res) {
+  let isUserLoggedIn = isLoggedIn(req);
+
+  res.render("lillian.ejs", {
+    layout: 'Layout/layout.ejs',
+    pagename: "lillian",
+    title: "lillian",
+    isLoggedIn: isUserLoggedIn,
+  });
+
+
+});
+
 router.get("/leaderboard", function (req, res) {
   let isUserLoggedIn = isLoggedIn(req);
 
