@@ -376,7 +376,7 @@ router.get("/lovebox", function (req, res) {
 
       convertToArray(dataArray, doc);
     });
-    console.log(379, ...dataArray[1].pendingMessages);
+    console.log(379, dataArray[0].message);
     res.render("lovebox.ejs", {
       layout: 'Layout/layout.ejs',
       pagename: "lovebox",
@@ -398,7 +398,7 @@ router.get("/loveboxQueue", function (req, res) {
 
       convertToArray(dataArray, doc);
     });
-
+    console.log(401, dataArray);
 
     res.render("loveboxQueue.ejs", {
       layout: 'Layout/layout.ejs',
@@ -593,6 +593,8 @@ router.post("/approveMessage", function (req, res) {
 router.post("/addMessageToQueue", function (req, res) {
 
   const message = req.body.message;
+  const firstName = req.body.firstName;
+  const lastName = req.body.lastName;
 
   db.collection("lovebox").get().then(function (querySnapshot) {
     let dataArray = [];
@@ -606,10 +608,11 @@ router.post("/addMessageToQueue", function (req, res) {
     const queueDB = db.collection("lovebox").doc('queue');
 
     queueDB.update({
-      pendingMessages: [
-        ...dataArray[1].pendingMessages,
-        message,
-      ]
+     pendingMessages: admin.firestore.FieldValue.arrayUnion({
+      firstName,
+      lastName,
+       message,
+     })
     })
 
 

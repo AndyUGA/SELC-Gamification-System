@@ -1,14 +1,14 @@
 <div class="container">
     <div class="row mt-5">
         <div class="col">
-            <div class="text-center lovebox-title">
+            <div class="text-center lovebox-title mb-5">
                 LoveBox Queue
             </div>
 
             <table class="table table-responsive-sm">
                 <thead>
                     <tr class="text-center">
-
+                        <th scope="col">To</th>
                         <th scope="col">Message</th>
                         <th scope="col">Status</th>
                     </tr>
@@ -16,15 +16,23 @@
                 <tbody>
                     <% for(var i = 0; i < dataArray[1].pendingMessages.length; i++) { %>
                     <tr class="text-center">
+               
                         <td>
-                            <input disabled type = "text" id = "<%= dataArray[1].pendingMessages[i] %>" value = <%= dataArray[1].pendingMessages[i] %>>
+                         
+                            <input disabled type = "text" id = "<%= dataArray[1].pendingMessages[i].firstName %>" value = <%= dataArray[1].pendingMessages[i].firstName %>>
+                            <input disabled type = "text" id = "<%= dataArray[1].pendingMessages[i].lastName %>" value = <%= dataArray[1].pendingMessages[i].lastName %>>
+                        </td>
+                        <td>
+                            <input disabled type = "text" id = "<%= dataArray[1].pendingMessages[i].message %>" value = <%= dataArray[1].pendingMessages[i].message %>>
                         </td>
                         <td>
                             <form action="/approveMessage" class="form-horizontal " method="post">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-outline-UVSASE">
                                     Approve
                                 </button>
-                                <input type = "hidden" value = <%= dataArray[1].pendingMessages[i] %>>
+                                <input type = "hidden" value = <%= dataArray[1].pendingMessages[i].message %>>
+                                <input type = "hidden" value = <%= dataArray[1].pendingMessages[i].firstName %>>
+                                <input type = "hidden" value = <%= dataArray[1].pendingMessages[i].lastName %>>
                             </form>
                         </td>
                     </tr>
@@ -42,26 +50,29 @@
       .addEventListener("submit", (event) => {
         event.preventDefault();
         
-      
+        console.log(51, event.target);
         let message = event.target[1].value;
+        let firstName = event.target[2].value;
+        let lastName = event.target[3].value;
+        // console.log(55, firstName);
+        // console.log(56, lastName);
   
-  
-        return fetch("/approveMessage", {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            "CSRF-Token": Cookies.get("XSRF-TOKEN"),
-          },
-          body: JSON.stringify({
-            message
-          }),
-        })
-          .then(() => {
-            console.log("Reloading page");
-            location.reload();
+        // return fetch("/approveMessage", {
+        //   method: "POST",
+        //   headers: {
+        //     Accept: "application/json",
+        //     "Content-Type": "application/json",
+        //     "CSRF-Token": Cookies.get("XSRF-TOKEN"),
+        //   },
+        //   body: JSON.stringify({
+        //     message
+        //   }),
+        // })
+        //   .then(() => {
+        //     console.log("Reloading page");
+        //     location.reload();
             
-          });
+        //   });
   
       });
   
