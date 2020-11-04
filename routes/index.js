@@ -329,90 +329,102 @@ router.get("/profile/:fullName", function (req, res) {
   let currentUser = req.params.fullName;
 
   db.collection("users").where("fullName", "==", currentUser).get().then(function (querySnapshot) {
-    let dataArray = [];
-    querySnapshot.forEach(function (doc) {
 
-      convertToArray(dataArray, doc);
+
+    db.collection("users").orderBy("points", "DESC").get().then(function (querySnapshot) {
+      let dataArray = [];
+      querySnapshot.forEach(function (doc) {
+
+        convertToArray(dataArray, doc);
+      });
+
+      console.log(339, dataArray);
+
+      const currentDB = db.collection("users").doc(dataArray[0].uid);
+      currentDB.update({
+        notes: [
+          ...dataArray[0].notes,
+          currentUser,
+        ]
+
+      })
+
+
+      res.render("publicProfile.ejs", {
+        layout: 'Layout/table-layout.ejs',
+        pagename: "publicProfile",
+        title: "Profile",
+        dataArray,
+        isLoggedIn: isUserLoggedIn,
+      });
+
     });
 
-    console.log(339, dataArray);
-
-    const currentDB = db.collection("users").doc(dataArray[0].uid);
-    currentDB.update({
-      notes: [
-        ...dataArray[0].notes,
-        currentUser,
-      ]
-
-    })
 
 
-    res.render("publicProfile.ejs", {
-      layout: 'Layout/table-layout.ejs',
-      pagename: "publicProfile",
-      title: "Profile",
-      dataArray,
-      isLoggedIn: isUserLoggedIn,
-    });
+
+
+
+
+
 
   });
 
+  router.get("/lovebox", function (req, res) {
+    let isUserLoggedIn = isLoggedIn(req);
 
+    db.collection("lovebox").get().then(function (querySnapshot) {
+      let dataArray = [];
+      querySnapshot.forEach(function (doc) {
 
+        convertToArray(dataArray, doc);
+      });
+      console.log(395, dataArray);
 
+      res.render("lovebox.ejs", {
+        layout: 'Layout/layout.ejs',
+        pagename: "lovebox",
+        title: "Lovebox",
+        dataArray: dataArray[0].message,
+        isLoggedIn: isUserLoggedIn,
+      });
 
-
-
-
-
-});
-
-router.get("/lovebox", function (req, res) {
-  let isUserLoggedIn = isLoggedIn(req);
-
-  db.collection("lovebox").get().then(function (querySnapshot) {
-    let dataArray = [];
-    querySnapshot.forEach(function (doc) {
-
-      convertToArray(dataArray, doc);
     });
-    console.log(395, dataArray);
+  });
 
-    res.render("lovebox.ejs", {
-      layout: 'Layout/layout.ejs',
-      pagename: "lovebox",
-      title: "Lovebox",
-      dataArray: dataArray[0].message,
-      isLoggedIn: isUserLoggedIn,
+
+  router.get("/loveboxQueue", function (req, res) {
+    let isUserLoggedIn = isLoggedIn(req);
+
+    db.collection("lovebox").get().then(function (querySnapshot) {
+      let dataArray = [];
+      querySnapshot.forEach(function (doc) {
+
+        convertToArray(dataArray, doc);
+      });
+      //console.log(395, dataArray);
+
+      res.render("loveboxQueue.ejs", {
+        layout: 'Layout/layout.ejs',
+        pagename: "loveboxqueue",
+        title: "Lovebox Queue",
+        dataArray,
+        isLoggedIn: isUserLoggedIn,
+      });
+
     });
 
   });
-});
+  
+})
 
-
-router.get("/loveboxQueue", function (req, res) {
-  let isUserLoggedIn = isLoggedIn(req);
-
-  db.collection("lovebox").get().then(function (querySnapshot) {
-    let dataArray = [];
-    querySnapshot.forEach(function (doc) {
-
-      convertToArray(dataArray, doc);
-    });
-    //console.log(395, dataArray);
-
-    res.render("loveboxQueue.ejs", {
-      layout: 'Layout/layout.ejs',
-      pagename: "loveboxqueue",
-      title: "Lovebox Queue",
-      dataArray,
-      isLoggedIn: isUserLoggedIn,
-    });
-
+router.get('/Hyemi2', (req, res) => {
+  res.render("hyemi2.ejs", {
+    layout: 'Layout/layout.ejs',
+    pagename: "leaderboard",
+    title: "Hyemi",
   });
-
 });
-
 
 router.post("/modifyPoints", function (req, res) {
 

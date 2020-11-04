@@ -40,7 +40,6 @@ app.all("*", (req, res, next) => {
 
 
 
-
 app.use("/", require("./routes/index"));
 app.use("/", require("./routes/users"));
 
