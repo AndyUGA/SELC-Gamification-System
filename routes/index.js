@@ -370,53 +370,55 @@ router.get("/profile/:fullName", function (req, res) {
 
   });
 
-  router.get("/lovebox", function (req, res) {
-    let isUserLoggedIn = isLoggedIn(req);
-
-    db.collection("lovebox").get().then(function (querySnapshot) {
-      let dataArray = [];
-      querySnapshot.forEach(function (doc) {
-
-        convertToArray(dataArray, doc);
-      });
-      console.log(395, dataArray);
-
-      res.render("lovebox.ejs", {
-        layout: 'Layout/layout.ejs',
-        pagename: "lovebox",
-        title: "Lovebox",
-        dataArray: dataArray[0].message,
-        isLoggedIn: isUserLoggedIn,
-      });
-
-    });
-  });
-
-
-  router.get("/loveboxQueue", function (req, res) {
-    let isUserLoggedIn = isLoggedIn(req);
-
-    db.collection("lovebox").get().then(function (querySnapshot) {
-      let dataArray = [];
-      querySnapshot.forEach(function (doc) {
-
-        convertToArray(dataArray, doc);
-      });
-      //console.log(395, dataArray);
-
-      res.render("loveboxQueue.ejs", {
-        layout: 'Layout/layout.ejs',
-        pagename: "loveboxqueue",
-        title: "Lovebox Queue",
-        dataArray,
-        isLoggedIn: isUserLoggedIn,
-      });
-
-    });
-
-  });
+ 
 
 })
+
+router.get("/lovebox", function (req, res) {
+  let isUserLoggedIn = isLoggedIn(req);
+
+  db.collection("lovebox").get().then(function (querySnapshot) {
+    let dataArray = [];
+    querySnapshot.forEach(function (doc) {
+
+      convertToArray(dataArray, doc);
+    });
+    console.log(395, dataArray);
+
+    res.render("lovebox.ejs", {
+      layout: 'Layout/layout.ejs',
+      pagename: "lovebox",
+      title: "Lovebox",
+      dataArray: dataArray[0].message,
+      isLoggedIn: isUserLoggedIn,
+    });
+
+  });
+});
+
+
+router.get("/loveboxQueue", function (req, res) {
+  let isUserLoggedIn = isLoggedIn(req);
+
+  db.collection("lovebox").get().then(function (querySnapshot) {
+    let dataArray = [];
+    querySnapshot.forEach(function (doc) {
+
+      convertToArray(dataArray, doc);
+    });
+    //console.log(395, dataArray);
+
+    res.render("loveboxQueue.ejs", {
+      layout: 'Layout/layout.ejs',
+      pagename: "loveboxqueue",
+      title: "Lovebox Queue",
+      dataArray,
+      isLoggedIn: isUserLoggedIn,
+    });
+
+  });
+
+});
 
 router.get('/Hyemi2', (req, res) => {
 
