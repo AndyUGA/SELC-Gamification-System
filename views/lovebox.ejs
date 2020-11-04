@@ -26,7 +26,7 @@
                           </div>
                           
                         
-                        <button type="submit" class="btn btn-outline-UVSASE ">
+                        <button type="submit" class="btn btn-outline-UVSASE w-100">
                             Submit
                         </button>
                       </form>
@@ -48,13 +48,13 @@
 
                     <tr>
                         <td>
-
+                            <%= dataArray[i].firstName %>
                         </td>
                         <td>
-
+                            <%= dataArray[i].lastName %>
                         </td>
                         <td class="text-left mb-3">
-                            <%= dataArray[i].firstName %>
+                            <%= dataArray[i].message %>
                         </td>
 
                     </tr>
@@ -82,8 +82,8 @@
             let message = document.getElementById("messagetoApprove").value;
             let firstName = document.getElementById("firstName").value;
             let lastName = document.getElementById("lastName").value;
-          
-
+            
+            console.log(86, message);
 
             return fetch("/addMessageToQueue", {
                 method: "POST",
