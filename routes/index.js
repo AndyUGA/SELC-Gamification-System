@@ -415,14 +415,30 @@ router.get("/profile/:fullName", function (req, res) {
     });
 
   });
-  
+
 })
 
 router.get('/Hyemi2', (req, res) => {
-  res.render("hyemi2.ejs", {
-    layout: 'Layout/layout.ejs',
-    pagename: "leaderboard",
-    title: "Hyemi",
+
+  let isUserLoggedIn = isLoggedIn(req);
+
+
+  db.collection("users").orderBy("points", "DESC").get().then(function (querySnapshot) {
+    let dataArray = [];
+    querySnapshot.forEach(function (doc) {
+
+      convertToArray(dataArray, doc);
+    });
+
+    console.log(430, dataArray);
+
+    res.render("hyemi2.ejs", {
+      layout: 'Layout/layout.ejs',
+      pagename: "leaderboard",
+      title: "Hyemi",
+      dataArray,
+      isLoggedIn: isUserLoggedIn,
+    });
   });
 });
 
