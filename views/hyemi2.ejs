@@ -1,0 +1,66 @@
+<link href="../public/CSS/leaderboard.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Text&display=swap" rel="stylesheet">
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1 class="leaderboardFont">
+                Leadership Board
+            </h1>
+            <table class="table">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Rank</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Points</th>
+                    <th scope="col">Team</th>
+                </tr>
+                </thead>
+                <tbody>
+                    
+                    <% var rank =1;%>
+                    <% var arrayOne=[];%>
+                    <% var a =0;%>
+                    <% var arrayTwo=[];%>
+                    <% var b =0;%>
+                    <% var arrayThree=[]; %>
+                    <% var c =0;%>
+
+                    <% for(var i=0; i<dataArray.length; i++) {%>
+                        <% if (dataArray[i].teamName=="Red") {%>
+                        <tr class="red">
+                            <th scope="row"><%= rank%></th>
+                            <td><%= dataArray[i].firstName %> <%= dataArray[i].lastName %></td>
+                            <td><%= dataArray[i].points%></td>
+                            <td><%= dataArray[i].teamName%></td>
+                            <% rank++%>
+                            <%arrayOne[a] = dataArray[i];%>
+                            <% a++%>
+                        </tr>
+                        <% } else if (dataArray[i].teamName=="Blue") {%>
+                            <tr class="blue">
+                                <th scope="row"><%= rank%></th>
+                                <td><%= dataArray[i].firstName %> <%= dataArray[i].lastName %></td>
+                                <td><%= dataArray[i].points%></td>
+                                <td><%= dataArray[i].teamName%></td>
+                                <% rank++%>
+                                <%arrayTwo[b] = dataArray[i];%>
+                                <% b++%>
+                            </tr>
+                        <% } else if (dataArray[i].teamName=="Green") {%>
+                            <tr class="green">
+                                <th scope="row"><%= rank%></th>
+                                <td><%= dataArray[i].firstName %> <%= dataArray[i].lastName %></td>
+                                <td><%= dataArray[i].points%></td>
+                                <td><%= dataArray[i].teamName%></td>
+                                <% rank++%>
+                                <%arrayThree[c] = dataArray[i];%>
+                                <% c++%>
+                            </tr>
+                        <% } %>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
