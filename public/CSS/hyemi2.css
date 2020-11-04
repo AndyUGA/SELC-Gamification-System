@@ -1,0 +1,31 @@
+h1 {
+  text-align: center;
+  padding: 25px 0px;
+}
+
+.topPadding {
+  padding-top: 32px;
+}
+
+.center {
+  text-align: center;
+}
+
+.leaderboardFont {
+  font-family: 'Crimson Text', serif;
+}
+
+/*Need to change this font to Museo 700 30pt (This is for header)*/
+/*Subheader, so for the individual teams I think I can use Roboto Slab, bold 28pt*/
+/*Colors*/
+.red {
+  background-color: #FDDFDF;
+}
+
+.blue {
+  background-color: #DEF3FD;
+}
+
+.green {
+  background-color: #DEFDE0;
+}
