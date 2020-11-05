@@ -53,7 +53,6 @@
     };
 
     firebase.initializeApp(firebaseConfig);
-    //firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE);
     document
       .getElementById("login")
       .addEventListener("submit", (event) => {
@@ -78,7 +77,7 @@
             });
           })
           .then(() => {
-            window.location.assign("/profile");
+            window.location.assign("/");
           })
           .catch(function(err) {
             console.log(84, err);

@@ -111,7 +111,7 @@ router.get("/", function (req, res) {
 
     })
     .catch((error) => {
-      console.log(100, error);
+      console.log(114, error);
       res.redirect("/login");
     });
 
@@ -179,7 +179,7 @@ router.get("/register-workshops", function (req, res) {
         }
       }
 
-    
+
 
       res.render("register-workshops.ejs", {
         layout: 'Layout/layout.ejs',
@@ -282,7 +282,7 @@ router.get("/pointsForm", function (req, res) {
 
     })
     .catch((error) => {
-      console.log(100, error);
+      console.log(285, error);
       res.redirect("/");
     });
 
@@ -317,7 +317,7 @@ router.get("/teamForm", function (req, res) {
 
     })
     .catch((error) => {
-      console.log(100, error);
+      console.log(320, error);
       res.redirect("/");
     });
 
@@ -335,7 +335,7 @@ router.get("/profile/:fullName", function (req, res) {
       convertToArray(dataArray, doc);
     });
 
-   
+
 
     const currentDB = db.collection("users").doc(dataArray[0].uid);
     currentDB.update({
@@ -376,7 +376,7 @@ router.get("/lovebox", function (req, res) {
 
       convertToArray(dataArray, doc);
     });
-  
+
     res.render("lovebox.ejs", {
       layout: 'Layout/layout.ejs',
       pagename: "lovebox",
@@ -398,7 +398,7 @@ router.get("/loveboxQueue", function (req, res) {
 
       convertToArray(dataArray, doc);
     });
- 
+
 
     res.render("loveboxQueue.ejs", {
       layout: 'Layout/layout.ejs',
@@ -555,17 +555,17 @@ router.post("/addMessageToQueue", function (req, res) {
 
       convertToArray(dataArray, doc);
     });
-  
+
 
 
     const queueDB = db.collection("lovebox").doc('queue');
 
     queueDB.update({
-     pendingMessages: admin.firestore.FieldValue.arrayUnion({
-      firstName,
-      lastName,
-       message,
-     })
+      pendingMessages: admin.firestore.FieldValue.arrayUnion({
+        firstName,
+        lastName,
+        message,
+      })
     })
 
 
@@ -599,28 +599,63 @@ router.post("/approveMessage", function (req, res) {
       message: admin.firestore.FieldValue.arrayUnion({
         firstName,
         lastName,
-         message,
-       })
+        message,
+      })
     })
 
     //Delete approve message from queue
     db.collection("lovebox").get().then(function (querySnapshot) {
       let dataArray = [];
-   
+
       querySnapshot.forEach(function (doc) {
-  
+
         convertToArray(dataArray, doc);
       });
 
       let pendingMessages = dataArray[1].pendingMessages;
       console.log(dataArray[1].pendingMessages[0].message);
- 
-      for(let i = 0; i < pendingMessages.length; i++) {
-        if(pendingMessages[i].message == message) {
-            pendingMessages.splice(i,1);
+
+      for (let i = 0; i < pendingMessages.length; i++) {
+        if (pendingMessages[i].message == message) {
+          pendingMessages.splice(i, 1);
         }
       }
 
+      queueDB.update({
+        pendingMessages
+      })
+
+      console.log("Message added to lovebox");
+      res.redirect('/loveboxQueue');
+    });
+  });
+});
+
+
+//Delete  lovebox messages from queue
+router.post("/deleteMessage", function (req, res) {
+
+  const message = req.body.message;
+  console.log(639, message);
+
+  //Delete approve message from queue
+  db.collection("lovebox").get().then(function (querySnapshot) {
+    let dataArray = [];
+
+    querySnapshot.forEach(function (doc) {
+
+      convertToArray(dataArray, doc);
+    });
+
+    let pendingMessages = dataArray[1].pendingMessages;
+    console.log(dataArray[1].pendingMessages[0].message);
+
+    for (let i = 0; i < pendingMessages.length; i++) {
+      if (pendingMessages[i].message == message) {
+        pendingMessages.splice(i, 1);
+      }
+    }
+    const queueDB = db.collection("lovebox").doc('queue');
     queueDB.update({
       pendingMessages
     })
@@ -628,7 +663,6 @@ router.post("/approveMessage", function (req, res) {
     console.log("Message added to lovebox");
     res.redirect('/loveboxQueue');
   });
-});
 });
 
 

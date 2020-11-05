@@ -28,12 +28,13 @@ router.get("/signup", function (req, res) {
 
 router.get("/profile", function (req, res) {
     const sessionCookie = req.cookies.session || "";
+    
     let isLoggedIn = false;
-    if(sessionCookie) {
+    if (sessionCookie) {
         isLoggedIn = true;
     }
- 
-    
+
+
     admin
         .auth()
         .verifySessionCookie(sessionCookie, true /** checkRevoked */)
@@ -46,7 +47,8 @@ router.get("/profile", function (req, res) {
             });
         })
         .catch((error) => {
-            res.redirect("/");
+            console.log(49, error);
+            //res.redirect("/");
         });
 });
 
@@ -59,7 +61,7 @@ router.post("/sessionLogin", (req, res) => {
 
     const idToken = req.body.idToken.toString();
     const expiresIn = 60 * 60 * 24 * 5 * 1000;
-
+    
     admin
         .auth()
         .createSessionCookie(idToken, { expiresIn })
@@ -85,14 +87,15 @@ router.post("/sessionSignup", (req, res) => {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         fullName: req.body.firstName + " " + req.body.lastName,
-        created:admin.firestore.Timestamp.now(),
+        created: admin.firestore.Timestamp.now(),
         workshops: [],
+        points: 0,
     });
 
     const idToken = req.body.idToken.toString();
 
     const expiresIn = 60 * 60 * 24 * 5 * 1000;
-
+   
     admin
         .auth()
         .createSessionCookie(idToken, { expiresIn })

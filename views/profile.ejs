@@ -37,7 +37,7 @@
   let userEmail = "";
   auth.onAuthStateChanged(function (user) {
     if (user) {
-     
+      console.log(40, user);
       userEmail = user.email;
 
       return fetch("/saveUserEmail", {

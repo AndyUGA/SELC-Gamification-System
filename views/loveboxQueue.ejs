@@ -10,7 +10,8 @@
                     <tr class="text-center">
                         <th scope="col">To</th>
                         <th scope="col">Message</th>
-                        <th scope="col">Status</th>
+                        <th scope="col">Approve</th>
+                        <th scope="col">Delete</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -30,8 +31,19 @@
                         </td>
                         <td>
                             <form action="/approveMessage" class="form-horizontal " method="post">
-                                <button type="submit" class="btn btn-outline-UVSASE">
+                                <button type="submit" class="btn btn-outline-UVSASE" value = "approveMessage">
                                     Approve
+                                </button>
+                                <input type="hidden" value="<%= dataArray[1].pendingMessages[i].message %>">
+                                <input type="hidden" value=<%= dataArray[1].pendingMessages[i].firstName %>>
+                                <input type="hidden" value=<%= dataArray[1].pendingMessages[i].lastName %>>
+                            </form>
+                           
+                        </td>
+                        <td>
+                            <form action="/deleteMessage" class="form-horizontal " method="post">
+                                <button type="submit" class="btn btn-outline-UVSASE" value = "deleteMessage">
+                                    Delete
                                 </button>
                                 <input type="hidden" value="<%= dataArray[1].pendingMessages[i].message %>">
                                 <input type="hidden" value=<%= dataArray[1].pendingMessages[i].firstName %>>
@@ -56,10 +68,13 @@
             let message = event.target[1].value;
             let firstName = event.target[2].value;
             let lastName = event.target[3].value;
-            console.log(59, message);
-
-
-            return fetch("/approveMessage", {
+            console.log(59, event.target[0].value);
+            let request = "approveMessage";
+            if(event.target[0].value == "deleteMessage") {
+                request = "deleteMessage";
+            }
+            console.log(72, request);
+            return fetch("/" + request, {
                 method: "POST",
                 headers: {
                     Accept: "application/json",
