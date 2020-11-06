@@ -121,6 +121,30 @@ router.get("/", function (req, res) {
 
 });
 
+router.get("/workshop2", function (req, res) {
+
+
+
+
+  let isUserLoggedIn = isLoggedIn(req);
+
+
+
+
+  res.render("workshop2.ejs", {
+    layout: 'Layout/layout.ejs',
+    pagename: "workshop2",
+    title: "workshop2",
+    isLoggedIn: isUserLoggedIn,
+  });
+
+
+
+
+
+
+});
+
 router.get("/leaderboard", function (req, res) {
   let isUserLoggedIn = isLoggedIn(req);
 
