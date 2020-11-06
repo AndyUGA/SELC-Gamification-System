@@ -1,0 +1,81 @@
+html{
+    background-color: #272727;
+    font-size: calc(1em + 1vw);
+}
+main{
+    background-color: #272727;
+}
+.grid-container{
+    margin:5%;
+    background-color: #272727;
+    display: grid; 
+    grid-column-gap: 2%;
+    grid-row-gap: 5%;
+}
+.WScard{
+    border: 2px solid black;
+    width: 100%;
+    background-color: white;
+}
+.WS-title{
+    background-color: #FEDB5D;
+    width:100%;
+    height: 30%;
+    grid-column: 1;
+    grid-row: 1;
+    margin-top: 35%;
+}
+.WS-title p{
+    margin-top:1.5%;
+    font-family: "Arial Black", Gadget, sans-serif;
+    font-size: 100%;
+    text-align: center ;
+}
+.logo{
+    width:15%;
+    float: left; 
+    margin-top: 1.5%; 
+    margin-right: 5%;
+}
+.headshot{
+    width:50%;
+    margin-left: auto;
+    margin-right: auto;
+    display:block;
+    border-radius:50%;
+    grid-column: 1;
+    grid-row: 1;
+}
+.header{
+    display: grid;
+}
+.background{
+    grid-column: 1;
+    grid-row: 1;
+}
+.WSCard-body h3{
+    font-family: "Arial Black", Gadget, sans-serif;
+    font-weight: lighter;
+    font-size: 95%;
+    color: #558F9C;
+    text-align: center;
+}
+.WSCard-body p{
+    margin: 5%;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: lighter;
+    font-size: small;
+}
+.WSCard-button{
+    margin-left: 5%;
+    margin-right: 10%;
+    margin-bottom: 10%;
+    font-size: 50%;
+    float:left;
+    background-color: #558F9C;
+    color: white;
+}
+.WSCard-spots{
+color: #BF2A23;
+font-size: 100%;
+}
