@@ -114,7 +114,7 @@
           return firebase.auth().signOut();
         })
         .then(() => {
-          window.location.assign("/profile");
+          window.location.assign("/");
         })
         .catch(function (err) {
           $(".error").show();

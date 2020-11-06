@@ -19,8 +19,7 @@ function getCurrentUserData(email) {
 
   db.collection("users").where("email", "==", email).get().then(function (querySnapshot) {
     querySnapshot.forEach(function (doc) {
-
-
+      console.log(22, doc.data());
       return doc.data();
     });
   });
@@ -124,11 +123,13 @@ router.get("/", function (req, res) {
 router.get("/lillian", function (req, res) {
   let isUserLoggedIn = isLoggedIn(req);
 
+
   res.render("lillian.ejs", {
     layout: 'Layout/layout.ejs',
     pagename: "lillian",
     title: "lillian",
     isLoggedIn: isUserLoggedIn,
+    userData,
   });
 
 
@@ -336,6 +337,59 @@ router.get("/teamForm", function (req, res) {
 
 
 });
+
+
+router.get("/profile", function (req, res) {
+  const sessionCookie = req.cookies.session || "";
+  let isLoggedIn = false;
+  if(sessionCookie) {
+      isLoggedIn = true;
+  }
+
+  let userData;
+  let teamData = [];
+
+  db.collection("teams").orderBy("points", "DESC").get().then(function (querySnapshot) {
+ 
+    querySnapshot.forEach(function (doc) {
+
+      convertToArray(teamData, doc);
+    });
+  });
+
+
+
+
+  db.collection("users").where("email", "==", currentUserEmail).get().then(function (querySnapshot) {
+    querySnapshot.forEach(function (doc) {
+      userData = doc.data();
+    });
+    admin
+    .auth()
+    .verifySessionCookie(sessionCookie, true /** checkRevoked */)
+    .then(() => {
+      console.log(371, userData);
+      console.log(372, teamData);
+        res.render("profile.ejs", {
+            layout: 'Layout/layout.ejs',
+            pagename: "profile",
+            title: "Profile",
+            isLoggedIn,
+            userData,
+            teamData,
+        });
+    })
+    .catch((error) => {
+        res.redirect("/");
+    }); 
+
+  });
+  
+  
+ 
+});
+
+
 
 router.get("/profile/:fullName", function (req, res) {
   let isUserLoggedIn = isLoggedIn(req);
