@@ -8,3 +8,19 @@ $UVSASE-Yellow: #fed766;
    font-size: 3rem; 
    color: $UVSASE-blue;
 }
+
+.btn-UVSASE-blue {
+   background-color: $UVSASE-blue;
+   color: white;
+}
+
+.btn-outline-UVSASE {
+   color: $UVSASE-blue;
+   border-color: $UVSASE-blue;
+}
+
+
+.btn-outline-UVSASE:hover {
+   background-color: $UVSASE-blue;
+   color: white;
+}
