@@ -147,7 +147,7 @@ router.get("/register-workshops", function (req, res) {
 
   let currentUserInfo = [];
   let dataArray = [];
-
+  console.log(150, currentUserEmail);
   db.collection("users").where("email", "==", currentUserEmail).get().then(function (querySnapshot) {
 
     querySnapshot.forEach(function (doc) {

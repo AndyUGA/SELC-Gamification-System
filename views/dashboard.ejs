@@ -104,10 +104,10 @@
               <% for(var i = 0; i < teamsData.length; i++) {  %>
 
 
-              <% if(teamsData[i].team == 'Blue') { %>
-              <div class="col flex-column uvsase-blue">
+              <% if(teamsData[i].team == 'Black') { %>
+              <div class="col col-sm-3 flex-column uvsase-blue">
                 <div class="teamName-title">
-                  Blue
+                  Black
                 </div>
                 <% for(var j = 0; j < teamsData[i].attendees.length; j++) {  %>
              
@@ -118,10 +118,10 @@
               </div>
               <% } %>
 
-              <% if(teamsData[i].team == 'Green') { %>
-                <div class="col flex-column uvsase-blue">
+              <% if(teamsData[i].team == 'Blue') { %>
+                <div class="col col-sm-3 flex-column uvsase-blue">
                   <div class="teamName-title">
-                    Green
+                    Blue
                   </div>
                   <% for(var j = 0; j < teamsData[i].attendees.length; j++) {  %>
                     <div class="teanName-names">
@@ -131,10 +131,140 @@
                 </div>
                 <% } %>
 
-                <% if(teamsData[i].team == 'Red') { %>
-                  <div class="col flex-column uvsase-blue">
+                <% if(teamsData[i].team == 'Cyan') { %>
+                  <div class="col col-sm-3 flex-column uvsase-blue">
                     <div class="teamName-title">
-                      Red
+                      Cyan
+                    </div>
+                    <% for(var j = 0; j < teamsData[i].attendees.length; j++) {  %>
+                      <div class="teanName-names">
+                      <%= teamsData[i].attendees[j] %>
+                    </div>
+                    <% } %>
+                  </div>
+                  <% } %>
+
+                  <% if(teamsData[i].team == 'Green') { %>
+                    <div class="col col-sm-3 flex-column uvsase-blue">
+                      <div class="teamName-title">
+                        Green
+                      </div>
+                      <% for(var j = 0; j < teamsData[i].attendees.length; j++) {  %>
+                        <div class="teanName-names">
+                        <%= teamsData[i].attendees[j] %>
+                      </div>
+                      <% } %>
+                    </div>
+                    <% } %>
+
+              <% } %>
+
+              
+            </div>
+
+            <div class="row">
+
+
+
+              <% for(var i = 0; i < teamsData.length; i++) {  %>
+
+
+              <% if(teamsData[i].team == 'Grey') { %>
+              <div class="col col-sm-3 flex-column uvsase-blue">
+                <div class="teamName-title">
+                  Grey
+                </div>
+                <% for(var j = 0; j < teamsData[i].attendees.length; j++) {  %>
+             
+                <div class="teanName-names">
+                  <%= teamsData[i].attendees[j] %>
+                </div>
+                <% } %>
+              </div>
+              <% } %>
+
+              <% if(teamsData[i].team == 'Lime') { %>
+                <div class="col col-sm-3 flex-column uvsase-blue">
+                  <div class="teamName-title">
+                    Lime
+                  </div>
+                  <% for(var j = 0; j < teamsData[i].attendees.length; j++) {  %>
+                    <div class="teanName-names">
+                    <%= teamsData[i].attendees[j] %>
+                  </div>
+                  <% } %>
+                </div>
+                <% } %>
+
+                <% if(teamsData[i].team == 'Orange') { %>
+                  <div class="col col-sm-3 flex-column uvsase-blue">
+                    <div class="teamName-title">
+                      Orange
+                    </div>
+                    <% for(var j = 0; j < teamsData[i].attendees.length; j++) {  %>
+                      <div class="teanName-names">
+                      <%= teamsData[i].attendees[j] %>
+                    </div>
+                    <% } %>
+                  </div>
+                  <% } %>
+
+                  <% if(teamsData[i].team == 'Pink') { %>
+                    <div class="col col-sm-3 flex-column uvsase-blue">
+                      <div class="teamName-title">
+                        Pink
+                      </div>
+                      <% for(var j = 0; j < teamsData[i].attendees.length; j++) {  %>
+                        <div class="teanName-names">
+                        <%= teamsData[i].attendees[j] %>
+                      </div>
+                      <% } %>
+                    </div>
+                    <% } %>
+
+              <% } %>
+
+              
+            </div>
+
+            <div class="row">
+
+
+
+              <% for(var i = 0; i < teamsData.length; i++) {  %>
+
+
+              <% if(teamsData[i].team == 'Purple') { %>
+              <div class="col col-sm-3 flex-column uvsase-blue">
+                <div class="teamName-title">
+                  Purple
+                </div>
+                <% for(var j = 0; j < teamsData[i].attendees.length; j++) {  %>
+             
+                <div class="teanName-names">
+                  <%= teamsData[i].attendees[j] %>
+                </div>
+                <% } %>
+              </div>
+              <% } %>
+
+              <% if(teamsData[i].team == 'Red') { %>
+                <div class="col col-sm-3 flex-column uvsase-blue">
+                  <div class="teamName-title">
+                    Red
+                  </div>
+                  <% for(var j = 0; j < teamsData[i].attendees.length; j++) {  %>
+                    <div class="teanName-names">
+                    <%= teamsData[i].attendees[j] %>
+                  </div>
+                  <% } %>
+                </div>
+                <% } %>
+
+                <% if(teamsData[i].team == 'White') { %>
+                  <div class="col col-sm-3 flex-column uvsase-blue">
+                    <div class="teamName-title">
+                      White
                     </div>
                     <% for(var j = 0; j < teamsData[i].attendees.length; j++) {  %>
                       <div class="teanName-names">
@@ -145,7 +275,7 @@
                   <% } %>
 
                   <% if(teamsData[i].team == 'Yellow') { %>
-                    <div class="col flex-column uvsase-blue">
+                    <div class="col col-sm-3 flex-column uvsase-blue">
                       <div class="teamName-title">
                         Yellow
                       </div>
