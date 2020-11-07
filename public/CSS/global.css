@@ -7,11 +7,11 @@ body {
 }
 
 .nav-link {
-  color: #009fb7 !important;
+  color: white !important;
 }
 
 .navbar-brand {
-  color: #114b5f !important;
+  color: white !important;
 }
 
 .dashboard-card {
@@ -19,6 +19,10 @@ body {
   border: solid 1px #009fb7;
   -webkit-box-shadow: 0 0 35px 0 rgba(154, 161, 171, 0.15);
           box-shadow: 0 0 35px 0 rgba(154, 161, 171, 0.15);
+}
+
+.bg-UVSASE-blue {
+  background-color: #114b5f !important;
 }
 
 .text-UVSASE-blue {
