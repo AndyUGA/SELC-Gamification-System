@@ -134,21 +134,28 @@
         aria-expanded="true" aria-controls="familyCollapse">
         My Family</button>
 
-   
-    <div class="row">
+    <div class="row bg-light collapse dont-collapse-sm" id="familyCollapse">
 
         <% for(let i = 0; i < teamIDs.length; i++) { %>
-            <% if(userData.fullName != teamIDs[i].fullName) { %>
-        <div class="col-4">
-            <img class="img-fluid team-img-maxSize" id="teamImg<%=i%>">
-            <p class="card-title font-weight-bold mt-1">
-                <%= teamIDs[i].fullName %>
-            </p>
+        <% if(userData.fullName != teamIDs[i].fullName) { %>
+        <div class="col-4 text-center">
+            <div class="card bg-light border-0 mob-w">
+                <div class="card-body px-0 pb-0">
+                    <img class="img-fluid team-img-maxSize" id="teamImg<%=i%>">
+                    <p class="card-title font-weight-bold mt-1">
+                        <%= teamIDs[i].fullName %>
+                    </p>
+                    <p class="card-text">
+                    </p>
+                </div>
+            </div>
         </div>
+            <% } %>
+            <% } %>
 
-        <% } %>
-        <% } %>
+       
     </div>
+    
 
 
 

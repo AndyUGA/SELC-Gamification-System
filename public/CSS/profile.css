@@ -7,10 +7,10 @@
 }
 
 .team-img-maxSize {
-  max-height: 200px;
-  max-width: 200px;
-  -o-object-fit: cover;
-     object-fit: cover;
+  height: 200px;
+  width: 200px;
+  -o-object-fit: contain;
+     object-fit: contain;
 }
 
 .dl {
@@ -75,7 +75,9 @@
             column-count: 5;
   }
   .collapse.dont-collapse-sm {
-    display: block;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
     height: auto !important;
     visibility: visible;
   }

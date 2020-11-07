@@ -8,9 +8,9 @@
 }
 
 .team-img-maxSize {
-    max-height: 200px;
-    max-width: 200px;
-    object-fit: cover;
+    height: 200px;
+    width: 200px;
+    object-fit: contain;
 }
 
 .dl {
@@ -72,7 +72,7 @@
         column-count: 5;
     }
     .collapse.dont-collapse-sm {
-        display: block;
+        display: flex;
         height: auto !important;
         visibility: visible;
       }
