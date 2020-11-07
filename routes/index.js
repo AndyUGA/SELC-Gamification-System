@@ -165,6 +165,28 @@ router.get("/leaderboard", function (req, res) {
 
 });
 
+router.get("/history", function (req, res) {
+  let isUserLoggedIn = isLoggedIn(req);
+
+  db.collection("history").orderBy("modified", "DESC").get().then(function (querySnapshot) {
+    let dataArray = [];
+    querySnapshot.forEach(function (doc) {
+
+      convertToArray(dataArray, doc);
+    });
+    console.log(177, dataArray);
+    res.render("history.ejs", {
+      layout: 'Layout/layout.ejs',
+      pagename: "history",
+      title: "History",
+      dataArray,
+      isLoggedIn: isUserLoggedIn,
+    });
+  });
+
+
+});
+
 router.get("/register-workshops", function (req, res) {
   let isUserLoggedIn = isLoggedIn(req);
   if (isUserLoggedIn == false) {
@@ -347,8 +369,8 @@ router.get("/teamForm", function (req, res) {
 router.get("/profile", function (req, res) {
   const sessionCookie = req.cookies.session || "";
   let isLoggedIn = false;
-  if(sessionCookie) {
-      isLoggedIn = true;
+  if (sessionCookie) {
+    isLoggedIn = true;
   }
 
   let userData;
@@ -356,17 +378,17 @@ router.get("/profile", function (req, res) {
   let userIDs = [];
 
   db.collection("users").orderBy("points", "DESC").get().then(function (querySnapshot) {
- 
+
     querySnapshot.forEach(function (doc) {
 
       convertToArray(userIDs, doc);
     });
 
   });
-  
+
 
   db.collection("teams").orderBy("points", "DESC").get().then(function (querySnapshot) {
- 
+
     querySnapshot.forEach(function (doc) {
 
       convertToArray(teamData, doc);
@@ -381,42 +403,42 @@ router.get("/profile", function (req, res) {
       userData = doc.data();
     });
     admin
-    .auth()
-    .verifySessionCookie(sessionCookie, true /** checkRevoked */)
-    .then(() => {
-      console.log(387, userIDs);
+      .auth()
+      .verifySessionCookie(sessionCookie, true /** checkRevoked */)
+      .then(() => {
+        console.log(387, userIDs);
 
-      let currentTeam = userData.teamName;
-      let teamIDs = [];
+        let currentTeam = userData.teamName;
+        let teamIDs = [];
 
-      for(let i = 0; i < userIDs.length; i++) {
-        if(userIDs[i].teamName == currentTeam) {
-          teamIDs.push(userIDs[i]);
+        for (let i = 0; i < userIDs.length; i++) {
+          if (userIDs[i].teamName == currentTeam) {
+            teamIDs.push(userIDs[i]);
+          }
         }
-      }
-      console.log(397, teamIDs);
+        console.log(397, teamIDs);
 
         res.render("profile.ejs", {
-            layout: 'Layout/layout.ejs',
-            pagename: "profile",
-            title: "Profile",
-            isLoggedIn,
-            userData,
-            teamData,
-            teamIDs,
-            userIDs,
-            teamIDsLength: teamIDs.length,
+          layout: 'Layout/layout.ejs',
+          pagename: "profile",
+          title: "Profile",
+          isLoggedIn,
+          userData,
+          teamData,
+          teamIDs,
+          userIDs,
+          teamIDsLength: teamIDs.length,
         });
-    })
-    .catch((error) => {
-      console.log(402, error);
+      })
+      .catch((error) => {
+        console.log(402, error);
         res.redirect("/");
-    }); 
+      });
 
   });
-  
-  
- 
+
+
+
 });
 
 
@@ -514,11 +536,21 @@ router.post("/modifyPoints", function (req, res) {
 
 
   let currentUser = req.body.currentUser;
+  let fullName = currentUser.substring(0, currentUser.indexOf('(') - 1);
 
   let startIndexOfEmail = currentUser.indexOf("(");
   let endIndexOfEmail = currentUser.indexOf(")");
 
   let userEmail = currentUser.substring((startIndexOfEmail + 1), endIndexOfEmail);
+
+  let today = new Date().toLocaleString();
+
+  db.collection("history").add({
+    attendee: fullName,
+    email: userEmail,
+    points: req.body.points,
+    modified: today,
+  });
 
 
   db.collection("users").where("email", "==", userEmail).get().then(function (querySnapshot) {
