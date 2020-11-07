@@ -353,6 +353,17 @@ router.get("/profile", function (req, res) {
 
   let userData;
   let teamData = [];
+  let userIDs = [];
+
+  db.collection("users").get().then(function (querySnapshot) {
+ 
+    querySnapshot.forEach(function (doc) {
+
+      convertToArray(userIDs, doc);
+    });
+
+  });
+  
 
   db.collection("teams").orderBy("points", "DESC").get().then(function (querySnapshot) {
  
@@ -373,8 +384,18 @@ router.get("/profile", function (req, res) {
     .auth()
     .verifySessionCookie(sessionCookie, true /** checkRevoked */)
     .then(() => {
-      console.log(371, userData);
-      console.log(372, teamData);
+      console.log(387, userIDs);
+
+      let currentTeam = userData.teamName;
+      let teamIDs = [];
+
+      for(let i = 0; i < userIDs.length; i++) {
+        if(userIDs[i].teamName == currentTeam) {
+          teamIDs.push(userIDs[i]);
+        }
+      }
+      console.log(397, teamIDs);
+
         res.render("profile.ejs", {
             layout: 'Layout/layout.ejs',
             pagename: "profile",
@@ -382,9 +403,12 @@ router.get("/profile", function (req, res) {
             isLoggedIn,
             userData,
             teamData,
+            teamIDs,
+            teamIDsLength: teamIDs.length,
         });
     })
     .catch((error) => {
+      console.log(402, error);
         res.redirect("/");
     }); 
 

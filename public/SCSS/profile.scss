@@ -1,5 +1,16 @@
 .fam-color {
     border: 1em solid #D20000;
+
+}
+
+.hidden {
+    display: none;
+}
+
+.team-img-maxSize {
+    max-height: 200px;
+    max-width: 200px;
+    object-fit: cover;
 }
 
 .dl {
@@ -56,7 +67,7 @@
     }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 767px) {
     .card-columns {
         column-count: 5;
     }
@@ -68,7 +79,7 @@
 }
 
 @media (min-width: 992px) {
-    .f-lg {
+    .dont-collapse-sm {
         display: flex;
     }
 }

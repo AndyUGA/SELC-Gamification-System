@@ -2,6 +2,17 @@
   border: 1em solid #D20000;
 }
 
+.hidden {
+  display: none;
+}
+
+.team-img-maxSize {
+  max-height: 200px;
+  max-width: 200px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
 .dl {
   text-align: center;
 }
@@ -58,7 +69,7 @@
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 767px) {
   .card-columns {
     -webkit-column-count: 5;
             column-count: 5;
@@ -71,7 +82,7 @@
 }
 
 @media (min-width: 992px) {
-  .f-lg {
+  .dont-collapse-sm {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
