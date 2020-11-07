@@ -22,8 +22,16 @@
             <div class="row my-4">
                 <table class="dl mx-auto">
                     <tr>
-                        <td id="rank">#89</td>
-                        <td id="points">4000</td>
+                        <td id="rank">
+                            <% for(let i = 0; i < userIDs.length; i++) { %>
+                          <% if(userData.fullName == userIDs[i].fullName) { %>
+                            # <%= i %>
+                            <% } %>
+                            <% } %>
+                        </td>
+                        <td id="points">
+                            <%= userData.points %>
+                        </td>
                     </tr>
                     <tr class="frp">
                         <td>Rank</td>
@@ -68,7 +76,7 @@
     </div>
     <% } %>
     <div class="hidden" id="teamIDsLength" value=<%= teamIDsLength %>></div>
-    <div class="collapse dont-collapse-sm" id="scheduleCollapse">
+    <div class="collapse dont-collapse-sm d-block" id="scheduleCollapse">
         <div class="row">
             <!-- Friday -->
             <div class="col-md bg-light px-3 mx-3">
@@ -150,12 +158,12 @@
                 </div>
             </div>
         </div>
-            <% } %>
-            <% } %>
+        <% } %>
+        <% } %>
 
-       
+
     </div>
-    
+
 
 
 

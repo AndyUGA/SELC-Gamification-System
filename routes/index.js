@@ -355,7 +355,7 @@ router.get("/profile", function (req, res) {
   let teamData = [];
   let userIDs = [];
 
-  db.collection("users").get().then(function (querySnapshot) {
+  db.collection("users").orderBy("points", "DESC").get().then(function (querySnapshot) {
  
     querySnapshot.forEach(function (doc) {
 
@@ -404,6 +404,7 @@ router.get("/profile", function (req, res) {
             userData,
             teamData,
             teamIDs,
+            userIDs,
             teamIDsLength: teamIDs.length,
         });
     })
