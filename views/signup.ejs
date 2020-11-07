@@ -34,17 +34,25 @@
             <label for="exampleInputPassword1">Password</label>
             <input type="password" class="form-control" name="password">
           </div>
-           
-          <div class="form-group">
-            <label for="exampleInputPassword1">Profile Image</label>
-           
-           <input id = "uploadedImage" type = "file" name = "profileImage">
-           
+
+          <div class="form-group">  
+          <label for="exampleInputPassword1">
+            Upload Profile Image
+          </label>
+          <br>
+            <input id="uploadedImage" type="file" name="profileImage">
+
           </div>
-          
+
           <button type="submit" class="btn register-button">
             Register
           </button>
+          <div  class="d-flex justify-content-center py-3">
+            <div id= "loading-spinner" class="spinner-border text-warning" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </div>
+         
           <div class="error pt-3">
             There was an error when registering your account. Please try again.
           </div>
@@ -81,11 +89,13 @@
 
   firebase.initializeApp(firebaseConfig);
 
-  
+
 
   document
     .getElementById("signup")
     .addEventListener("submit", (event) => {
+
+      document.getElementById("loading-spinner").style.display = "block";
       event.preventDefault();
       const login = event.target.login.value;
       const password = event.target.password.value;
@@ -93,51 +103,51 @@
       const lastName = event.target.lastName.value;
       const profileImage = document.getElementById("uploadedImage").files[0];
       //console.log(92, profileImage);
-      
+
       firebase
         .auth()
         .createUserWithEmailAndPassword(login, password)
         .then(({ user }) => {
 
-           firebase.storage().ref('users/' + user.uid + '/profile.jpg').put(profileImage).then(function() {
-            console.log(122,"Proifle picture uploaded successfully!");
-          }).catch(error => {
-            console.log(117, error.message);
+          firebase.storage().ref('users/' + user.uid + '/profile.jpg').put(profileImage).then(function () {
+            console.log(122, "Proifle picture uploaded successfully!");
+            document.getElementById("loading-spinner").style.display = "none";
+            return user;
           })
-
-          return user.getIdToken().then((idToken) => {
-            return fetch("/sessionSignup", {
-              method: "POST",
-              headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-                "CSRF-Token": Cookies.get("XSRF-TOKEN"),
-              },
-              body: JSON.stringify({
-                idToken,
-                "uid": user.uid,
-                email: login,
-                firstName,
-                lastName
-              }),
-            });
-
-
-          });
+            .then((user) => {
+              return user.getIdToken().then((idToken) => {
+                return fetch("/sessionSignup", {
+                  method: "POST",
+                  headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                    "CSRF-Token": Cookies.get("XSRF-TOKEN"),
+                  },
+                  body: JSON.stringify({
+                    idToken,
+                    "uid": user.uid,
+                    email: login,
+                    firstName,
+                    lastName
+                  }),
+                });
+              })
+                .then(() => {
+                  console.log(132, "Redirecting")
+                  window.location.assign("/");
+                })
+                .catch(function (err) {
+                  console.log(126, err.message);
+                  $(".error").show();
+                  event.target.login.value = "";
+                  event.target.password.value = "";
+                });
+            })
         })
-        .then(() =>  {
-          window.location.assign("/");
-          // firebase.storage().ref('users/profile.jpg').put(profileImage).then(function() {
-          //   console.log(122,"Proifle picture uploaded successfully!");
-          // }).catch(error => {
-          //   console.log(117, error.message);
-          // })
+        .catch(error => {
+          console.log(117, error.message);
         })
-        .catch(function (err) {
-          console.log(126, err.message);
-          $(".error").show();
-          event.target.login.value = "";
-          event.target.password.value = "";
-        });
-    });
+    })
+
+
 </script>
