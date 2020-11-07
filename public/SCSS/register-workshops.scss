@@ -29,8 +29,37 @@ $UVSASE-Yellow: #fed766;
 .workshop-font-color {
     color: $UVSASE-blue;
     font-weight: bold;
+    text-align: center;
+    font-size: 1.5rem;
 }
 
 th {
     color: $UVSASE-dark-blue;
+}
+
+.max-img-size {
+    height: 40px;
+    width: 40px;
+}
+
+.yellow-bg {
+    background-color: $UVSASE-Yellow;
+}
+
+.worshop-name {
+    font-size: 1.5rem;
+}
+
+.presenter-name {
+    color: $UVSASE-blue;
+    text-align: center;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+}
+
+.remaining-spots {
+    color: $UVSASE-dark-blue;
+    font-weight: bold;
+    font-size: 1.2rem;
 }

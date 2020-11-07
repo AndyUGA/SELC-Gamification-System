@@ -121,6 +121,30 @@ router.get("/", function (req, res) {
 
 });
 
+router.get("/workshop2", function (req, res) {
+
+
+
+
+  let isUserLoggedIn = isLoggedIn(req);
+
+
+
+
+  res.render("workshop2.ejs", {
+    layout: 'Layout/layout.ejs',
+    pagename: "workshop2",
+    title: "workshop2",
+    isLoggedIn: isUserLoggedIn,
+  });
+
+
+
+
+
+
+});
+
 router.get("/leaderboard", function (req, res) {
   let isUserLoggedIn = isLoggedIn(req);
 
@@ -144,57 +168,53 @@ router.get("/leaderboard", function (req, res) {
 
 router.get("/register-workshops", function (req, res) {
   let isUserLoggedIn = isLoggedIn(req);
+  if (isUserLoggedIn == false) {
+    res.redirect("/login");
+  } else {
 
-  let currentUserInfo = [];
-  let dataArray = [];
-  console.log(150, currentUserEmail);
-  db.collection("users").where("email", "==", currentUserEmail).get().then(function (querySnapshot) {
-
-    querySnapshot.forEach(function (doc) {
-
-      convertToArray(currentUserInfo, doc);
-    });
-
-  }).then(function () {
-    db.collection("workshops").orderBy("identifier", "ASC").get().then(function (querySnapshot) {
+    let currentUserInfo = [];
+    let dataArray = [];
+    console.log(150, currentUserEmail);
+    db.collection("users").where("email", "==", currentUserEmail).get().then(function (querySnapshot) {
 
       querySnapshot.forEach(function (doc) {
 
-        convertToArray(dataArray, doc);
-
+        convertToArray(currentUserInfo, doc);
       });
 
-      let tempWorkshops = [...dataArray];
-      let userCurrentWorkshops = currentUserInfo[0].workshops;
-      let registeredWorkshopNumber = currentUserInfo[0].workshops.length;
+    }).then(function () {
+      db.collection("workshops").orderBy("identifier", "ASC").get().then(function (querySnapshot) {
 
+        querySnapshot.forEach(function (doc) {
 
-      for (let i = 0; i < userCurrentWorkshops.length; i++) {
+          convertToArray(dataArray, doc);
 
-        for (let j = 0; j < dataArray.length; j++) {
+        });
 
-          if (userCurrentWorkshops[i] == dataArray[j].name) {
-            tempWorkshops[j].show = false;
+        let tempWorkshops = [...dataArray];
+        let userCurrentWorkshops = currentUserInfo[0].workshops;
+        let registeredWorkshopNumber = currentUserInfo[0].workshops.length;
+
+        for (let i = 0; i < userCurrentWorkshops.length; i++) {
+
+          for (let j = 0; j < dataArray.length; j++) {
+
+            if (userCurrentWorkshops[i] == dataArray[j].name) {
+              tempWorkshops[j].show = false;
+            }
           }
         }
-      }
-
-
-
-      res.render("register-workshops.ejs", {
-        layout: 'Layout/layout.ejs',
-        pagename: "register-workshops",
-        title: "Register for Workshops!",
-        dataArray: tempWorkshops,
-        registeredWorkshopNumber,
-        isLoggedIn: isUserLoggedIn,
+        res.render("register-workshops.ejs", {
+          layout: 'Layout/layout.ejs',
+          pagename: "register-workshops",
+          title: "Register for Workshops!",
+          dataArray: tempWorkshops,
+          registeredWorkshopNumber,
+          isLoggedIn: isUserLoggedIn,
+        });
       });
     });
-  });
-
-
-
-
+  }
 });
 
 router.get("/workshop/:workshopName", function (req, res) {
