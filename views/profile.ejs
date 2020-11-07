@@ -1,61 +1,220 @@
-<div class="container">
-
-  <div class="row">
-    <div class="col">
-      <h1>Profile page</h1>
-      <!--  
-            <a href="/sessionLogout">Log out</a>
-                -->
-
-
-      <img class="img-fluid" src="./Images/Profile/draft.png">
+<div class="my-4">
+    <img class="mx-auto" style="width: 45%; display: block;" src="./Images/Profile/SELC-Reboot.jpg">
+</div>
+<!-- Top section with basic attendee info -->
+<div class="container-fluid my-5">
+    <div class="row ml-3">
+        <div class="col-md">
+            <!-- Attendee photo with background border color of family color -->
+            <div class="col">
+                <img class="fam-color w-25 img-fluid float-left mr-3" id="attendeePic" src="./Images/Profile/example.png">
+            </div>
+            <div class="col" id="attendeeText">
+                <!-- Attendee name and school -->
+                <h1>
+                    <%= userData.fullName %>
+                </h1>
+                <h3>University Name</h3>
+            </div>
+        </div>
+        <!-- Points and Ranking -->
+        <div class="col-md-3 mr-3 my-auto">
+            <div class="row my-4">
+                <table class="dl mx-auto">
+                    <tr>
+                        <td id="rank">#89</td>
+                        <td id="points">4000</td>
+                    </tr>
+                    <tr class="frp">
+                        <td>Rank</td>
+                        <td>Points</td>
+                    </tr>
+                    <tr>
+                        <td id="frank">
+                            <% for(let i = 0; i < teamData.length; i++) { %>
+                                <% if(teamData[i].team == userData.teamName) { %>
+                                    <%=(i + 1)%>
+                                <% } %>
+                            <% } %>
+                        </td>
+                        <td id="fpoints">
+                                <% for(let i = 0; i < teamData.length; i++) { %>
+                                    <% if(teamData[i].team == userData.teamName) { %>
+                                    <%=   teamData[i].points %>
+                                    <% } %>
+                                <% } %>
+                        </td>
+                    </tr>
+                    <tr class="frp">
+                        <td>Family Rank</td>
+                        <td>Family Points</td>
+                    </tr>
+                </table>
+                <button class="btn btn-info mt-3 mx-auto px-5" href="">Go To Leaderboard</button>
+            </div>
+        </div>
     </div>
-  </div>
+</div>
+<!-- End top section with basic attendee info -->
+<!-- SELC Schedule -->
+<div class="container-fluid mobile-center">
+    <button class="btn btn-tab mb-2 mobile-width" type="button" data-toggle="collapse" data-target="#scheduleCollapse" aria-expanded="true"
+        aria-controls="scheduleCollapse">
+        My SELC Schedule</button>
+    <div class="collapse dont-collapse-sm" id="scheduleCollapse">
+        <div class="row">
+            <!-- Friday -->
+            <div class="col-md bg-light px-3 mx-3">
+                <h5 class="text-center my-3">—Friday—</h5>
+                <table class="table table-sm" id="fri">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th class="text-right">Session</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <!-- Saturday-->
+            <div class="col-md bg-light px-3 mx-3">
+                <h5 class="text-center my-3">—Saturday—</h5>
+                <table class="table table-sm" id="sat">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th class="text-right">Session</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <!-- Sunday -->
+            <div class="col-md bg-light px-3 mx-3">
+                <h5 class="text-center my-3">—Sunday—</h5>
+                <table class="table table-sm" id="sun">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th class="text-right">Session</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>10am</td>
+                            <td>Session 1</td>
+                        </tr>
+                        <tr>
+                            <td>11am</td>
+                            <td>Session 2</td>
+                        </tr>
+                        <tr>
+                            <td>12pm</td>
+                            <td>Session 3</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End SELC Schedule -->
+<!-- Family -->
+<div class="container-fluid my-5 mobile-center">
+    <button class="btn btn-tab mb-2 mobile-width" type="button" data-toggle="collapse" data-target="#familyCollapse" aria-expanded="true"
+        aria-controls="familyCollapse">
+        My Family</button>
+    <div class="row bg-light mx-2 px-2 collapse dont-collapse-sm" id="familyCollapse">
+        <div class="mx-auto">
+            <div class="text-center card-columns f-lg" id="family-Section"></div>
+        </div>
+    </div>
 </div>
 
 
-<script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-auth.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
 
 
+
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"></script>
 <script>
+    // temp schedule array for testing
+    const saSc = [
+        { time: "10am", name: "Session 1" },
+        { time: "11am", name: "Session 2" }
+    ]
+    // temp family list for testing
+    const famList = [
+        { name: "Holly Vu", uni: "University of Florida", photo: "./Images/Profile/example.png" },
+        { name: "Jason Phu", uni: "Rutgers University", photo: "./Images/Profile/example.png" },
+        { name: "Tester Name", uni: "Blank University", photo: "./Images/Profile/example.png" },
+        { name: "Tester Name", uni: "Blank University", photo: "./Images/Profile/example.png" },
+        { name: "Tester Name", uni: "Blank University", photo: "./Images/Profile/example.png" },
+        { name: "Tester Name", uni: "Blank University", photo: "./Images/Profile/example.png" },
+        { name: "Tester Name", uni: "Blank University", photo: "./Images/Profile/example.png" }
+    ]
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyCic5UWC0fXladccjESHt2eEUFR3GCpu7k",
-    authDomain: "test-73b01.firebaseapp.com",
-    databaseURL: "https://test-73b01.firebaseio.com",
-    projectId: "test-73b01",
-    storageBucket: "test-73b01.appspot.com",
-    messagingSenderId: "622256382010",
-    appId: "1:622256382010:web:305e70e752a5a757c2d503"
-  };
-
-  firebase.initializeApp(firebaseConfig);
-
-  const auth = firebase.auth();
-  let userEmail = "";
-  auth.onAuthStateChanged(function (user) {
-    if (user) {
-      console.log(40, user);
-      userEmail = user.email;
-
-      return fetch("/saveUserEmail", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          "CSRF-Token": Cookies.get("XSRF-TOKEN"),
-        },
-        body: JSON.stringify({
-          userEmail,
-        }),
-      });
-    } else {
-      console.log(43, "user not signed in");
+    function loadSchedule(table, data) {
+        for (let element of data) {
+            let row = table.insertRow();
+            for (key in element) {
+                let cell = row.insertCell();
+                if (key == 'name') {
+                    cell.className = 'text-right';
+                }
+                let text = document.createTextNode(element[key]);
+                cell.appendChild(text);
+            }
+        }
     }
-  });
+    let table = document.getElementById("sat");
+    loadSchedule(table, saSc);
+    table = document.getElementById("fri");
+    loadSchedule(table, saSc)
 
+    function loadFam(section, data) {
+        var i = 0;
+        for (let element of data) {
+            let card = document.createElement('div');
+            card.className = 'card bg-light border-0 mob-w';
 
+            let photo = document.createElement('img');
+            photo.className = 'card-img-top'
+            photo.src = element.photo;
+
+            let cardBody = document.createElement('div');
+            cardBody.className = 'card-body px-0 pb-0';
+
+            let name = document.createElement('p');
+            name.className = 'card-title font-weight-bold mt-1';
+            name.innerText = element.name;
+
+            let uni = document.createElement('p');
+            uni.className = 'card-text'
+            uni.innerText = element.uni;
+
+            cardBody.append(photo, name, uni);
+            card.appendChild(cardBody);
+            section.appendChild(card);
+
+        }
+    }
+    let famSec = document.getElementById("family-Section");
+    loadFam(famSec, famList);
+
+    $('button[data-toggle="collapse"]').click(function (e) {
+        if ($(window).width() >= 768) {
+            // Should prevent the collapsible and default anchor linking 
+            // behavior for screen sizes equal or larger than 768px.
+            e.preventDefault();
+            e.stopPropagation();
+        }
+    });
 
 </script>

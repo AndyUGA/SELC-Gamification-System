@@ -1,0 +1,80 @@
+.fam-color {
+    border: 1em solid #D20000;
+}
+
+.dl {
+    text-align: center;
+}
+
+.dl td {
+    padding: 0px 15px;
+}
+
+.frp {
+    font-size: 1em;
+    color: #ADADAD;
+}
+
+#rank, #points {
+    font-size: 3em;
+    color: #FED766;
+    text-shadow: 1px 1px 3px #ADADAD;
+}
+
+#frank, #fpoints {
+    font-size: 3em;
+    color: #3e919f;
+    text-shadow: 1px 1px 3px #ADADAD;
+}
+
+.btn-tab {
+    background-color: #FED766;
+    text-align: center;
+    font-size: 2em;
+}
+
+.table-sm tbody tr td:last-child {
+    text-align: right;
+}
+
+@media (max-width: 767px) {
+    .mobile-center {
+        text-align: center;
+    }
+    .mobile-width {
+        width: 95%;
+    }
+    .card-columns {
+        column-count: 2;
+        display: inline-block;
+
+    }
+    .card-columns .card{
+        column-count: 2;
+        display: inline-flex;
+
+    }
+}
+
+@media (min-width: 768px) {
+    .card-columns {
+        column-count: 5;
+    }
+    .collapse.dont-collapse-sm {
+        display: block;
+        height: auto !important;
+        visibility: visible;
+      }
+}
+
+@media (min-width: 992px) {
+    .f-lg {
+        display: flex;
+    }
+}
+
+@media (min-width: 1200px) {
+    .f-lg {
+        display: flex;
+    }
+}
