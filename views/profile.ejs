@@ -7,7 +7,8 @@
         <div class="col-md">
             <!-- Attendee photo with background border color of family color -->
             <div class="col">
-                <img class="fam-color w-25 img-fluid float-left mr-3" id="attendeePic" src="./Images/Profile/example.png">
+                <img class="fam-color w-25 img-fluid float-left mr-3" id="attendeePic"
+                   >
             </div>
             <div class="col" id="attendeeText">
                 <!-- Attendee name and school -->
@@ -32,17 +33,17 @@
                     <tr>
                         <td id="frank">
                             <% for(let i = 0; i < teamData.length; i++) { %>
-                                <% if(teamData[i].team == userData.teamName) { %>
-                                    <%=(i + 1)%>
-                                <% } %>
+                            <% if(teamData[i].team == userData.teamName) { %>
+                            <%=(i + 1)%>
+                            <% } %>
                             <% } %>
                         </td>
                         <td id="fpoints">
-                                <% for(let i = 0; i < teamData.length; i++) { %>
-                                    <% if(teamData[i].team == userData.teamName) { %>
-                                    <%=   teamData[i].points %>
-                                    <% } %>
-                                <% } %>
+                            <% for(let i = 0; i < teamData.length; i++) { %>
+                            <% if(teamData[i].team == userData.teamName) { %>
+                            <%=   teamData[i].points %>
+                            <% } %>
+                            <% } %>
                         </td>
                     </tr>
                     <tr class="frp">
@@ -58,8 +59,8 @@
 <!-- End top section with basic attendee info -->
 <!-- SELC Schedule -->
 <div class="container-fluid mobile-center">
-    <button class="btn btn-tab mb-2 mobile-width" type="button" data-toggle="collapse" data-target="#scheduleCollapse" aria-expanded="true"
-        aria-controls="scheduleCollapse">
+    <button class="btn btn-tab mb-2 mobile-width" type="button" data-toggle="collapse" data-target="#scheduleCollapse"
+        aria-expanded="true" aria-controls="scheduleCollapse">
         My SELC Schedule</button>
     <div class="collapse dont-collapse-sm" id="scheduleCollapse">
         <div class="row">
@@ -123,8 +124,8 @@
 <!-- End SELC Schedule -->
 <!-- Family -->
 <div class="container-fluid my-5 mobile-center">
-    <button class="btn btn-tab mb-2 mobile-width" type="button" data-toggle="collapse" data-target="#familyCollapse" aria-expanded="true"
-        aria-controls="familyCollapse">
+    <button class="btn btn-tab mb-2 mobile-width" type="button" data-toggle="collapse" data-target="#familyCollapse"
+        aria-expanded="true" aria-controls="familyCollapse">
         My Family</button>
     <div class="row bg-light mx-2 px-2 collapse dont-collapse-sm" id="familyCollapse">
         <div class="mx-auto">
@@ -143,7 +144,41 @@
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-storage.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+
+
 <script>
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyCic5UWC0fXladccjESHt2eEUFR3GCpu7k",
+        authDomain: "test-73b01.firebaseapp.com",
+        databaseURL: "https://test-73b01.firebaseio.com",
+        projectId: "test-73b01",
+        storageBucket: "test-73b01.appspot.com",
+        messagingSenderId: "622256382010",
+        appId: "1:622256382010:web:305e70e752a5a757c2d503"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+
+    firebase.auth().onAuthStateChanged(user => {
+        console.log(169, user);
+        if(user) {
+            firebase.storage().ref('users/' + user.uid + '/profile.jpg').getDownloadURL().then(imgURL => {
+                document.getElementById("attendeePic").src = imgURL;
+              
+            })
+        }
+    })
+
+
+
+
+
     // temp schedule array for testing
     const saSc = [
         { time: "10am", name: "Session 1" },
