@@ -59,3 +59,10 @@ th {
   font-weight: bold;
   font-size: 1.2rem;
 }
+
+.workshop-presenter-photo {
+  -o-object-fit: contain;
+     object-fit: contain;
+  height: 200px;
+  width: 200px;
+}

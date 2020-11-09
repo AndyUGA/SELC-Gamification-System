@@ -365,6 +365,35 @@ router.get("/teamForm", function (req, res) {
 
 });
 
+router.get("/virtualSparks", function (req, res) {
+
+  const sessionCookie = req.cookies.session || "";
+  let isUserLoggedIn = isLoggedIn(req);
+
+  let userInfo = [];
+  let userIDs = [];
+  db.collection("users").get().then(function (querySnapshot) {
+
+
+    querySnapshot.forEach(function (doc) {
+
+      convertToArray(userInfo, doc);
+    });
+
+    res.render("virtualSparks.ejs", {
+      layout: 'Layout/layout.ejs',
+      pagename: "virtualSparks",
+      title: "Virtual Sparks",
+      isLoggedIn,
+      userInfo,
+      userInfoLength: userInfo.length,
+    });
+
+  });
+ 
+
+});
+
 
 router.get("/profile", function (req, res) {
   const sessionCookie = req.cookies.session || "";

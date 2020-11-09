@@ -85,11 +85,13 @@
     <% if(dataArray[i].show != false) { %>
     <div class="col-12 col-lg-4 mt-5">
       <div class="card">
-        <img src="./Images/Workshops/1.png" class="card-img-top" alt="...">
+        <!-- 
+        <img src="./Images/Workshops/<%= dataArray[i].presenter %>.jpg" class="img-fluid workshop-presenter-photo" alt="...">
+      -->
         <div class="container">
           <div class="row yellow-bg py-3">
             <div class="col d-flex justify-content-center align-items-center">
-              <img class="img-fluid max-img-size mx-3" src="./Images/Workshops/logo.png">
+              <img class="img-fluid " src="./Images/Workshops/<%= dataArray[i].presenter %>.jpg">
             </div>
             <div class="col-9">
               <div class="workshop-font-color">
@@ -111,7 +113,7 @@
           </div>
           <form class = "col-6" id="workshopRegister">
             <% if(registeredWorkshopNumber != 3)  { %>
-            <button type="submit" class="btn btn-UVSASE-darkBlue">
+            <button type="submit" class="btn btn-lg btn-UVSASE-darkBlue">
               <div class="text-white">
                 Register
               </div>
