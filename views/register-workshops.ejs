@@ -89,18 +89,17 @@
         <img src="./Images/Workshops/<%= dataArray[i].presenter %>.jpg" class="img-fluid workshop-presenter-photo" alt="...">
       -->
         <div class="container">
-          <div class="row yellow-bg py-3">
-            <div class="col d-flex justify-content-center align-items-center">
-              <img class="img-fluid " src="./Images/Workshops/<%= dataArray[i].presenter %>.jpg">
-            </div>
-            <div class="col-9">
-              <div class="workshop-font-color">
+          <div class="row yellow-bg py-3 min-card-height">
+        
+            <div class="col d-flex flex-column align-items-center justify-content-around">
+                <img class="img-fluid workshop-presenter-photo" src="./Images/Workshops/<%= dataArray[i].presenter %>.png">
+              <div class="workshop-font-color py-3 py-lg-0">
                 <%= dataArray[i].name %>
               </div>
             </div>
           </div>
         </div>
-        <div class="card-body">
+        <div class="card-body min-card-body-height d-flex flex-column justify-content-between">
           <div class="presenter-name">
             <%= dataArray[i].presenter %>
           </div>
