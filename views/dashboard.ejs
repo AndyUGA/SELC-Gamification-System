@@ -31,7 +31,7 @@
 
     <!-- Accounts Registered Card Component -->
     <div class="col-12 col-md-6">
-      <div class="card dashboard-card">
+      <div class="card dashboard-card min-card-height">
         <div class="row no-gutters pb-2">
 
           <div class="col-md-7 order-2">
@@ -55,7 +55,7 @@
     <!-- Edit Teams Card Component -->
     <div class="col-12 col-md-3 my-5 my-md-0">
       <a href="/teamForm">
-        <div class="card dashboard-card card-hover">
+        <div class="card dashboard-card card-hover min-card-height">
           <div class="row no-gutters d-flex justify-content-center">
             <div class="col-md-7 order-2 account-registered-title">
               Modify Teams
@@ -69,9 +69,9 @@
     </div>
 
     <!-- Edit Points Card Component -->
-    <div class="col-12 col-md-3 ">
+    <div class="col-12 col-md-3">
       <a href="/pointsForm">
-        <div class="card dashboard-card card-hover">
+        <div class="card dashboard-card card-hover min-card-height">
           <div class="row no-gutters d-flex justify-content-center">
 
             <div class="col-md-7 order-2 account-registered-title">
@@ -104,10 +104,10 @@
               <% for(var i = 0; i < teamsData.length; i++) {  %>
 
 
-              <% if(teamsData[i].team == 'Blue') { %>
-              <div class="col flex-column uvsase-blue">
+              <% if(teamsData[i].team == 'Black') { %>
+              <div class="col col-sm-3 flex-column uvsase-blue">
                 <div class="teamName-title">
-                  Blue
+                  Black
                 </div>
                 <% for(var j = 0; j < teamsData[i].attendees.length; j++) {  %>
              
@@ -118,10 +118,10 @@
               </div>
               <% } %>
 
-              <% if(teamsData[i].team == 'Green') { %>
-                <div class="col flex-column uvsase-blue">
+              <% if(teamsData[i].team == 'Blue') { %>
+                <div class="col col-sm-3 flex-column uvsase-blue">
                   <div class="teamName-title">
-                    Green
+                    Blue
                   </div>
                   <% for(var j = 0; j < teamsData[i].attendees.length; j++) {  %>
                     <div class="teanName-names">
@@ -131,10 +131,140 @@
                 </div>
                 <% } %>
 
-                <% if(teamsData[i].team == 'Red') { %>
-                  <div class="col flex-column uvsase-blue">
+                <% if(teamsData[i].team == 'Cyan') { %>
+                  <div class="col col-sm-3 flex-column uvsase-blue">
                     <div class="teamName-title">
-                      Red
+                      Cyan
+                    </div>
+                    <% for(var j = 0; j < teamsData[i].attendees.length; j++) {  %>
+                      <div class="teanName-names">
+                      <%= teamsData[i].attendees[j] %>
+                    </div>
+                    <% } %>
+                  </div>
+                  <% } %>
+
+                  <% if(teamsData[i].team == 'Green') { %>
+                    <div class="col col-sm-3 flex-column uvsase-blue">
+                      <div class="teamName-title">
+                        Green
+                      </div>
+                      <% for(var j = 0; j < teamsData[i].attendees.length; j++) {  %>
+                        <div class="teanName-names">
+                        <%= teamsData[i].attendees[j] %>
+                      </div>
+                      <% } %>
+                    </div>
+                    <% } %>
+
+              <% } %>
+
+              
+            </div>
+
+            <div class="row">
+
+
+
+              <% for(var i = 0; i < teamsData.length; i++) {  %>
+
+
+              <% if(teamsData[i].team == 'Grey') { %>
+              <div class="col col-sm-3 flex-column uvsase-blue">
+                <div class="teamName-title">
+                  Grey
+                </div>
+                <% for(var j = 0; j < teamsData[i].attendees.length; j++) {  %>
+             
+                <div class="teanName-names">
+                  <%= teamsData[i].attendees[j] %>
+                </div>
+                <% } %>
+              </div>
+              <% } %>
+
+              <% if(teamsData[i].team == 'Lime') { %>
+                <div class="col col-sm-3 flex-column uvsase-blue">
+                  <div class="teamName-title">
+                    Lime
+                  </div>
+                  <% for(var j = 0; j < teamsData[i].attendees.length; j++) {  %>
+                    <div class="teanName-names">
+                    <%= teamsData[i].attendees[j] %>
+                  </div>
+                  <% } %>
+                </div>
+                <% } %>
+
+                <% if(teamsData[i].team == 'Orange') { %>
+                  <div class="col col-sm-3 flex-column uvsase-blue">
+                    <div class="teamName-title">
+                      Orange
+                    </div>
+                    <% for(var j = 0; j < teamsData[i].attendees.length; j++) {  %>
+                      <div class="teanName-names">
+                      <%= teamsData[i].attendees[j] %>
+                    </div>
+                    <% } %>
+                  </div>
+                  <% } %>
+
+                  <% if(teamsData[i].team == 'Pink') { %>
+                    <div class="col col-sm-3 flex-column uvsase-blue">
+                      <div class="teamName-title">
+                        Pink
+                      </div>
+                      <% for(var j = 0; j < teamsData[i].attendees.length; j++) {  %>
+                        <div class="teanName-names">
+                        <%= teamsData[i].attendees[j] %>
+                      </div>
+                      <% } %>
+                    </div>
+                    <% } %>
+
+              <% } %>
+
+              
+            </div>
+
+            <div class="row">
+
+
+
+              <% for(var i = 0; i < teamsData.length; i++) {  %>
+
+
+              <% if(teamsData[i].team == 'Purple') { %>
+              <div class="col col-sm-3 flex-column uvsase-blue">
+                <div class="teamName-title">
+                  Purple
+                </div>
+                <% for(var j = 0; j < teamsData[i].attendees.length; j++) {  %>
+             
+                <div class="teanName-names">
+                  <%= teamsData[i].attendees[j] %>
+                </div>
+                <% } %>
+              </div>
+              <% } %>
+
+              <% if(teamsData[i].team == 'Red') { %>
+                <div class="col col-sm-3 flex-column uvsase-blue">
+                  <div class="teamName-title">
+                    Red
+                  </div>
+                  <% for(var j = 0; j < teamsData[i].attendees.length; j++) {  %>
+                    <div class="teanName-names">
+                    <%= teamsData[i].attendees[j] %>
+                  </div>
+                  <% } %>
+                </div>
+                <% } %>
+
+                <% if(teamsData[i].team == 'White') { %>
+                  <div class="col col-sm-3 flex-column uvsase-blue">
+                    <div class="teamName-title">
+                      White
                     </div>
                     <% for(var j = 0; j < teamsData[i].attendees.length; j++) {  %>
                       <div class="teanName-names">
@@ -145,7 +275,7 @@
                   <% } %>
 
                   <% if(teamsData[i].team == 'Yellow') { %>
-                    <div class="col flex-column uvsase-blue">
+                    <div class="col col-sm-3 flex-column uvsase-blue">
                       <div class="teamName-title">
                         Yellow
                       </div>
@@ -257,3 +387,51 @@
 -->
 </div>
 </div>
+
+
+
+<script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-auth.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+
+
+<script>
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCic5UWC0fXladccjESHt2eEUFR3GCpu7k",
+    authDomain: "test-73b01.firebaseapp.com",
+    databaseURL: "https://test-73b01.firebaseio.com",
+    projectId: "test-73b01",
+    storageBucket: "test-73b01.appspot.com",
+    messagingSenderId: "622256382010",
+    appId: "1:622256382010:web:305e70e752a5a757c2d503"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+
+  const auth = firebase.auth();
+  let userEmail = "";
+  auth.onAuthStateChanged(function (user) {
+    if (user) {
+      console.log(40, user);
+      userEmail = user.email;
+
+      return fetch("/saveUserEmail", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          "CSRF-Token": Cookies.get("XSRF-TOKEN"),
+        },
+        body: JSON.stringify({
+          userEmail,
+        }),
+      });
+    } else {
+      console.log(43, "user not signed in");
+    }
+  });
+
+
+
+</script>

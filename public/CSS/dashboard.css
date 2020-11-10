@@ -115,8 +115,11 @@
   }
 }
 
-@media screen and (min-width: 776px) {
+@media screen and (min-width: 768px) {
   .dashboard-card-img {
     margin-top: 0rem;
+  }
+  .min-card-height {
+    height: 150px;
   }
 }

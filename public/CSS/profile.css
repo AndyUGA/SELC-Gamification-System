@@ -2,6 +2,17 @@
   border: 1em solid #D20000;
 }
 
+.hidden {
+  display: none;
+}
+
+.team-img-maxSize {
+  height: 200px;
+  width: 200px;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
 .dl {
   text-align: center;
 }
@@ -58,20 +69,22 @@
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 767px) {
   .card-columns {
     -webkit-column-count: 5;
             column-count: 5;
   }
   .collapse.dont-collapse-sm {
-    display: block;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
     height: auto !important;
     visibility: visible;
   }
 }
 
 @media (min-width: 992px) {
-  .f-lg {
+  .dont-collapse-sm {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;

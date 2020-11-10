@@ -25,8 +25,59 @@
 .workshop-font-color {
   color: #009fb7;
   font-weight: bold;
+  text-align: center;
+  font-size: 1.5rem;
 }
 
 th {
   color: #114b5f;
+}
+
+.max-img-size {
+  height: 40px;
+  width: 40px;
+}
+
+.yellow-bg {
+  background-color: #fed766;
+}
+
+.worshop-name {
+  font-size: 1.5rem;
+}
+
+.presenter-name {
+  color: #009fb7;
+  text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
+
+.remaining-spots {
+  color: #114b5f;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.workshop-presenter-photo {
+  -o-object-fit: contain;
+     object-fit: contain;
+  height: 200px;
+  background-position: center center;
+}
+
+@media screen and (min-width: 992px) {
+  .min-card-height {
+    height: 400px;
+  }
+  .min-card-body-height {
+    height: 800px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .min-card-body-height {
+    height: 600px;
+  }
 }

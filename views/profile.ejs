@@ -2,12 +2,12 @@
     <img class="mx-auto" style="width: 45%; display: block;" src="./Images/Profile/SELC-Reboot.jpg">
 </div>
 <!-- Top section with basic attendee info -->
-<div class="container-fluid my-5">
+<div class="container my-5">
     <div class="row ml-3">
         <div class="col-md">
             <!-- Attendee photo with background border color of family color -->
             <div class="col">
-                <img class="fam-color w-25 img-fluid float-left mr-3" id="attendeePic" src="./Images/Profile/example.png">
+                <img class="fam-color w-25 img-fluid float-left mr-3" id="attendeePic">
             </div>
             <div class="col" id="attendeeText">
                 <!-- Attendee name and school -->
@@ -22,8 +22,16 @@
             <div class="row my-4">
                 <table class="dl mx-auto">
                     <tr>
-                        <td id="rank">#89</td>
-                        <td id="points">4000</td>
+                        <td id="rank">
+                            <% for(let i = 0; i < userIDs.length; i++) { %>
+                          <% if(userData.fullName == userIDs[i].fullName) { %>
+                            # <%= i + 1 %>
+                            <% } %>
+                            <% } %>
+                        </td>
+                        <td id="points">
+                            <%= userData.points %>
+                        </td>
                     </tr>
                     <tr class="frp">
                         <td>Rank</td>
@@ -32,17 +40,17 @@
                     <tr>
                         <td id="frank">
                             <% for(let i = 0; i < teamData.length; i++) { %>
-                                <% if(teamData[i].team == userData.teamName) { %>
-                                    <%=(i + 1)%>
-                                <% } %>
+                            <% if(teamData[i].team == userData.teamName) { %>
+                            <%=(i + 1)%>
+                            <% } %>
                             <% } %>
                         </td>
                         <td id="fpoints">
-                                <% for(let i = 0; i < teamData.length; i++) { %>
-                                    <% if(teamData[i].team == userData.teamName) { %>
-                                    <%=   teamData[i].points %>
-                                    <% } %>
-                                <% } %>
+                            <% for(let i = 0; i < teamData.length; i++) { %>
+                            <% if(teamData[i].team == userData.teamName) { %>
+                            <%=   teamData[i].points %>
+                            <% } %>
+                            <% } %>
                         </td>
                     </tr>
                     <tr class="frp">
@@ -57,11 +65,18 @@
 </div>
 <!-- End top section with basic attendee info -->
 <!-- SELC Schedule -->
-<div class="container-fluid mobile-center">
-    <button class="btn btn-tab mb-2 mobile-width" type="button" data-toggle="collapse" data-target="#scheduleCollapse" aria-expanded="true"
-        aria-controls="scheduleCollapse">
+<div class="container mobile-center">
+    <button class="btn btn-tab mb-2 mobile-width" type="button" data-toggle="collapse" data-target="#scheduleCollapse"
+        aria-expanded="true" aria-controls="scheduleCollapse">
         My SELC Schedule</button>
-    <div class="collapse dont-collapse-sm" id="scheduleCollapse">
+
+    <% for(let i = 0; i < teamIDs.length; i++) { %>
+    <div class="hidden" id="teamIDs<%=i%>" value=<%=teamIDs[i].uid %>>
+
+    </div>
+    <% } %>
+    <div class="hidden" id="teamIDsLength" value=<%= teamIDsLength %>></div>
+    <div class="collapse dont-collapse-sm d-block" id="scheduleCollapse">
         <div class="row">
             <!-- Friday -->
             <div class="col-md bg-light px-3 mx-3">
@@ -122,28 +137,82 @@
 </div>
 <!-- End SELC Schedule -->
 <!-- Family -->
-<div class="container-fluid my-5 mobile-center">
-    <button class="btn btn-tab mb-2 mobile-width" type="button" data-toggle="collapse" data-target="#familyCollapse" aria-expanded="true"
-        aria-controls="familyCollapse">
+<div class="container my-5 mobile-center">
+    <button class="btn btn-tab mb-2 mobile-width" type="button" data-toggle="collapse" data-target="#familyCollapse"
+        aria-expanded="true" aria-controls="familyCollapse">
         My Family</button>
-    <div class="row bg-light mx-2 px-2 collapse dont-collapse-sm" id="familyCollapse">
-        <div class="mx-auto">
-            <div class="text-center card-columns f-lg" id="family-Section"></div>
+
+    <div class="row bg-light collapse dont-collapse-sm" id="familyCollapse">
+
+        <% for(let i = 0; i < teamIDs.length; i++) { %>
+        <% if(userData.fullName != teamIDs[i].fullName) { %>
+        <div class="col-4 text-center">
+            <div class="card bg-light border-0 mob-w">
+                <div class="card-body px-0 pb-0">
+                    <img class="img-fluid team-img-maxSize" id="teamImg<%=i%>">
+                    <p class="card-title font-weight-bold mt-1">
+                        <%= teamIDs[i].fullName %>
+                    </p>
+                    <p class="card-text">
+                    </p>
+                </div>
+            </div>
         </div>
+        <% } %>
+        <% } %>
+
+
     </div>
+
+
+
+
 </div>
 
 
 
 
+<script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-storage.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
 
 
-
-
-
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"></script>
 <script>
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyCic5UWC0fXladccjESHt2eEUFR3GCpu7k",
+        authDomain: "test-73b01.firebaseapp.com",
+        databaseURL: "https://test-73b01.firebaseio.com",
+        projectId: "test-73b01",
+        storageBucket: "test-73b01.appspot.com",
+        messagingSenderId: "622256382010",
+        appId: "1:622256382010:web:305e70e752a5a757c2d503"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+
+    firebase.auth().onAuthStateChanged(user => {
+        console.log(169, user);
+        if (user) {
+            firebase.storage().ref('users/' + user.uid + '/profile.jpg').getDownloadURL().then(imgURL => {
+                document.getElementById("attendeePic").src = imgURL;
+            })
+        }
+    })
+
+
+    for (let i = 0; i < document.getElementById(`teamIDsLength`).getAttribute("value"); i++) {
+        //console.log(175, document.getElementById(`teamIDs${i}`).getAttribute("value"));
+        firebase.storage().ref('users/' + document.getElementById(`teamIDs${i}`).getAttribute("value") + '/profile.jpg').getDownloadURL().then(imgURL => {
+            document.getElementById("teamImg" + i).src = imgURL;
+            console.log(178, imgURL);
+        })
+    }
+
+
+
+
     // temp schedule array for testing
     const saSc = [
         { time: "10am", name: "Session 1" },
@@ -206,7 +275,7 @@
         }
     }
     let famSec = document.getElementById("family-Section");
-    loadFam(famSec, famList);
+    //loadFam(famSec, famList);
 
     $('button[data-toggle="collapse"]').click(function (e) {
         if ($(window).width() >= 768) {

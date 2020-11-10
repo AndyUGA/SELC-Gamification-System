@@ -49,6 +49,10 @@ label {
   display: none;
 }
 
+#loading-spinner {
+  display: none;
+}
+
 @media screen and (min-width: 1200px) {
   .maxHeight {
     max-height: 550px;

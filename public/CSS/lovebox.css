@@ -2,3 +2,18 @@
   font-size: 3rem;
   color: #009fb7;
 }
+
+.btn-UVSASE-blue {
+  background-color: #009fb7;
+  color: white;
+}
+
+.btn-outline-UVSASE {
+  color: #009fb7;
+  border-color: #009fb7;
+}
+
+.btn-outline-UVSASE:hover {
+  background-color: #009fb7;
+  color: white;
+}

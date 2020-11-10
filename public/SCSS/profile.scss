@@ -1,6 +1,24 @@
+
+$UVSASE-blue: #009fb7;
+$UVSASE-dark-blue: #114b5f;
+$UVSASE-Yellow: #fed766;
+
+
 .fam-color {
     border: 1em solid #D20000;
 }
+
+.hidden {
+    display: none;
+}
+
+.team-img-maxSize {
+    height: 200px;
+    width: 200px;
+    object-fit: contain;
+}
+
+
 
 .dl {
     text-align: center;
@@ -56,19 +74,19 @@
     }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 767px) {
     .card-columns {
         column-count: 5;
     }
     .collapse.dont-collapse-sm {
-        display: block;
+        display: flex;
         height: auto !important;
         visibility: visible;
       }
 }
 
 @media (min-width: 992px) {
-    .f-lg {
+    .dont-collapse-sm {
         display: flex;
     }
 }

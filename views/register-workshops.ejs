@@ -1,9 +1,11 @@
 <div class="container mt-5">
+
+  <!-- 
   <div class="row">
     <div class="col">
       <table class="table">
         <thead class="leaderboard-thead">
-          <tr class = "workshop-border">
+          <tr class="workshop-border">
 
             <th scope="col">Workshop Name</th>
             <th scope="col">Spots left</th>
@@ -13,22 +15,22 @@
         <tbody>
 
           <% if(registeredWorkshopNumber == 3)  { %>
-      
-            <div class="card align-items-center mb-3 confirmation-message"   >
-              <img src="./Images/Workshops/confirmation.svg" class="card-img-top maxIconSize mt-3" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">
-                  You have successfully registered for 3 workshops!
-                </h5>
-              
-               
-              </div>
+
+          <div class="card align-items-center mb-3 confirmation-message">
+            <img src="./Images/Workshops/confirmation.svg" class="card-img-top maxIconSize mt-3" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">
+                You have successfully registered for 3 workshops!
+              </h5>
+
+
             </div>
+          </div>
           <% } %>
 
           <% for(var i = 0; i < dataArray.length; i++) { %>
           <% if(dataArray[i].show != false) { %>
-          <tr class = "workshop-font-color">
+          <tr class="workshop-font-color">
             <td>
               <%= dataArray[i].name %>
             </td>
@@ -58,6 +60,76 @@
         </tbody>
       </table>
     </div>
+  </div>
+  -->
+
+  <div class="row">
+    <div class="col">
+      <% if(registeredWorkshopNumber == 3)  { %>
+      <div class="card align-items-center mb-3 confirmation-message">
+        <img src="./Images/Workshops/confirmation.svg" class="card-img-top maxIconSize mt-3" alt="...">
+        <div class="card-body">
+          <div class="text-center">
+            You have successfully registered for 3 workshops!
+          </div>
+        </div>
+      </div>
+      <% } %>
+    </div>
+
+  </div>
+
+  <div class="row mb-5">
+
+    <% for(var i = 0; i < dataArray.length; i++) { %>
+    <% if(dataArray[i].show != false) { %>
+    <div class="col-12 col-lg-4 mt-5">
+      <div class="card">
+        <!-- 
+        <img src="./Images/Workshops/<%= dataArray[i].presenter %>.jpg" class="img-fluid workshop-presenter-photo" alt="...">
+      -->
+        <div class="container">
+          <div class="row yellow-bg py-3 min-card-height">
+        
+            <div class="col d-flex flex-column align-items-center justify-content-around">
+                <img class="img-fluid workshop-presenter-photo" src="./Images/Workshops/<%= dataArray[i].presenter %>.png">
+              <div class="workshop-font-color py-3 py-lg-0">
+                <%= dataArray[i].name %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body min-card-body-height d-flex flex-column justify-content-between">
+          <div class="presenter-name">
+            <%= dataArray[i].presenter %>
+          </div>
+          <div class="mb-5">
+            <%= dataArray[i].description %>
+          </div>
+          <div class = "row"> 
+          <div class = "col-6 d-flex align-items-center justify-content-center remaining-spots">
+            <%= dataArray[i].max - dataArray[i].attendees.length %> / <%= dataArray[i].max %>
+          </div>
+          <form class = "col-6" id="workshopRegister">
+            <% if(registeredWorkshopNumber != 3)  { %>
+            <button type="submit" class="btn btn-lg btn-UVSASE-darkBlue">
+              <div class="text-white">
+                Register
+              </div>
+            </button>
+            <% } else { %>
+            <button type="button" class="btn btn-secondary btn-lg" disabled>Register</button>
+            <% } %>
+            <input id="Workshop<%=(i+1)%>" type="hidden" value="<%= dataArray[i].name %>" />
+
+          </form>
+        </div>
+        </div>
+      </div>
+    </div>
+    <% } %>
+    <% } %>
+
   </div>
 </div>
 
@@ -96,7 +168,7 @@
       event.preventDefault();
 
 
- 
+
 
 
       return fetch("/registerWorkshop", {
