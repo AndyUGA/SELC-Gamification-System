@@ -26,6 +26,15 @@ router.get("/signup", function (req, res) {
     });
 });
 
+router.get("/resetPassword", function (req, res) {
+    res.render("resetPassword.ejs", {
+        layout: 'Layout/layout.ejs',
+        pagename: "resetPassword",
+        title: "Reset Password",
+        isLoggedIn: false,
+    });
+});
+
 
 
 
