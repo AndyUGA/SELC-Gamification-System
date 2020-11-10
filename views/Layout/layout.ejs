@@ -4,24 +4,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+        crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="./CSS/<%= pagename %>.css">
     <link rel="stylesheet" href="./CSS/global.css">
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;700&display=swap" rel="stylesheet">
 
-    <title><%= title %> </title>
+    <title>
+        <%= title %>
+    </title>
 </head>
 <nav class="navbar navbar-expand-lg navbar-dark bg-UVSASE-blue">
     <a class="navbar-brand" href=".">SELC</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+        aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
 
@@ -29,53 +29,59 @@
         <ul class="navbar-nav mr-auto">
 
             <% if(isLoggedIn == true) { %>
-            <li class="nav-item">
-                <a class="nav-link" href="/leaderboard">Leaderboard</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/profile">Profile</a>
-            </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/leaderboard">Leaderboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/profile">Profile</a>
+                </li>
 
 
-            <li class="nav-item">
-                <a class="nav-link" href="/register-workshops">
-                    Workshops
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/loveboxQueue">
-                    LoveBox Queue
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/lovebox">
-                    LoveBox
-                </a>
-            </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/register-workshops">
+                        Workshops
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/loveboxQueue">
+                        LoveBox Queue
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/lovebox">
+                        LoveBox
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/history">
+                        History
+                    </a>
+                </li>
 
-            <% } %>
 
-            <% if(isLoggedIn != true) { %>
-            <li class="nav-item">
-                <a class="nav-link" href="/login">
-                    Login
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/signup">Signup</a>
-            </li>
+                <% } %>
 
-            <% } %>
+                    <% if(isLoggedIn != true) { %>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/login">
+                                Login
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/signup">Signup</a>
+                        </li>
+
+                        <% } %>
 
 
 
         </ul>
         <ul class="navbar-nav ml-auto">
             <% if(isLoggedIn == true) { %>
-            <li class="nav-item">
-                <a class="nav-link" href="/sessionLogout">Logout</a>
-            </li>
-            <% } %>
+                <li class="nav-item">
+                    <a class="nav-link" href="/sessionLogout">Logout</a>
+                </li>
+                <% } %>
         </ul>
 
     </div>

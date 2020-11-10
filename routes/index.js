@@ -147,7 +147,7 @@ router.get("/workshop2", function (req, res) {
 router.get("/leaderboard", function (req, res) {
   let isUserLoggedIn = isLoggedIn(req);
 
-  db.collection("users").orderBy("points", "DESC").get().then(function (querySnapshot) {
+  db.collection("teams").orderBy("points", "DESC").get().then(function (querySnapshot) {
     let dataArray = [];
     querySnapshot.forEach(function (doc) {
 
