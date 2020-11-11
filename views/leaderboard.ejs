@@ -1,38 +1,33 @@
 <div class="container mt-5">
   <div class="row leader-outer-border">
-      <div class="col-12 text-center mt-3 mb-3 leader-title">
-        Who is the leader?
-      </div>
-      <div class="col col-md-6  py-5">
+    <div class="col-12 text-center mt-3 mb-3 leader-title">
+      Who is the leader?
+    </div>
+
+    <% for(var i = 0; i < dataArray.length; i++) { %>
+      <div class="col col-md-6">
         <div class="card mb-3" style="max-width: 540px;">
           <div class="row no-gutters">
             <div class="col-md-3">
-              <img src="./Images/Leaderboard/red.png" class="among-us-icon p-3" alt="...">
+              <img src="./Images/Leaderboard/<%=dataArray[i].team %>.png" class="among-us-icon p-3" alt="...">
             </div>
             <div class="col-md-9">
               <div class="leaderboard-team-name">
-                Red
+                <%= dataArray[i].team %>
+              </div>
+              <div>
+                  <%= dataArray[i].points %>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="col col-md-6  py-5">
-          <div class="card mb-3" style="max-width: 540px;">
-            <div class="row no-gutters">
-              <div class="col-md-3">
-                <img src="./Images/Leaderboard/red.png" class="among-us-icon p-3" alt="...">
-              </div>
-              <div class="col-md-9">
-                <div class="leaderboard-team-name">
-                  Red
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-    
-    <!--  
+
+      <% } %>
+
+
+     
+        <!--  
     <div class="col-4">
 
         <div class="div-wrapper">
@@ -55,7 +50,7 @@
 
     -->
 
-    <!--
+        <!--
       <table class="table">
         <thead class = "leaderboard-thead">
           <tr>
@@ -89,7 +84,7 @@
 
 
 
-</div>
+  </div>
 </div>
 
 
