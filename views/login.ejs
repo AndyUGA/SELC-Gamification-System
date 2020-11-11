@@ -1,37 +1,66 @@
 <div class="container-fluid gradient-bg ">
 
 
-<div class="container-fluid container-xl">
-  <div class="row min-vh-100 align-items-center justify-content-center py-5">
-    <div class="col-12 col-xl-6 bg-red">
-      <form class = "w-100" id="login">
+  <div class="container-fluid container-xl">
+    <div class="row min-vh-100 align-items-center justify-content-center py-5">
+      <div class="col-12 col-xl-6 bg-red">
+        <form class="w-100" id="login">
 
-        <div class="form-group">
+          <div class="form-group">
 
-          <label for="exampleInputEmail1">Email address</label>
-          <input type="email" class="form-control" name="login">
+            <label for="exampleInputEmail1">
+              Email address
+              <img class="label-icons" src="./Images/Account/email_icon.svg">
+            </label>
+            <input type="email" class="form-control" name="login">
 
-        </div>
-        <div class="form-group">
-          <label for="exampleInputPassword1">Password</label>
-          <input type="password" class="form-control" name="password">
-        </div>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">
+              Password
+              <img class="label-icons" src="./Images/Account/password_icon.svg">
+            </label>
+            <input type="password" class="form-control" name="password">
+          </div>
 
-        <button type="submit" class="btn login-button">
-          Login
-        </button>
-        <div class="error pt-3">
-          There was an error with the account information. Please try again.
-        </div>
-      </form>
-     
+          <button type="submit" class="btn login-button">
+            Login
+          </button>
 
-    </div>
-    <div class = "col-12 col-xl-6 px-0">
-      <img class = "img-fluid maxHeight" src = "./Images/Signup/bg2.png">
+          <div class="d-flex justify-content-center ">
+            <div id="loading-spinner" class="spinner-border text-warning my-3" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </div>
+
+          <div class="text-white mt-3">
+            Don't have an account?
+            <a class="resetPassword" href="/signup">
+              Sign Up
+            </a>
+          </div>
+
+          <div class="text-white" href="/resetPassword">
+
+            <a class="resetPassword" href="/resetPassword">
+              Forgot password?
+            </a>
+          </div>
+
+
+
+          <div class="error pt-3">
+            There was an error with the account information. Please try again.
+          </div>
+        </form>
+
+
+      </div>
+      <div class="col-12 col-xl-6 px-0">
+        <img class="img-fluid maxHeight" src="./Images/Account/bg2.png">
+      </div>
     </div>
   </div>
-</div>
 </div>
 
 
@@ -56,6 +85,7 @@
     document
       .getElementById("login")
       .addEventListener("submit", (event) => {
+        document.getElementById("loading-spinner").style.display = "block";
         event.preventDefault();
         const login = event.target.login.value;
         const password = event.target.password.value;
@@ -79,7 +109,7 @@
           .then(() => {
             window.location.assign("/");
           })
-          .catch(function(err) {
+          .catch(function (err) {
             console.log(84, err);
             $(".error").show();
             event.target.login.value = "";

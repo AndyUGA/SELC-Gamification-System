@@ -13,11 +13,11 @@ body {
 }
 
 .nav-link {
-    color: $UVSASE-blue !important;
+    color: white !important;
 }
 
 .navbar-brand {
-    color: $UVSASE-dark-blue !important;
+    color: white !important;
 }
 
 .dashboard-card {
@@ -26,6 +26,9 @@ body {
     box-shadow: 0 0 35px 0 rgba(154,161,171,.15);
 }
 
+.bg-UVSASE-blue {
+    background-color: $UVSASE-dark-blue !important;
+}
 .text-UVSASE-blue {
     color: $UVSASE-blue;
 }

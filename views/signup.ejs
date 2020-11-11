@@ -6,45 +6,70 @@
       <div class="col-12 col-xl-6 bg-red">
         <form class="w-100" id="signup">
 
+          <div class="row mb-3">
+            <div class="col">
+              <label>
+                First Name
+                <img class="label-icons" src="./Images/Account/firstName_icon.svg">
+              </label>
+              <input required = "required" id="firstName" type="text" class="form-control" name="firstName">
+            </div>
+            <div class="col">
+              <label>
+                Last Name
+                <img class="label-icons" src="./Images/Account/firstName_icon.svg">
+              </label>
+              <input required = "required" type="text" class="form-control" name="lastName">
+            </div>
+          </div>
+
+
+
           <div class="form-group">
 
-            <label>
-              First Name
+            <label for="exampleInputEmail1">
+              Email address
+              <img class="label-icons" src="./Images/Account/email_icon.svg">
             </label>
-            <input type="text" class="form-control" name="firstName">
+            <input required = "required" type="email" class="form-control" name="login">
 
           </div>
-
           <div class="form-group">
-
-            <label>
-              Last Name
+            <label for="exampleInputPassword1">
+              Password
+              <img class="label-icons" src="./Images/Account/password_icon.svg">
             </label>
+            <input required = "required" type="password" class="form-control" name="password">
+          </div>
 
-            <input type="text" class="form-control" name="lastName">
+          <div class="form-group mb-5">
+            <label for="exampleInputPassword1">
+              Upload Profile Image
+              <img class="label-icons" src="./Images/Account/profile_icon.svg">
+            </label>
+            <br>
+            <input required = "required" type="file" id="uploadedImage" name="profileImage">
 
           </div>
-          <div class="form-group">
 
-            <label for="exampleInputEmail1">Email address</label>
-            <input type="email" class="form-control" name="login">
-
-          </div>
-          <div class="form-group">
-            <label for="exampleInputPassword1">Password</label>
-            <input type="password" class="form-control" name="password">
-          </div>
-           <!-- 
-          <div class="form-group">
-            <label for="exampleInputPassword1">Profile Image</label>
-           
-           <input id = "uploadedImage" type = "file" name = "profileImage">
-           
-          </div>
-          -->
           <button type="submit" class="btn register-button">
             Register
           </button>
+
+          <div class="text-white mt-3">
+            Already have an account?
+            <a class="login-link" href="/login">
+              Login
+            </a>
+          </div>
+
+
+          <div class="d-flex justify-content-center py-3">
+            <div id="loading-spinner" class="spinner-border text-warning" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </div>
+
           <div class="error pt-3">
             There was an error when registering your account. Please try again.
           </div>
@@ -53,7 +78,7 @@
 
       </div>
       <div class="col-12 col-xl-6 px-0">
-        <img class="img-fluid maxHeight" src="./Images/Signup/bg2.png">
+        <img class="img-fluid maxHeight" src="./Images/Account/bg2.png">
       </div>
     </div>
   </div>
@@ -81,56 +106,64 @@
 
   firebase.initializeApp(firebaseConfig);
 
-  
 
   document
     .getElementById("signup")
     .addEventListener("submit", (event) => {
+
+      document.getElementById("loading-spinner").style.display = "block";
       event.preventDefault();
       const login = event.target.login.value;
       const password = event.target.password.value;
       const firstName = event.target.firstName.value;
       const lastName = event.target.lastName.value;
-      //const profileImage = document.getElementById("uploadedImage").files[0];
+      const profileImage = document.getElementById("uploadedImage").files[0];
       //console.log(92, profileImage);
-      
+
       firebase
         .auth()
         .createUserWithEmailAndPassword(login, password)
         .then(({ user }) => {
-          return user.getIdToken().then((idToken) => {
-            return fetch("/sessionSignup", {
-              method: "POST",
-              headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-                "CSRF-Token": Cookies.get("XSRF-TOKEN"),
-              },
-              body: JSON.stringify({
-                idToken,
-                "uid": user.uid,
-                email: login,
-                firstName,
-                lastName
-              }),
-            });
+
+          firebase.storage().ref('users/' + user.uid + '/profile.jpg').put(profileImage).then(function () {
+
+            document.getElementById("loading-spinner").style.display = "none";
+            return user;
+          })
+            .then((user) => {
+              return user.getIdToken().then((idToken) => {
+                return fetch("/sessionSignup", {
+                  method: "POST",
+                  headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                    "CSRF-Token": Cookies.get("XSRF-TOKEN"),
+                  },
+                  body: JSON.stringify({
+                    idToken,
+                    "uid": user.uid,
+                    email: login,
+                    firstName,
+                    lastName
+                  }),
+                });
+              })
+                .then(() => {
+                  console.log(132, "Redirecting")
+                  window.location.assign("/");
+                })
+                .catch(function (err) {
+                  console.log(126, err.message);
+                  $(".error").show();
+                  event.target.login.value = "";
+                  event.target.password.value = "";
+                });
+            })
+        })
+        .catch(error => {
+          console.log(117, error.message);
+        })
+    })
 
 
-          });
-        })
-        .then(() =>  {
-          window.location.assign("/");
-          // firebase.storage().ref('users/profile.jpg').put(profileImage).then(function() {
-          //   console.log(122,"Proifle picture uploaded successfully!");
-          // }).catch(error => {
-          //   console.log(117, error.message);
-          // })
-        })
-        .catch(function (err) {
-          console.log(126, err.message);
-          $(".error").show();
-          event.target.login.value = "";
-          event.target.password.value = "";
-        });
-    });
 </script>

@@ -50,6 +50,21 @@ label {
     display: none;
 }
 
+#loading-spinner {
+    display: none;
+}
+
+.login-link {
+    color: $UVSAE-Yellow;
+}
+
+.label-icons {
+    width: 20px;
+    height: 20px;
+    margin-left: .3rem;
+    margin-bottom: .1rem
+}
+
 @media screen and (min-width: 1200px) {
     .maxHeight {
         max-height: 550px;

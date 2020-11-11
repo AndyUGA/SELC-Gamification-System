@@ -26,30 +26,13 @@ router.get("/signup", function (req, res) {
     });
 });
 
-router.get("/profile", function (req, res) {
-    const sessionCookie = req.cookies.session || "";
-    
-    let isLoggedIn = false;
-    if (sessionCookie) {
-        isLoggedIn = true;
-    }
-
-
-    admin
-        .auth()
-        .verifySessionCookie(sessionCookie, true /** checkRevoked */)
-        .then(() => {
-            res.render("profile.ejs", {
-                layout: 'Layout/layout.ejs',
-                pagename: "profile",
-                title: "Profile",
-                isLoggedIn,
-            });
-        })
-        .catch((error) => {
-            console.log(49, error);
-            //res.redirect("/");
-        });
+router.get("/resetPassword", function (req, res) {
+    res.render("resetPassword.ejs", {
+        layout: 'Layout/layout.ejs',
+        pagename: "resetPassword",
+        title: "Reset Password",
+        isLoggedIn: false,
+    });
 });
 
 

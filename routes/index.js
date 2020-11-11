@@ -19,8 +19,7 @@ function getCurrentUserData(email) {
 
   db.collection("users").where("email", "==", email).get().then(function (querySnapshot) {
     querySnapshot.forEach(function (doc) {
-
-
+      console.log(22, doc.data());
       return doc.data();
     });
   });
@@ -148,7 +147,7 @@ router.get("/workshop2", function (req, res) {
 router.get("/leaderboard", function (req, res) {
   let isUserLoggedIn = isLoggedIn(req);
 
-  db.collection("users").orderBy("points", "DESC").get().then(function (querySnapshot) {
+  db.collection("teams").orderBy("points", "DESC").get().then(function (querySnapshot) {
     let dataArray = [];
     querySnapshot.forEach(function (doc) {
 
@@ -158,6 +157,28 @@ router.get("/leaderboard", function (req, res) {
       layout: 'Layout/layout.ejs',
       pagename: "leaderboard",
       title: "Leaderboard",
+      dataArray,
+      isLoggedIn: isUserLoggedIn,
+    });
+  });
+
+
+});
+
+router.get("/history", function (req, res) {
+  let isUserLoggedIn = isLoggedIn(req);
+
+  db.collection("history").orderBy("modified", "DESC").get().then(function (querySnapshot) {
+    let dataArray = [];
+    querySnapshot.forEach(function (doc) {
+
+      convertToArray(dataArray, doc);
+    });
+    console.log(177, dataArray);
+    res.render("history.ejs", {
+      layout: 'Layout/layout.ejs',
+      pagename: "history",
+      title: "History",
       dataArray,
       isLoggedIn: isUserLoggedIn,
     });
@@ -344,6 +365,113 @@ router.get("/teamForm", function (req, res) {
 
 });
 
+router.get("/virtualSparks", function (req, res) {
+
+  const sessionCookie = req.cookies.session || "";
+  let isUserLoggedIn = isLoggedIn(req);
+
+  let userInfo = [];
+  let userIDs = [];
+  db.collection("users").get().then(function (querySnapshot) {
+
+
+    querySnapshot.forEach(function (doc) {
+
+      convertToArray(userInfo, doc);
+    });
+
+    res.render("virtualSparks.ejs", {
+      layout: 'Layout/layout.ejs',
+      pagename: "virtualSparks",
+      title: "Virtual Sparks",
+      isLoggedIn,
+      userInfo,
+      userInfoLength: userInfo.length,
+    });
+
+  });
+ 
+
+});
+
+
+router.get("/profile", function (req, res) {
+  const sessionCookie = req.cookies.session || "";
+  let isLoggedIn = false;
+  if (sessionCookie) {
+    isLoggedIn = true;
+  }
+
+  let userData;
+  let teamData = [];
+  let userIDs = [];
+
+  db.collection("users").orderBy("points", "DESC").get().then(function (querySnapshot) {
+
+    querySnapshot.forEach(function (doc) {
+
+      convertToArray(userIDs, doc);
+    });
+
+  });
+
+
+  db.collection("teams").orderBy("points", "DESC").get().then(function (querySnapshot) {
+
+    querySnapshot.forEach(function (doc) {
+
+      convertToArray(teamData, doc);
+    });
+  });
+
+
+
+
+  db.collection("users").where("email", "==", currentUserEmail).get().then(function (querySnapshot) {
+    querySnapshot.forEach(function (doc) {
+      userData = doc.data();
+    });
+    admin
+      .auth()
+      .verifySessionCookie(sessionCookie, true /** checkRevoked */)
+      .then(() => {
+        console.log(387, userIDs);
+
+        let currentTeam = userData.teamName;
+        let teamIDs = [];
+
+        for (let i = 0; i < userIDs.length; i++) {
+          if (userIDs[i].teamName == currentTeam) {
+            teamIDs.push(userIDs[i]);
+          }
+        }
+        console.log(397, teamIDs);
+
+        res.render("profile.ejs", {
+          layout: 'Layout/layout.ejs',
+          pagename: "profile",
+          title: "Profile",
+          isLoggedIn,
+          userData,
+          teamData,
+          teamIDs,
+          userIDs,
+          teamIDsLength: teamIDs.length,
+        });
+      })
+      .catch((error) => {
+        console.log(402, error);
+        res.redirect("/");
+      });
+
+  });
+
+
+
+});
+
+
+
 router.get("/profile/:fullName", function (req, res) {
   let isUserLoggedIn = isLoggedIn(req);
   let currentUser = req.params.fullName;
@@ -437,11 +565,21 @@ router.post("/modifyPoints", function (req, res) {
 
 
   let currentUser = req.body.currentUser;
+  let fullName = currentUser.substring(0, currentUser.indexOf('(') - 1);
 
   let startIndexOfEmail = currentUser.indexOf("(");
   let endIndexOfEmail = currentUser.indexOf(")");
 
   let userEmail = currentUser.substring((startIndexOfEmail + 1), endIndexOfEmail);
+
+  let today = new Date().toLocaleString();
+
+  db.collection("history").add({
+    attendee: fullName,
+    email: userEmail,
+    points: req.body.points,
+    modified: today,
+  });
 
 
   db.collection("users").where("email", "==", userEmail).get().then(function (querySnapshot) {
