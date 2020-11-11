@@ -65,6 +65,10 @@ label {
     margin-bottom: .1rem
 }
 
+.column-shadow {
+    box-shadow: 0 0 35px 0 rgba(154,161,171,.15);
+}
+
 @media screen and (min-width: 1200px) {
     .maxHeight {
         max-height: 550px;

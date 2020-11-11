@@ -1,30 +1,37 @@
-<div class="text-center my-5 workshop-title">
-    <%= workshopName %> 
-    <span class = "workshop-registered-font">
-             ( <%= dataArray[0].attendees.length %> / <%= dataArray[0].max %> )
-    </span>
-   
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <div class="text-center my-5 workshop-title">
+                <%= workshopName %>
+                    <div class="workshop-registered-font">
+                        (
+                        <%= dataArray[0].attendees.length %> /
+                            <%= dataArray[0].max %> )
+                    </div>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <% for(let i = 0; i < columnHeader.length; i++)  {  %>
+                            <th class="text-center" scope="col">
+                                <%= columnHeader[i] %>
+                            </th>
+                            <% } %>
+                    </tr>
+                </thead>
+                <tbody class="text-center">
+                    <% for(let i = 0; i < dataArray[0].attendees.length; i++)  {  %>
+                        <tr>
+                            <td>
+                                <%= dataArray[0].attendees[i] %>
+                            </td>
+                        </tr>
+                        <% } %>
 
+                </tbody>
+            </table>
+
+        </div>
+    </div>
 
 </div>
-<table class="table">
-    <thead>
-        <tr>
-            <% for(let i = 0; i < columnHeader.length; i++)  {  %>
-            <th class="text-center" scope="col">
-                <%= columnHeader[i] %>
-            </th>
-            <% } %>
-        </tr>
-    </thead>
-    <tbody class="text-center">
-        <% for(let i = 0; i < dataArray[0].attendees.length; i++)  {  %>
-        <tr>
-            <td>
-                <%= dataArray[0].attendees[i] %>
-            </td>
-        </tr>
-        <% } %>
-
-    </tbody>
-</table>

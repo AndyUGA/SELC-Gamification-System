@@ -5,3 +5,38 @@
   -webkit-box-shadow: 0 0 35px 0 rgba(154, 161, 171, 0.15);
           box-shadow: 0 0 35px 0 rgba(154, 161, 171, 0.15);
 }
+
+.div-wrapper {
+  position: relative;
+  height: 300px;
+  width: 300px;
+}
+
+.div-wrapper img {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+
+.leader-inner-border {
+  border: 4px solid #535D6B;
+  border-radius: 2px;
+}
+
+.leader-outer-border {
+  border: 8px solid #A0AAB4;
+  border-radius: 4px;
+}
+
+.among-us-icon {
+  width: 100px;
+  height: 100px;
+}
+
+.leaderboard-team-name {
+  font-size: 3rem;
+}
+
+.leader-title {
+  font-size: 2rem;
+}

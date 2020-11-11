@@ -89,7 +89,7 @@ router.get("/", function (req, res) {
               convertToArray(teamsData, doc);
             });
 
-
+            
 
             res.render("dashboard.ejs", {
               layout: 'Layout/layout.ejs',
@@ -253,6 +253,8 @@ router.get("/workshop/:workshopName", function (req, res) {
       convertToArray(dataArray, doc);
     });
 
+    console.log(256, dataArray);
+
     res.render("workshop.ejs", {
       layout: 'Layout/table-layout.ejs',
       pagename: "workshop",
@@ -372,7 +374,7 @@ router.get("/virtualSparks", function (req, res) {
 
   let userInfo = [];
   let userIDs = [];
-  db.collection("users").get().then(function (querySnapshot) {
+  db.collection("users").orderBy("firstName").get().then(function (querySnapshot) {
 
 
     querySnapshot.forEach(function (doc) {
@@ -380,11 +382,13 @@ router.get("/virtualSparks", function (req, res) {
       convertToArray(userInfo, doc);
     });
 
+    console.log(385, userInfo);
+
     res.render("virtualSparks.ejs", {
       layout: 'Layout/layout.ejs',
       pagename: "virtualSparks",
       title: "Virtual Sparks",
-      isLoggedIn,
+      isLoggedIn: isUserLoggedIn,
       userInfo,
       userInfoLength: userInfo.length,
     });

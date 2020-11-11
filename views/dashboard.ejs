@@ -306,23 +306,23 @@
         <div class="px-5 w-100">
           <h5 class="card-admin-text">
             <div class="row">
-              <table class="table table-sm text-UVSASE-blue">
+              <table class="table text-UVSASE-blue">
                 <thead>
                   <tr>
-                    <th class="text-center no-border-top" scope="col">Workshop</th>
+                    <th class="text-left no-border-top" scope="col">Workshop</th>
                     <th class="text-center no-border-top" scope="col">Registered</th>
                   </tr>
                 </thead>
                 <tbody class="workshop-card">
                   <% for(var i = 0; i < dataArray2.length; i++) {  %>
                   <tr class="workshopText">
-                    <td class="text-center no-border-top">
+                    <td class="text-left">
                       <a class="workshop-link" href="/workshop/<%= dataArray2[i].name %>">
                         <%= dataArray2[i].name %>
                       </a>
 
                     </td>
-                    <td class="text-center no-border-top">
+                    <td class="text-center">
                       <%= dataArray2[i].attendees.length %> / <%= dataArray2[i].max %>
                     </td>
                   </tr>
