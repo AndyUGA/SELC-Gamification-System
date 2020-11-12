@@ -1,7 +1,7 @@
 <div class="container mt-5">
 
 
-  <div id = "loading" class="row">
+  <div id="loading" class="row">
 
   </div>
 
@@ -49,26 +49,23 @@
 
     <script>
 
-
-
-
-        $(".positiveSparkForm").click(function (e) {
-          console.log(46, e.currentTarget[1].value);
-          let email = e.currentTarget[1].value;
-          $.ajax({
-            url: "/updatePositiveSparkCounter/" + email,
-            type: "POST",
-            beforeSend: function (request) {
-              request.setRequestHeader("CSRF-Token", Cookies.get("XSRF-TOKEN"));
-            },
-            success: function (result) {
-              console.log(49, result);
-              $("#test").html(result);
-            }
-          });
+      $(".positiveSparkForm").click(function (e) {
+        console.log(46, e.currentTarget[1].value);
+        let email = e.currentTarget[1].value;
+        $.ajax({
+          url: "/updatePositiveSparkCounter/" + email,
+          type: "POST",
+          beforeSend: function (request) {
+            request.setRequestHeader("CSRF-Token", Cookies.get("XSRF-TOKEN"));
+          },
+          success: function (result) {
+            console.log(49, result);
+            $("#test").html(result);
+          }
         });
+      });
 
- 
+
 
 
 
@@ -93,36 +90,27 @@
       const db = firebase.firestore();
 
       auth.onAuthStateChanged(user => {
-        let updatedCount;
+        let updatedCount = '';
         let profileImageURL;
         let currentSparkCounter = '';
 
 
         console.log(92, user);
-        db.collection('users').onSnapshot(snapshot => {
-          let i = 0;
-          snapshot.docChanges().forEach((doc) => {
-            // firebase.storage().ref('users/' + `${doc.data().uid}` + '/profile.jpg').getDownloadURL()
-            //   .then(imgURL => {
 
-            //       profileImageURL = imgURL;
-                 
+        db.collection('users').get().then(snapshot => {
 
-            //   })
-            //   .catch(err => {
-            //     //console.log(51, err)
-            //   });
-            console.log(115, doc.doc.data());
+          snapshot.forEach((doc) => {
+          
+     
+          if (doc.data().email == user.email) {
+            currentSparkCounter = `(${doc.data().positiveSparkCounter})`;
+          }
 
-              // if(doc.data().email == user.email) {
-              //   currentSparkCounter = `(${doc.data().positiveSparkCounter})`;
-              // }
-            updatedCount += `
-           
-              <div class="col-3 d-flex justify-content-center mb-5">
+          updatedCount += `
+           <div class="col-3 d-flex justify-content-center mb-5">
         <div class="card">
           <img class="img-fluid team-img-maxSize" src="${profileImageURL}">
-          <div id="name" class="text-center">
+          <div id="name${doc.data().uid}" class="text-center">
            ${doc.data().fullName} ${(currentSparkCounter)}
           </div>
           <form class="positiveSparkForm" method="POST">
@@ -135,12 +123,45 @@
 
         </div>
       </div>
-            `
-            currentSparkCounter = '';
+           `
+           currentSparkCounter = '';
+        });
+        document.querySelector('#loading').innerHTML = updatedCount;
+          updatedCount = '';
+          
+      });
+
+
+        db.collection('users').onSnapshot(snapshot => {
+          console.log(138);
+          snapshot.docChanges().forEach((doc) => {
+            console.log(143, doc.doc.data());
+
+            $(`#name${doc.doc.data().uid}`).html(`
+            <div id="name${doc.doc.data().uid}" class="text-center">
+              ${doc.doc.data().fullName} ${(doc.doc.data().positiveSparkCounter)}
+            </div>
+            `);
+            // firebase.storage().ref('users/' + `${doc.data().uid}` + '/profile.jpg').getDownloadURL()
+            //   .then(imgURL => {
+
+            //       profileImageURL = imgURL;
+
+
+            //   })
+            //   .catch(err => {
+            //     //console.log(51, err)
+            //   });
+
+
+            // if(doc.data().email == user.email) {
+            //   currentSparkCounter = `(${doc.data().positiveSparkCounter})`;
+            // }
+           
+          
           })
 
-          document.querySelector('#loading').innerHTML = updatedCount;
-          updatedCount = '';
+          
         });
       });
 
