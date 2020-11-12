@@ -1,5 +1,8 @@
 <div class="container mt-5">
 
+  <button class="btn btn-info positiveSparkForm">
+    test
+  </button>
 
   <div id="loading" class="row">
 
@@ -43,27 +46,13 @@
 
     <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-auth.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-storage.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-firestore.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
 
     <script>
 
-      $(".positiveSparkForm").click(function (e) {
-        console.log(46, e.currentTarget[1].value);
-        let email = e.currentTarget[1].value;
-        $.ajax({
-          url: "/updatePositiveSparkCounter/" + email,
-          type: "POST",
-          beforeSend: function (request) {
-            request.setRequestHeader("CSRF-Token", Cookies.get("XSRF-TOKEN"));
-          },
-          success: function (result) {
-            console.log(49, result);
-            $("#test").html(result);
-          }
-        });
-      });
+
 
 
 
@@ -90,52 +79,75 @@
       const db = firebase.firestore();
 
       auth.onAuthStateChanged(user => {
+        console.log(82),  Cookies.get("XSRF-TOKEN");
         let updatedCount = '';
         let profileImageURL;
         let currentSparkCounter = '';
 
-
-        console.log(92, user);
+        let i = 0;
+        console.log(88, user);
 
         db.collection('users').get().then(snapshot => {
 
           snapshot.forEach((doc) => {
-          
-     
-          if (doc.data().email == user.email) {
-            currentSparkCounter = `(${doc.data().positiveSparkCounter})`;
-          }
 
-          updatedCount += `
+
+            if (doc.data().email == user.email) {
+              currentSparkCounter = `(${doc.data().positiveSparkCounter})`;
+            }
+
+            updatedCount += `
            <div class="col-3 d-flex justify-content-center mb-5">
         <div class="card">
-          <img class="img-fluid team-img-maxSize" src="${profileImageURL}">
+          <img class="img-fluid team-img-maxSize" src="">
           <div id="name${doc.data().uid}" class="text-center">
            ${doc.data().fullName} ${(currentSparkCounter)}
           </div>
-          <form class="positiveSparkForm" method="POST">
-            <button type="button" class="btn btn-info">
+
+          <form class = "positiveSparkForm">
+            <button class="btn btn-info">
               Tap
               <img class="tap-icon" src="./Images/VirtualSparks/tap.svg">
             </button>
-           
-          </form>
+           <input hidden value = "${doc.data().email}" />
+            </form>
 
         </div>
       </div>
            `
-           currentSparkCounter = '';
-        });
-        document.querySelector('#loading').innerHTML = updatedCount;
+            i++;
+            currentSparkCounter = '';
+          });
+          document.querySelector('#loading').innerHTML = updatedCount;
           updatedCount = '';
-          
-      });
+
+          $(".positiveSparkForm").click(function (e) {
+            e.preventDefault();
+
+            console.log(126, e.currentTarget[1].value);
+            let email = e.currentTarget[1].value;
+
+
+            return fetch("/updatePositiveSparkCounter/" + email, {
+              method: "POST",
+              headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                "CSRF-Token": Cookies.get("XSRF-TOKEN"),
+              }
+            });
+
+           
+
+
+
+          });
+        });
 
 
         db.collection('users').onSnapshot(snapshot => {
           console.log(138);
           snapshot.docChanges().forEach((doc) => {
-            console.log(143, doc.doc.data());
 
             $(`#name${doc.doc.data().uid}`).html(`
             <div id="name${doc.doc.data().uid}" class="text-center">
@@ -157,11 +169,11 @@
             // if(doc.data().email == user.email) {
             //   currentSparkCounter = `(${doc.data().positiveSparkCounter})`;
             // }
-           
-          
+
+
           })
 
-          
+
         });
       });
 
@@ -180,6 +192,8 @@
       }
 
       */
+
+
 
 
 

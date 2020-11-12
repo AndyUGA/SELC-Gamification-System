@@ -598,7 +598,7 @@ router.post("/updatePositiveSparkCounter/:email", function (req, res) {
       positiveSparkCounter: 1 + currentPositiveSparkCounter,
     })
 
-    res.send(`${updatePositiveSparkCounter}`);
+    //res.send(`${updatePositiveSparkCounter}`);
   });
 
 
