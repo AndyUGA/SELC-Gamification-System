@@ -53,70 +53,7 @@ function isLoggedIn(req) {
 
 router.get("/", function (req, res) {
 
-  let filter = req.query.filter || "firstName";
-  let teamName = [];
-
-  const sessionCookie = req.cookies.session || "";
-
-  let isUserLoggedIn = isLoggedIn(req);
-
-  admin
-    .auth()
-    .verifySessionCookie(sessionCookie, true /** checkRevoked */)
-    .then(() => {
-
-      db.collection("users").orderBy(filter, "ASC").get().then(function (querySnapshot) {
-        let dataArray = [];
-        querySnapshot.forEach(function (doc) {
-
-          convertToArray(dataArray, doc);
-        });
-
-
-        db.collection("workshops").get().then(function (querySnapshot) {
-          let dataArray2 = [];
-          querySnapshot.forEach(function (doc) {
-
-            convertToArray(dataArray2, doc);
-          });
-
-
-          db.collection("teams").get().then(function (querySnapshot) {
-            let teamsData = [];
-
-            querySnapshot.forEach(function (doc) {
-
-              convertToArray(teamsData, doc);
-            });
-
-
-
-            res.render("dashboard.ejs", {
-              layout: 'Layout/layout.ejs',
-              pagename: "dashboard",
-              title: "Dashboard",
-              dataArray,
-              dataArray2,
-              teamsData,
-              isLoggedIn: isUserLoggedIn,
-            });
-
-          });
-        });
-
-      });
-
-
-
-    })
-    .catch((error) => {
-      console.log(114, error);
-      res.redirect("/login");
-    });
-
-
-
-
+  res.redirect("/leaderboard");
 
 });
 
