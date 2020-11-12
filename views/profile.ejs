@@ -16,7 +16,7 @@
                 </h1>
                 <h3>University Name</h3>
             </div>
-            <input required = "required" type="file" id="uploadedImage" name="profileImage">
+            
         </div>
         <!-- Points and Ranking -->
         <div class="col-md-3 mr-3 my-auto">
@@ -90,6 +90,38 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <tr>
+                            <td>
+                                5:30 - 6:30 PM
+                            </td>
+                            <td>
+                                    Camp Introduction
+                            </td>
+                        </tr>
+                        <tr>
+                                <td>
+                                    6:30 - 7:15 PM
+                                </td>
+                                <td>
+                                        Family Introductions
+                                </td>
+                        </tr>
+                        <tr>
+                                <td>
+                                    7:15 - 8:15 PM
+                                </td>
+                                <td>
+                                        Break
+                                </td>
+                        </tr>
+                        <tr>
+                                <td>
+                                    8:15 - 10:35 PM
+                                </td>
+                                <td>
+                                        Family Activities
+                                </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -104,6 +136,114 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <tr>
+                            <td>
+                                10:00 - 10:25 AM 
+                            </td>
+                            <td>
+                                Staff Introductions
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td>
+                                10:25 - 10:40 AM
+                            </td>
+                            <td>
+                                Energizer
+                            </td>
+                        </tr>
+
+                         <tr>
+                            <td>
+                                10:40 - 11:55 AM
+                            </td>
+
+                            <td>
+                                    Worshop #1
+                            </td>
+                          
+                        </tr>
+
+                        <tr>
+                            <td>
+                                11:55 - 12:10 PM 
+                            </td>
+                            <td>
+                                Transition Time
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                12:10 - 1:25 PM 
+                            </td>
+                            <td>
+                               Workshop #2
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                1:25 - 2:25 PM 
+                            </td>
+                            <td>
+                               Break
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                2:25 - 5:00 PM 
+                            </td>
+                            <td>
+                                Big Games
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                5:00 - 6:30 PM 
+                            </td>
+                            <td>
+                               Break / Skit Practice
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                6:30 - 8:00 PM 
+                            </td>
+                            <td>
+                              Skits
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                               8:00 - 8:30 PM
+                            </td>
+                            <td>
+                                Break
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                8:30 - 10:00 PM  
+                            </td>
+                            <td>
+                               Family Activities
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                10:00 - 11:00 PM
+                            </td>
+                            <td>
+                               Virtual Afterset
+                            </td>
+                        </tr>
+                            
                     </tbody>
                 </table>
             </div>
@@ -119,16 +259,58 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>10am</td>
-                            <td>Session 1</td>
+                            <td>10:30 AM - 10:45 </td>
+                            <td>
+                                Energizer
+                            </td>
                         </tr>
                         <tr>
-                            <td>11am</td>
-                            <td>Session 2</td>
+                            <td>10:45 - 12:00 PM</td>
+                            <td>
+                                Workshop #3
+                            </td>
                         </tr>
                         <tr>
-                            <td>12pm</td>
-                            <td>Session 3</td>
+                            <td>
+                                12:00 - 1:00 PM
+                            </td>
+                            <td>
+                                Break
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                              1:00 - 2:30 PM
+                            </td>
+                            <td>
+                                SELC Breaks the Internet
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                2:30 - 3:15 PM
+                            </td>
+                            <td>
+                               Tam Su / Reflections
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                               3:15 - 3:30 PM
+                            </td>
+                            <td>
+                                Closing Statements
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                3:30 - 3:45 PM
+                            </td>
+                            <td>
+                                Zoom Photos
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -244,9 +426,9 @@
         }
     }
     let table = document.getElementById("sat");
-    loadSchedule(table, saSc);
+    //loadSchedule(table, saSc);
     table = document.getElementById("fri");
-    loadSchedule(table, saSc)
+    //loadSchedule(table, saSc)
 
     function loadFam(section, data) {
         var i = 0;
