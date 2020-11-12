@@ -79,7 +79,7 @@
       const db = firebase.firestore();
 
       auth.onAuthStateChanged(user => {
-        console.log(82),  Cookies.get("XSRF-TOKEN");
+        console.log(82), Cookies.get("XSRF-TOKEN");
         let updatedCount = '';
         let profileImageURL;
         let currentSparkCounter = '';
@@ -137,7 +137,7 @@
               }
             });
 
-           
+
 
 
 
@@ -149,11 +149,15 @@
           console.log(138);
           snapshot.docChanges().forEach((doc) => {
 
-            $(`#name${doc.doc.data().uid}`).html(`
-            <div id="name${doc.doc.data().uid}" class="text-center">
-              ${doc.doc.data().fullName} ${(doc.doc.data().positiveSparkCounter)}
-            </div>
+
+            if (doc.doc.data().email == user.email) {
+              $(`#name${doc.doc.data().uid}`).html(`
+              <div id="name${doc.doc.data().uid}" class="text-center">
+                ${doc.doc.data().fullName} ${(doc.doc.data().positiveSparkCounter)}
+              </div>
             `);
+            }
+
             // firebase.storage().ref('users/' + `${doc.data().uid}` + '/profile.jpg').getDownloadURL()
             //   .then(imgURL => {
 
