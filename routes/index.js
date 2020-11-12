@@ -89,7 +89,7 @@ router.get("/", function (req, res) {
               convertToArray(teamsData, doc);
             });
 
-            
+
 
             res.render("dashboard.ejs", {
               layout: 'Layout/layout.ejs',
@@ -120,46 +120,29 @@ router.get("/", function (req, res) {
 
 });
 
-router.get("/workshop2", function (req, res) {
-
-
-
+router.get("/accountOverview", function (req, res) {
 
   let isUserLoggedIn = isLoggedIn(req);
 
-
-
-
-  res.render("workshop2.ejs", {
-    layout: 'Layout/layout.ejs',
-    pagename: "workshop2",
-    title: "workshop2",
-    isLoggedIn: isUserLoggedIn,
-  });
-
-
-
-
-
-
-});
-
-router.get("/leaderboard", function (req, res) {
-  let isUserLoggedIn = isLoggedIn(req);
-
-  db.collection("teams").orderBy("points", "DESC").get().then(function (querySnapshot) {
+  db.collection("users").get().then(function (querySnapshot) {
     let dataArray = [];
+
+    let columnHeader = ['Name', 'Email', 'Team'];
     querySnapshot.forEach(function (doc) {
 
       convertToArray(dataArray, doc);
     });
-    res.render("leaderboard.ejs", {
+
+
+    res.render("account-overview.ejs", {
       layout: 'Layout/layout.ejs',
-      pagename: "leaderboard",
-      title: "Leaderboard",
+      pagename: "account-overview",
+      title: "Account Overview",
+      columnHeader,
       dataArray,
       isLoggedIn: isUserLoggedIn,
     });
+
   });
 
 
@@ -187,114 +170,68 @@ router.get("/history", function (req, res) {
 
 });
 
-router.get("/register-workshops", function (req, res) {
+router.get("/leaderboard", function (req, res) {
   let isUserLoggedIn = isLoggedIn(req);
-  if (isUserLoggedIn == false) {
-    res.redirect("/login");
-  } else {
 
-    let currentUserInfo = [];
+  db.collection("teams").orderBy("points", "DESC").get().then(function (querySnapshot) {
     let dataArray = [];
-    console.log(150, currentUserEmail);
-    db.collection("users").where("email", "==", currentUserEmail).get().then(function (querySnapshot) {
-
-      querySnapshot.forEach(function (doc) {
-
-        convertToArray(currentUserInfo, doc);
-      });
-
-    }).then(function () {
-      db.collection("workshops").orderBy("identifier", "ASC").get().then(function (querySnapshot) {
-
-        querySnapshot.forEach(function (doc) {
-
-          convertToArray(dataArray, doc);
-
-        });
-
-        let tempWorkshops = [...dataArray];
-        let userCurrentWorkshops = currentUserInfo[0].workshops;
-        let registeredWorkshopNumber = currentUserInfo[0].workshops.length;
-
-        for (let i = 0; i < userCurrentWorkshops.length; i++) {
-
-          for (let j = 0; j < dataArray.length; j++) {
-
-            if (userCurrentWorkshops[i] == dataArray[j].name) {
-              tempWorkshops[j].show = false;
-            }
-          }
-        }
-        res.render("register-workshops.ejs", {
-          layout: 'Layout/layout.ejs',
-          pagename: "register-workshops",
-          title: "Register for Workshops!",
-          dataArray: tempWorkshops,
-          registeredWorkshopNumber,
-          isLoggedIn: isUserLoggedIn,
-        });
-      });
-    });
-  }
-});
-
-router.get("/workshop/:workshopName", function (req, res) {
-
-  let isUserLoggedIn = isLoggedIn(req);
-  let workshopName = req.params.workshopName;
-
-  db.collection("workshops").where("name", "==", workshopName).get().then(function (querySnapshot) {
-    let dataArray = [];
-    let currentEmails = [];
-
-    let columnHeader = ['Name'];
     querySnapshot.forEach(function (doc) {
 
       convertToArray(dataArray, doc);
     });
-
-    console.log(256, dataArray);
-
-    res.render("workshop.ejs", {
-      layout: 'Layout/table-layout.ejs',
-      pagename: "workshop",
-      title: workshopName,
-      columnHeader,
-      workshopName,
-      dataArray,
-      isLoggedIn: isUserLoggedIn,
-    });
-
-  });
-
-
-});
-
-router.get("/accountOverview", function (req, res) {
-
-  let isUserLoggedIn = isLoggedIn(req);
-
-  db.collection("users").get().then(function (querySnapshot) {
-    let dataArray = [];
-
-    let columnHeader = ['Name', 'Email', 'Team'];
-    querySnapshot.forEach(function (doc) {
-
-      convertToArray(dataArray, doc);
-    });
-
-
-    res.render("account-overview.ejs", {
+    res.render("leaderboard.ejs", {
       layout: 'Layout/layout.ejs',
-      pagename: "account-overview",
-      title: "Account Overview",
-      columnHeader,
+      pagename: "leaderboard",
+      title: "Leaderboard",
+      dataArray,
+      isLoggedIn: isUserLoggedIn,
+    });
+  });
+
+
+});
+
+router.get("/lovebox", function (req, res) {
+  let isUserLoggedIn = isLoggedIn(req);
+
+  db.collection("lovebox").get().then(function (querySnapshot) {
+    let dataArray = [];
+    querySnapshot.forEach(function (doc) {
+
+      convertToArray(dataArray, doc);
+    });
+
+    res.render("lovebox.ejs", {
+      layout: 'Layout/layout.ejs',
+      pagename: "lovebox",
+      title: "Lovebox",
+      dataArray: dataArray[0].message,
+      isLoggedIn: isUserLoggedIn,
+    });
+
+  });
+});
+
+router.get("/loveboxQueue", function (req, res) {
+  let isUserLoggedIn = isLoggedIn(req);
+
+  db.collection("lovebox").get().then(function (querySnapshot) {
+    let dataArray = [];
+    querySnapshot.forEach(function (doc) {
+
+      convertToArray(dataArray, doc);
+    });
+
+
+    res.render("loveboxQueue.ejs", {
+      layout: 'Layout/layout.ejs',
+      pagename: "loveboxqueue",
+      title: "Lovebox Queue",
       dataArray,
       isLoggedIn: isUserLoggedIn,
     });
 
   });
-
 
 });
 
@@ -332,48 +269,25 @@ router.get("/pointsForm", function (req, res) {
 
 });
 
-router.get("/teamForm", function (req, res) {
-
-  const sessionCookie = req.cookies.session || "";
-  let isUserLoggedIn = isLoggedIn(req);
-  admin
-    .auth()
-    .verifySessionCookie(sessionCookie, true /** checkRevoked */)
-    .then(() => {
-
-      db.collection("users").get().then(function (querySnapshot) {
-        let dataArray = [];
-        querySnapshot.forEach(function (doc) {
-          convertToArray(dataArray, doc);
-        });
-
-        res.render("teamForm.ejs", {
-          layout: 'Layout/layout.ejs',
-          dataArray,
-          pagename: "pointsForm",
-          title: "Modify Team",
-          isLoggedIn: isUserLoggedIn,
-        });
-      });
-
-
-
-    })
-    .catch((error) => {
-      console.log(320, error);
-      res.redirect("/");
-    });
-
-
-});
-
-router.get("/virtualSparks", function (req, res) {
+router.get("/positiveSparks", function (req, res) {
 
   const sessionCookie = req.cookies.session || "";
   let isUserLoggedIn = isLoggedIn(req);
 
   let userInfo = [];
   let userIDs = [];
+
+
+  // db.collection('users').onSnapshot(docSnapshot => {
+  //   docSnapshot.forEach((doc) => {
+  //     console.log("Docs data: ", doc.data());
+  //   })
+  //   // ...
+  // }, err => {
+  //   console.log(`Encountered error: ${err}`);
+  // });
+
+
   db.collection("users").orderBy("firstName").get().then(function (querySnapshot) {
 
 
@@ -382,22 +296,21 @@ router.get("/virtualSparks", function (req, res) {
       convertToArray(userInfo, doc);
     });
 
-    console.log(385, userInfo);
+    //console.log(385, userInfo);
 
-    res.render("virtualSparks.ejs", {
+    res.render("positiveSparks.ejs", {
       layout: 'Layout/layout.ejs',
-      pagename: "virtualSparks",
-      title: "Virtual Sparks",
+      pagename: "positiveSparks",
+      title: "Positive Sparks",
       isLoggedIn: isUserLoggedIn,
       userInfo,
       userInfoLength: userInfo.length,
     });
 
   });
- 
+
 
 });
-
 
 router.get("/profile", function (req, res) {
   const sessionCookie = req.cookies.session || "";
@@ -474,8 +387,6 @@ router.get("/profile", function (req, res) {
 
 });
 
-
-
 router.get("/profile/:fullName", function (req, res) {
   let isUserLoggedIn = isLoggedIn(req);
   let currentUser = req.params.fullName;
@@ -519,48 +430,178 @@ router.get("/profile/:fullName", function (req, res) {
 
 });
 
-router.get("/lovebox", function (req, res) {
+router.get("/register-workshops", function (req, res) {
   let isUserLoggedIn = isLoggedIn(req);
+  if (isUserLoggedIn == false) {
+    res.redirect("/login");
+  } else {
 
-  db.collection("lovebox").get().then(function (querySnapshot) {
+    let currentUserInfo = [];
     let dataArray = [];
-    querySnapshot.forEach(function (doc) {
+    console.log(150, currentUserEmail);
+    db.collection("users").where("email", "==", currentUserEmail).get().then(function (querySnapshot) {
 
-      convertToArray(dataArray, doc);
+      querySnapshot.forEach(function (doc) {
+
+        convertToArray(currentUserInfo, doc);
+      });
+
+    }).then(function () {
+      db.collection("workshops").orderBy("identifier", "ASC").get().then(function (querySnapshot) {
+
+        querySnapshot.forEach(function (doc) {
+
+          convertToArray(dataArray, doc);
+
+        });
+
+        let tempWorkshops = [...dataArray];
+        let userCurrentWorkshops = currentUserInfo[0].workshops;
+        let registeredWorkshopNumber = currentUserInfo[0].workshops.length;
+
+        for (let i = 0; i < userCurrentWorkshops.length; i++) {
+
+          for (let j = 0; j < dataArray.length; j++) {
+
+            if (userCurrentWorkshops[i] == dataArray[j].name) {
+              tempWorkshops[j].show = false;
+            }
+          }
+        }
+        res.render("register-workshops.ejs", {
+          layout: 'Layout/layout.ejs',
+          pagename: "register-workshops",
+          title: "Register for Workshops!",
+          dataArray: tempWorkshops,
+          registeredWorkshopNumber,
+          isLoggedIn: isUserLoggedIn,
+        });
+      });
     });
-
-    res.render("lovebox.ejs", {
-      layout: 'Layout/layout.ejs',
-      pagename: "lovebox",
-      title: "Lovebox",
-      dataArray: dataArray[0].message,
-      isLoggedIn: isUserLoggedIn,
-    });
-
-  });
+  }
 });
 
+router.get("/teamForm", function (req, res) {
 
-router.get("/loveboxQueue", function (req, res) {
+  const sessionCookie = req.cookies.session || "";
   let isUserLoggedIn = isLoggedIn(req);
+  admin
+    .auth()
+    .verifySessionCookie(sessionCookie, true /** checkRevoked */)
+    .then(() => {
 
-  db.collection("lovebox").get().then(function (querySnapshot) {
+      db.collection("users").get().then(function (querySnapshot) {
+        let dataArray = [];
+        querySnapshot.forEach(function (doc) {
+          convertToArray(dataArray, doc);
+        });
+
+        res.render("teamForm.ejs", {
+          layout: 'Layout/layout.ejs',
+          dataArray,
+          pagename: "pointsForm",
+          title: "Modify Team",
+          isLoggedIn: isUserLoggedIn,
+        });
+      });
+
+
+
+    })
+    .catch((error) => {
+      console.log(320, error);
+      res.redirect("/");
+    });
+
+
+});
+
+router.get("/workshop/:workshopName", function (req, res) {
+
+  let isUserLoggedIn = isLoggedIn(req);
+  let workshopName = req.params.workshopName;
+
+  db.collection("workshops").where("name", "==", workshopName).get().then(function (querySnapshot) {
     let dataArray = [];
+    let currentEmails = [];
+
+    let columnHeader = ['Name'];
     querySnapshot.forEach(function (doc) {
 
       convertToArray(dataArray, doc);
     });
 
+    console.log(256, dataArray);
 
-    res.render("loveboxQueue.ejs", {
-      layout: 'Layout/layout.ejs',
-      pagename: "loveboxqueue",
-      title: "Lovebox Queue",
+    res.render("workshop.ejs", {
+      layout: 'Layout/table-layout.ejs',
+      pagename: "workshop",
+      title: workshopName,
+      columnHeader,
+      workshopName,
       dataArray,
       isLoggedIn: isUserLoggedIn,
     });
 
   });
+
+
+});
+
+router.get("/workshop2", function (req, res) {
+
+
+
+
+  let isUserLoggedIn = isLoggedIn(req);
+
+
+
+
+  res.render("workshop2.ejs", {
+    layout: 'Layout/layout.ejs',
+    pagename: "workshop2",
+    title: "workshop2",
+    isLoggedIn: isUserLoggedIn,
+  });
+
+
+
+
+
+
+});
+
+
+
+
+router.post("/updatePositiveSparkCounter/:email", function (req, res) {
+
+  const email = req.params.email;
+
+  console.log(570, email);
+
+  db.collection("users").where("email", "==", email).get().then(function (querySnapshot) {
+    let dataArray = [];
+    querySnapshot.forEach(function (doc) {
+
+      convertToArray(dataArray, doc);
+    });
+
+    let currentUserUID = dataArray[0].uid;
+    let currentPositiveSparkCounter = dataArray[0].positiveSparkCounter;
+
+    let updatePositiveSparkCounter = currentPositiveSparkCounter + 1;
+
+    const currentDB = db.collection("users").doc(currentUserUID);
+    currentDB.update({
+      positiveSparkCounter: 1 + currentPositiveSparkCounter,
+    })
+
+    res.send(`${updatePositiveSparkCounter}`);
+  });
+
+
 
 });
 
