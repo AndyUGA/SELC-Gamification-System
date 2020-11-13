@@ -153,6 +153,8 @@ router.get("/positiveSparks", function (req, res) {
 });
 
 router.get("/profile", function (req, res) {
+
+  
   const sessionCookie = req.cookies.session || "";
   let isLoggedIn = false;
   if (sessionCookie) {

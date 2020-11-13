@@ -11,8 +11,8 @@
             </div>
             <div class="col" id="attendeeText">
                 <!-- Attendee name and school -->
-                <h1>
-                    <%= userData.fullName %>
+                <h1 id = "currentName">
+               
                 </h1>
             </div>
             
@@ -404,11 +404,17 @@
     firebase.initializeApp(firebaseConfig);
 
     firebase.auth().onAuthStateChanged(user => {
-        console.log(169, user);
+        
         if (user) {
+          
             firebase.storage().ref('users/' + user.uid + '/profile.jpg').getDownloadURL().then(imgURL => {
                 document.getElementById("attendeePic").src = imgURL;
             })
+            console.log(201, user.email);
+            $("#currentName").html(user.email);
+            firebase.storage().ref('users/' + user.uid + '/profile.jpg').getDownloadURL().then(imgURL => {
+                $("#attendeePic").html(`<img class = "img-fluid" src = ${imgURL}`);
+            });
         }
     })
 
@@ -417,7 +423,7 @@
         //console.log(175, document.getElementById(`teamIDs${i}`).getAttribute("value"));
         firebase.storage().ref('users/' + document.getElementById(`teamIDs${i}`).getAttribute("value") + '/profile.jpg').getDownloadURL().then(imgURL => {
             document.getElementById("teamImg" + i).src = imgURL;
-            console.log(178, imgURL);
+            console.log(211, imgURL);
         })
     }
 
