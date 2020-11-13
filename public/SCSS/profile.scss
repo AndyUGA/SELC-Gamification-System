@@ -55,6 +55,10 @@ $UVSASE-Yellow: #fed766;
     text-align: right;
 }
 
+.min-card-height {
+    min-height: 150px;
+}
+
 @media (max-width: 767px) {
     .mobile-center {
         text-align: center;

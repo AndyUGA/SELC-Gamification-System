@@ -64,6 +64,35 @@
     </div>
 </div>
 <!-- End top section with basic attendee info -->
+
+<div class="container mobile-center mb-5">
+        <button class="btn btn-tab mb-2 mobile-width" type="button" data-toggle="collapse" data-target="#scheduleCollapse"
+            aria-expanded="true" aria-controls="scheduleCollapse">
+           My Workshops
+        </button>
+    
+        <div class="row">
+            <% for(let i = 0; i < userData.workshops.length; i++) { %>
+            <div class="col">
+                    <div class="card min-card-height">
+                            
+                            <div class="card-body">
+                              <h5 class="card-title">
+                                  Workshop # <%=(i + 1) %>
+                              </h5>
+                              <p class="card-text">
+                                 <%=userData.workshops[i] %>
+                                </p>
+                             
+                            </div>
+                          </div>
+            </div>
+            <% } %>
+         
+        </div>
+    </div>
+
+
 <!-- SELC Schedule -->
 <div class="container mobile-center">
     <button class="btn btn-tab mb-2 mobile-width" type="button" data-toggle="collapse" data-target="#scheduleCollapse"
