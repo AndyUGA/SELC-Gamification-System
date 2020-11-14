@@ -85,6 +85,7 @@ th {
 .workshop-title {
   font-size: 4rem;
   text-align: center;
+  color: #009fb7;
 }
 
 @media screen and (min-width: 992px) {

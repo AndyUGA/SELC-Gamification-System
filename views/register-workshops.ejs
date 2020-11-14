@@ -16,13 +16,13 @@
 
   </div>
 
-  <!-- Adulting Workshop Track-->
+
 
  
 
  
-
-  <div class="row mb-5">
+  <!-- Fun / Casual Workshop Track-->
+  <div class="row mt-5 mb-5">
       <div class = "workshop-title w-100">
           Fun / Casual
         </div>
@@ -95,6 +95,7 @@
       <% } %>
 </div>
 
+<!-- Personal Development Workshop Track-->
 <div class="row mb-5">
     <div class = "workshop-title w-100">
         Personal Development
@@ -168,6 +169,7 @@
     <% } %>
 </div>
 
+<!-- Adulting Workshop Track-->
 <div class="row mb-5">
     <div class = "workshop-title w-100">
         Adulting
@@ -175,7 +177,7 @@
   <% for(var i = 0; i < 12; i++) { %>
 
     <% if(dataArray[i].track == 'adulting') { %>
-      <div class="col-12 col-lg-3 mt-3">
+      <div class="col-12 col-lg-3 mt-5">
         <div class="card shadow-lg">
           <div class="container">
             <div class="row yellow-bg py-3 min-card-height">
