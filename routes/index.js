@@ -89,15 +89,7 @@ router.get("/", function (req, res) {
 
 
 
-            res.render("dashboard.ejs", {
-              layout: 'Layout/layout.ejs',
-              pagename: "dashboard",
-              title: "Dashboard",
-              dataArray,
-              dataArray2,
-              teamsData,
-              isLoggedIn: isUserLoggedIn,
-            });
+            res.redirect('/register-workshops')
 
           });
         });
@@ -118,54 +110,7 @@ router.get("/", function (req, res) {
 
 });
 
-router.get("/accountOverview", function (req, res) {
 
-  let isUserLoggedIn = isLoggedIn(req);
-
-  db.collection("users").orderBy("points", "desc").get().then(function (querySnapshot) {
-    let dataArray = [];
-
-    let columnHeader = ['Name', 'Email', 'Team'];
-    querySnapshot.forEach(function (doc) {
-
-      convertToArray(dataArray, doc);
-    });
-
-
-    res.render("account-overview.ejs", {
-      layout: 'Layout/layout.ejs',
-      pagename: "account-overview",
-      title: "Account Overview",
-      columnHeader,
-      dataArray,
-      isLoggedIn: isUserLoggedIn,
-    });
-
-  });
-
-
-});
-
-router.get("/history", function (req, res) {
-  let isUserLoggedIn = isLoggedIn(req);
-
-  db.collection("history").orderBy("modifiedDate", "DESC").get().then(function (querySnapshot) {
-    let dataArray = [];
-    querySnapshot.forEach(function (doc) {
-
-      convertToArray(dataArray, doc);
-    });
-    res.render("history.ejs", {
-      layout: 'Layout/layout.ejs',
-      pagename: "history",
-      title: "History",
-      dataArray,
-      isLoggedIn: isUserLoggedIn,
-    });
-  });
-
-
-});
 
 router.get("/leaderboard", function (req, res) {
   let isUserLoggedIn = isLoggedIn(req);
@@ -194,89 +139,7 @@ router.get("/leaderboard", function (req, res) {
 
 });
 
-router.get("/lovebox", function (req, res) {
-  let isUserLoggedIn = isLoggedIn(req);
 
-  db.collection("lovebox").get().then(function (querySnapshot) {
-    let dataArray = [];
-    querySnapshot.forEach(function (doc) {
-
-      convertToArray(dataArray, doc);
-    });
-
-    res.render("lovebox.ejs", {
-      layout: 'Layout/layout.ejs',
-      pagename: "lovebox",
-      title: "Lovebox",
-      dataArray: dataArray[0].message,
-      isLoggedIn: isUserLoggedIn,
-    });
-
-  });
-});
-
-router.get("/loveboxQueue", function (req, res) {
-  let isUserLoggedIn = isLoggedIn(req);
-
-  db.collection("lovebox").get().then(function (querySnapshot) {
-    let dataArray = [];
-    querySnapshot.forEach(function (doc) {
-
-      convertToArray(dataArray, doc);
-    });
-
-
-    res.render("loveboxQueue.ejs", {
-      layout: 'Layout/layout.ejs',
-      pagename: "loveboxqueue",
-      title: "Lovebox Queue",
-      dataArray,
-      isLoggedIn: isUserLoggedIn,
-    });
-
-  });
-
-});
-
-router.get("/pointsForm", function (req, res) {
-
-  const sessionCookie = req.cookies.session || "";
-  let isUserLoggedIn = isLoggedIn(req);
-  admin
-    .auth()
-    .verifySessionCookie(sessionCookie, true /** checkRevoked */)
-    .then(() => {
-
-      db.collection("users").orderBy('firstName').get().then(function (querySnapshot) {
-        let dataArray = [];
-        querySnapshot.forEach(function (doc) {
-          convertToArray(dataArray, doc);
-        });
-
-        db.collection("history").orderBy('modifiedDate', "DESC").limit(5).get().then(function (querySnapshot) {
-          let historyArray = [];
-          querySnapshot.forEach(function (doc) {
-            convertToArray(historyArray, doc);
-          });
-
-        res.render("pointsForm.ejs", {
-          layout: 'Layout/layout.ejs',
-          dataArray,
-          historyArray,
-          pagename: "pointsForm",
-          title: "Modify Points",
-          isLoggedIn: isUserLoggedIn,
-        });
-      });
-    });
-    })
-    .catch((error) => {
-      console.log(285, error);
-      res.redirect("/");
-    });
-
-
-});
 
 router.get("/positiveSparks", function (req, res) {
 
@@ -371,48 +234,6 @@ router.get("/profile", function (req, res) {
 
 });
 
-router.get("/profile/:fullName", function (req, res) {
-  let isUserLoggedIn = isLoggedIn(req);
-  let currentUser = req.params.fullName;
-
-  db.collection("users").where("fullName", "==", currentUser).get().then(function (querySnapshot) {
-    let dataArray = [];
-    querySnapshot.forEach(function (doc) {
-
-      convertToArray(dataArray, doc);
-    });
-
-
-
-    const currentDB = db.collection("users").doc(dataArray[0].uid);
-    currentDB.update({
-      notes: [
-        ...dataArray[0].notes,
-        currentUser,
-      ]
-
-    })
-
-
-    res.render("publicProfile.ejs", {
-      layout: 'Layout/table-layout.ejs',
-      pagename: "publicProfile",
-      title: "Profile",
-      dataArray,
-      isLoggedIn: isUserLoggedIn,
-    });
-
-  });
-
-
-
-
-
-
-
-
-
-});
 
 router.get("/register-workshops", function (req, res) {
   let isUserLoggedIn = isLoggedIn(req);
@@ -447,96 +268,8 @@ router.get("/register-workshops", function (req, res) {
   }
 });
 
-router.get("/teamForm", function (req, res) {
-
-  const sessionCookie = req.cookies.session || "";
-  let isUserLoggedIn = isLoggedIn(req);
-  admin
-    .auth()
-    .verifySessionCookie(sessionCookie, true /** checkRevoked */)
-    .then(() => {
-
-      db.collection("users").get().then(function (querySnapshot) {
-        let dataArray = [];
-        querySnapshot.forEach(function (doc) {
-          convertToArray(dataArray, doc);
-        });
-
-        res.render("teamForm.ejs", {
-          layout: 'Layout/layout.ejs',
-          dataArray,
-          pagename: "pointsForm",
-          title: "Modify Team",
-          isLoggedIn: isUserLoggedIn,
-        });
-      });
 
 
-
-    })
-    .catch((error) => {
-      console.log(320, error);
-      res.redirect("/");
-    });
-
-
-});
-
-router.get("/workshop/:workshopName", function (req, res) {
-
-  let isUserLoggedIn = isLoggedIn(req);
-  let workshopName = req.params.workshopName;
-
-  db.collection("workshops").where("name", "==", workshopName).get().then(function (querySnapshot) {
-    let dataArray = [];
-    let currentEmails = [];
-
-    let columnHeader = ['Name'];
-    querySnapshot.forEach(function (doc) {
-
-      convertToArray(dataArray, doc);
-    });
-
-    console.log(256, dataArray);
-
-    res.render("workshop.ejs", {
-      layout: 'Layout/table-layout.ejs',
-      pagename: "workshop",
-      title: workshopName,
-      columnHeader,
-      workshopName,
-      dataArray,
-      isLoggedIn: isUserLoggedIn,
-    });
-
-  });
-
-
-});
-
-router.get("/workshop2", function (req, res) {
-
-
-
-
-  let isUserLoggedIn = isLoggedIn(req);
-
-
-
-
-  res.render("workshop2.ejs", {
-    layout: 'Layout/layout.ejs',
-    pagename: "workshop2",
-    title: "workshop2",
-    isLoggedIn: isUserLoggedIn,
-  });
-
-
-
-
-
-
-});
 
 
 
@@ -571,103 +304,6 @@ router.post("/updatePositiveSparkCounter/:email", function (req, res) {
 });
 
 
-router.post("/modifyPoints", function (req, res) {
-
-
-  let currentUser = req.body.currentUser;
-  let fullName = currentUser.substring(0, currentUser.indexOf('(') - 1);
-
-  let startIndexOfEmail = currentUser.indexOf("(");
-  let endIndexOfEmail = currentUser.indexOf(")");
-
-  let userEmail = currentUser.substring((startIndexOfEmail + 1), endIndexOfEmail);
-
-  let today = new Date().toLocaleString('en-US', {timeZone: 'America/New_York'});
-
-  db.collection("history").add({
-    attendee: fullName,
-    email: userEmail,
-    points: req.body.points,
-    modified: today,
-    modifiedDate: admin.firestore.FieldValue.serverTimestamp(),
-    modifiedBy: req.body.author
-  });
-
-
-  db.collection("users").where("email", "==", userEmail).get().then(function (querySnapshot) {
-    let dataArray = [];
-    querySnapshot.forEach(function (doc) {
-
-      convertToArray(dataArray, doc);
-    });
-
-    let currentUserUID = dataArray[0].uid;
-    let currentUserPoints = dataArray[0].points;
-
-    const currentDB = db.collection("users").doc(currentUserUID);
-    currentDB.update({
-      points: req.body.points + currentUserPoints,
-    })
-
-    const currentTeam = dataArray[0].teamName;
-    let currentTeamPoints = 0;
-    db.collection("teams").where("team", "==", currentTeam).get().then(function (querySnapshot) {
-      querySnapshot.forEach(function (doc) {
-        currentTeamPoints = doc.data().points;
-        const pointsDB = db.collection("teams").doc(currentTeam);
-        pointsDB.update({
-          points: req.body.points + currentTeamPoints,
-        })
-      });
-    });
-
-
-
-  });
-
-  res.redirect(301, "/");
-
-
-});
-
-router.post("/modifyTeam", function (req, res) {
-
-
-  let currentUser = req.body.currentUser;
-
-  let startIndexOfEmail = currentUser.indexOf("(");
-  let endIndexOfEmail = currentUser.indexOf(")");
-
-  let userEmail = currentUser.substring((startIndexOfEmail + 1), endIndexOfEmail);
-
-
-  db.collection("users").where("email", "==", userEmail).get().then(function (querySnapshot) {
-    let dataArray = [];
-    querySnapshot.forEach(function (doc) {
-
-      convertToArray(dataArray, doc);
-    });
-
-    let currentUserUID = dataArray[0].uid;
-
-    const currentDB = db.collection("users").doc(currentUserUID);
-    currentDB.update({
-      teamName: req.body.teamName,
-    }).then(() => {
-
-      const teamDB = db.collection("teams").doc(req.body.teamName)
-
-      teamDB.update({
-        attendees: admin.firestore.FieldValue.arrayUnion(`${dataArray[0].firstName} ${dataArray[0].lastName}`)
-      })
-    });
-
-  });
-
-  res.redirect(301, "/");
-
-
-});
 
 router.post("/registerWorkshop", (req, res) => {
 
@@ -749,96 +385,7 @@ router.post("/addMessageToQueue", function (req, res) {
   });
 });
 
-//Approve lovebox messages from queue
-router.post("/approveMessage", function (req, res) {
 
-  const message = req.body.message;
-  const firstName = req.body.firstName;
-  const lastName = req.body.lastName;
-
-
-
-  db.collection("lovebox").get().then(function (querySnapshot) {
-    let dataArray = [];
-    querySnapshot.forEach(function (doc) {
-
-      convertToArray(dataArray, doc);
-    });
-
-
-    const messagesDB = db.collection("lovebox").doc('Messages');
-    const queueDB = db.collection("lovebox").doc('queue');
-
-    //Add approved message into lovebox page
-    messagesDB.update({
-      message: admin.firestore.FieldValue.arrayUnion({
-        firstName,
-        lastName,
-        message,
-      })
-    })
-
-    //Delete approve message from queue
-    db.collection("lovebox").get().then(function (querySnapshot) {
-      let dataArray = [];
-
-      querySnapshot.forEach(function (doc) {
-
-        convertToArray(dataArray, doc);
-      });
-
-      let pendingMessages = dataArray[1].pendingMessages;
-
-
-      for (let i = 0; i < pendingMessages.length; i++) {
-        if (pendingMessages[i].message == message) {
-          pendingMessages.splice(i, 1);
-        }
-      }
-
-      queueDB.update({
-        pendingMessages
-      })
-
-
-      res.redirect('/loveboxQueue');
-    });
-  });
-});
-
-
-//Delete  lovebox messages from queue
-router.post("/deleteMessage", function (req, res) {
-
-  const message = req.body.message;
-
-
-  //Delete approve message from queue
-  db.collection("lovebox").get().then(function (querySnapshot) {
-    let dataArray = [];
-
-    querySnapshot.forEach(function (doc) {
-
-      convertToArray(dataArray, doc);
-    });
-
-    let pendingMessages = dataArray[1].pendingMessages;
-
-
-    for (let i = 0; i < pendingMessages.length; i++) {
-      if (pendingMessages[i].message == message) {
-        pendingMessages.splice(i, 1);
-      }
-    }
-    const queueDB = db.collection("lovebox").doc('queue');
-    queueDB.update({
-      pendingMessages
-    })
-
-
-    res.redirect('/loveboxQueue');
-  });
-});
 
 
 

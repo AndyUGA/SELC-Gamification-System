@@ -22,7 +22,7 @@
     </title>
 </head>
 <nav class="navbar navbar-expand-lg navbar-dark bg-UVSASE-blue">
-    <a class="navbar-brand" href=".">SELC</a>
+    <a class="navbar-brand" href="./profile">SELC</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -33,62 +33,20 @@
 
             <% if(isLoggedIn == true) { %>
 
-            <li class="nav-item">
-                <a class="nav-link" href="./pointsForm">
-                    Modify Points
-                </a>
-            </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="./accountOverview">
-                   Account Overview
-                </a>
+                <a class="nav-link" href="./leaderboard">Leaderboard</a>
             </li>
-            <li class="nav-item dropdown">
-
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
-                    Admin
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-
-                    <a class="dropdown-item" href="./teamForm">
-                        Modify teams
-                    </a>
-                    <a class="dropdown-item" href="/history">
-                        History
-                    </a>
-
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="./lovebox">
-                        Lovebox
-                    </a>
-                    <a class="dropdown-item" href="./loveboxQueue">
-                        Lovebox Queue
-                    </a>
-                </div>
+            <li class="nav-item">
+                <a class="nav-link" href="./profile">Profile</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="./register-workshops">Workshops</a>
             </li>
 
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
-                    Attendee
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="./leaderboard">
-                        Leaderboard
-                    </a>
-                    <a class="dropdown-item" href="./profile">
-                        Profile
-                    </a>
-                    <a class="dropdown-item" href="/register-workshops">
-                        Workshops
-                    </a>
-                    <a class="dropdown-item" href="/positiveSparks">
-                        Positive Sparks
-                    </a>
-                </div>
-            </li>
+
+
+         
             <% } %>
 
             <% if(isLoggedIn != true) { %>
