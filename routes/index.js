@@ -428,7 +428,7 @@ router.get("/register-workshops", function (req, res) {
         });
 
         let tempWorkshops = [...dataArray];
-      
+        console.log(431, dataArray);
         res.render("register-workshops.ejs", {
           layout: 'Layout/layout.ejs',
           pagename: "register-workshops",

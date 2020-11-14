@@ -48,6 +48,10 @@
   text-align: right;
 }
 
+.workshop-title-overflow {
+  max-width: 50px;
+}
+
 @media (max-width: 767px) {
   .mobile-center {
     text-align: center;

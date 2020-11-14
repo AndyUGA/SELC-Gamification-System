@@ -60,7 +60,7 @@
 
 <div class="container my-5 mobile-center">
 
-        <button class="btn btn-tab mb-2 mobile-width" type="button" data-toggle="collapse" data-target="#workshopCollapse" aria-expanded="true"
+        <button class="btn btn-tab mb-5 mobile-width " type="button" data-toggle="collapse" data-target="#workshopCollapse" aria-expanded="true"
             aria-controls="familyCollapse">
             My Workshops
         </button>
@@ -156,7 +156,7 @@
                                 10:40 - 11:55 AM
                             </td>
 
-                            <td id = "workshopOne">
+                            <td class = "workshop-title-overflow" id = "scheudledWorkshop1">
                                 Worshop #1
                             </td>
 
@@ -175,7 +175,7 @@
                             <td>
                                 12:10 - 1:25 PM
                             </td>
-                            <td>
+                            <td class = "workshop-title-overflow" id = "scheudledWorkshop2">
                                 Workshop #2
                             </td>
                         </tr>
@@ -247,7 +247,7 @@
             <!-- Sunday -->
             <div class="col-md bg-light px-3 mx-3">
                 <h5 class="text-center my-3">—Sunday—</h5>
-                <table class="table table-sm" id="sun">
+                <table class="table table-sm overflow-hidden" id="sun">
                     <thead>
                         <tr>
                             <th>Time</th>
@@ -263,7 +263,7 @@
                         </tr>
                         <tr>
                             <td>10:45 - 12:00 PM</td>
-                            <td>
+                            <td class = "workshop-title-overflow" id = "scheudledWorkshop3">
                                 Workshop #3
                             </td>
                         </tr>
@@ -381,7 +381,7 @@
                     for (let a = 0; a < currentUser.workshops.length; a++) {
                         workshopContent += `    
                         
-                        <div class="card col-4">
+                        <div class="card col-4 p-3">
                             <div class="card-body m-3 d-flex align-items-center text-center">
                                 <h5 class="card-title">
                                     ${currentUser.workshops[a]}
@@ -389,7 +389,7 @@
                             </div>
                         </div>                           
                         `;
-                        $("#workshopOne").html(`${currentUser.workshops[a]}`);
+                        $("#scheudledWorkshop" + (a+1)).html(`${currentUser.workshops[a]}`);
                     }
                     $("#registeredWorkshops").html(workshopContent);
 

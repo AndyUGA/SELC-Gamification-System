@@ -69,6 +69,7 @@ th {
     height: 200px;
     background-position: center center;
     margin-top: 15px;
+    border-radius: 3rem;
 }
 
 .materials-needed {
@@ -79,10 +80,19 @@ th {
     display: none;
 }
 
+.scroll-down-icon {
+    width: 50px;
+    height: 50px;
+}
+
+.workshop-title {
+    font-size: 4rem;
+    text-align: center;
+}
 
 @media screen and (min-width: 992px) {
     .min-card-height {
-        height: 300px;
+        height: 350px;
     }
 
     .min-card-body-height {

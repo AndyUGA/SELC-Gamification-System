@@ -16,22 +16,100 @@
 
   </div>
 
+  <!-- Adulting Workshop Track-->
+
+ 
+
+ 
+
   <div class="row mb-5">
+      <div class = "workshop-title w-100">
+          Fun / Casual
+        </div>
+      <% for(var i = 0; i < 12; i++) { %>
 
-    <% for(var i = 0; i < dataArray.length; i++) { %>
-      <% if(dataArray[i].show != false) { %>
+        <% if(dataArray[i].track == 'fun/casual') { %>
         <div class="col-12 col-lg-3 mt-5">
-          <div class="card">
-            <!-- 
-        <img src="./Images/Workshops/<%= dataArray[i].presenter %>.jpg" class="img-fluid workshop-presenter-photo" alt="...">
-      -->
+            <div class="card shadow-lg">
+              <div class="container">
+                <div class="row yellow-bg py-3 min-card-height">
+  
+                  <div class="col d-flex flex-column align-items-center justify-content-around">
+                    <img class="img-fluid workshop-presenter-photo" src="./Images/Workshops/<%= dataArray[i].presenter %>.png">
+                    <div class="workshop-font-color py-3">
+                      <%= dataArray[i].presenter %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body min-card-body-height d-flex flex-column justify-content-between">
+                <div class="presenter-name">
+  
+                  <%= dataArray[i].name %>
+                </div>
+  
+                <div class="mb-5 workshop-description">
+  
+                  <%= dataArray[i].description %>
+                    <% if(dataArray[i].notes.length != 0) { %>
+                      <div class="mt-3 materials-needed">
+                        Materials Needed:
+                      </div>
+                      <ul class="mt-3">
+  
+                        <% for(let j = 0; j < dataArray[i].notes.length; j++) { %>
+                          <li>
+                            <%= dataArray[i].notes[j] %>
+                          </li>
+                          <% } %>
+                      </ul>
+                      <% } %>
+                      
+                </div>
+  
+                <!-- <div class="row">
+                      <div class="col d-flex justify-content-center">
+                        <img class = "img-fluid scroll-down-icon" src = "https://cdn2.iconfinder.com/data/icons/arrows-set-8/100/double_down-512.png">
+                      </div>
+                </div> -->
+                <div class="row">
+                  <div class="col-6 d-flex align-items-center justify-content-center remaining-spots">
+                    <%= dataArray[i].max - dataArray[i].attendees.length %> /
+                      <%= dataArray[i].max %>
+                  </div>
+                  <form class="col-6" id="workshopRegister">
+                    <button id="WorkshopButton<%=i%>" type="submit" class="btn  btn-UVSASE-darkBlue">
+                      <div class="text-white">
+                        Register
+                      </div>
+                    </button>
+  
+                    <input id="Workshop<%=(i+1)%>" type="hidden" value="<%= dataArray[i].name %>" />
+  
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+      <% } %>
+      <% } %>
+</div>
 
+<div class="row mb-5">
+    <div class = "workshop-title w-100">
+        Personal Development
+      </div>
+    <% for(var i = 0; i < 12; i++) { %>
+
+      <% if(dataArray[i].track == 'personal development') { %>
+      <div class="col-12 col-lg-3 mt-5">
+          <div class="card shadow-lg">
             <div class="container">
               <div class="row yellow-bg py-3 min-card-height">
 
                 <div class="col d-flex flex-column align-items-center justify-content-around">
                   <img class="img-fluid workshop-presenter-photo" src="./Images/Workshops/<%= dataArray[i].presenter %>.png">
-                  <div class="workshop-font-color py-3 py-lg-0">
+                  <div class="workshop-font-color py-3">
                     <%= dataArray[i].presenter %>
                   </div>
                 </div>
@@ -59,7 +137,14 @@
                         <% } %>
                     </ul>
                     <% } %>
+                    
               </div>
+
+              <!-- <div class="row">
+                    <div class="col d-flex justify-content-center">
+                      <img class = "img-fluid scroll-down-icon" src = "https://cdn2.iconfinder.com/data/icons/arrows-set-8/100/double_down-512.png">
+                    </div>
+              </div> -->
               <div class="row">
                 <div class="col-6 d-flex align-items-center justify-content-center remaining-spots">
                   <%= dataArray[i].max - dataArray[i].attendees.length %> /
@@ -79,10 +164,82 @@
             </div>
           </div>
         </div>
-        <% } %>
-          <% } %>
+    <% } %>
+    <% } %>
+</div>
 
-  </div>
+<div class="row mb-5">
+    <div class = "workshop-title w-100">
+        Adulting
+      </div>
+  <% for(var i = 0; i < 12; i++) { %>
+
+    <% if(dataArray[i].track == 'adulting') { %>
+      <div class="col-12 col-lg-3 mt-3">
+        <div class="card shadow-lg">
+          <div class="container">
+            <div class="row yellow-bg py-3 min-card-height">
+
+              <div class="col d-flex flex-column align-items-center justify-content-around">
+                <img class="img-fluid workshop-presenter-photo" src="./Images/Workshops/<%= dataArray[i].presenter %>.png">
+                <div class="workshop-font-color py-3">
+                  <%= dataArray[i].presenter %>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-body min-card-body-height d-flex flex-column justify-content-between">
+            <div class="presenter-name">
+
+              <%= dataArray[i].name %>
+            </div>
+
+            <div class="mb-5 workshop-description">
+
+              <%= dataArray[i].description %>
+                <% if(dataArray[i].notes.length != 0) { %>
+                  <div class="mt-3 materials-needed">
+                    Materials Needed:
+                  </div>
+                  <ul class="mt-3">
+
+                    <% for(let j = 0; j < dataArray[i].notes.length; j++) { %>
+                      <li>
+                        <%= dataArray[i].notes[j] %>
+                      </li>
+                      <% } %>
+                  </ul>
+                  <% } %>
+
+            </div>
+
+            <!-- <div class="row">
+                        <div class="col d-flex justify-content-center">
+                          <img class = "img-fluid scroll-down-icon" src = "https://cdn2.iconfinder.com/data/icons/arrows-set-8/100/double_down-512.png">
+                        </div>
+                  </div> -->
+            <div class="row">
+              <div class="col-6 d-flex align-items-center justify-content-center remaining-spots">
+                <%= dataArray[i].max - dataArray[i].attendees.length %> /
+                  <%= dataArray[i].max %>
+              </div>
+              <form class="col-6" id="workshopRegister">
+                <button id="WorkshopButton<%=i%>" type="submit" class="btn  btn-UVSASE-darkBlue">
+                  <div class="text-white">
+                    Register
+                  </div>
+                </button>
+
+                <input id="Workshop<%=(i+1)%>" type="hidden" value="<%= dataArray[i].name %>" />
+
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% } %>
+        <% } %>
+</div>
 </div>
 
 
