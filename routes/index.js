@@ -66,6 +66,10 @@ router.get("/", function (req, res) {
 router.get("/leaderboard", function (req, res) {
   let isUserLoggedIn = isLoggedIn(req);
 
+  if(!isUserLoggedIn) {
+    res.redirect('/login');
+  }
+
   db.collection("teams").orderBy("points", "DESC").get().then(function (querySnapshot) {
     let dataArray = [];
     querySnapshot.forEach(function (doc) {
@@ -152,6 +156,9 @@ router.get("/positiveSparks", function (req, res) {
 
 router.get("/profile", function (req, res) {
 
+  if(!isUserLoggedIn) {
+    res.redirect('/login');
+  }
   
   const sessionCookie = req.cookies.session || "";
   let isLoggedIn = false;
