@@ -116,17 +116,6 @@
       console.log(62, user);
       userEmail = user.email;
 
-      return fetch("/saveUserEmail", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          "CSRF-Token": Cookies.get("XSRF-TOKEN"),
-        },
-        body: JSON.stringify({
-          userEmail,
-        }),
-      });
     } else {
       console.log(43, "user not signed in");
     }

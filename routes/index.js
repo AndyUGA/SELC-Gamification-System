@@ -170,7 +170,7 @@ router.get("/history", function (req, res) {
 router.get("/leaderboard", function (req, res) {
   let isUserLoggedIn = isLoggedIn(req);
 
-  if(!isUserLoggedIn) {
+  if (!isUserLoggedIn) {
     res.redirect('/login');
   }
 
@@ -315,15 +315,13 @@ router.get("/positiveSparks", function (req, res) {
 
 router.get("/profile", function (req, res) {
 
-  if(!isUserLoggedIn) {
+  let isUserLoggedIn = isLoggedIn(req);
+
+  if (!isUserLoggedIn) {
     res.redirect('/login');
   }
-  
-  const sessionCookie = req.cookies.session || "";
-  let isLoggedIn = false;
-  if (sessionCookie) {
-    isLoggedIn = true;
-  }
+
+
 
   let userData;
   let teamData = [];
@@ -348,45 +346,18 @@ router.get("/profile", function (req, res) {
   });
 
 
-
-
-  db.collection("users").where("email", "==", currentUserEmail).get().then(function (querySnapshot) {
-    querySnapshot.forEach(function (doc) {
-      userData = doc.data();
-    });
-    admin
-      .auth()
-      .verifySessionCookie(sessionCookie, true /** checkRevoked */)
-      .then(() => {
-
-
-        let currentTeam = userData.teamName;
-        let teamIDs = [];
-
-        for (let i = 0; i < userIDs.length; i++) {
-          if (userIDs[i].teamName == currentTeam) {
-            teamIDs.push(userIDs[i]);
-          }
-        }
-
-        res.render("profile.ejs", {
-          layout: 'Layout/layout.ejs',
-          pagename: "profile",
-          title: "Profile",
-          isLoggedIn,
-          userData,
-          teamData,
-          teamIDs,
-          userIDs,
-          teamIDsLength: teamIDs.length,
-        });
-      })
-      .catch((error) => {
-        console.log(402, error);
-        res.redirect("/");
-      });
-
+  console.log(349, isLoggedIn);
+  res.render("profile.ejs", {
+    layout: 'Layout/layout.ejs',
+    pagename: "profile",
+    title: "Profile",
+    isLoggedIn: isUserLoggedIn,
+    userData,
+    teamData,
+    userIDs,
   });
+
+
 
 
 
@@ -872,17 +843,6 @@ router.post("/deleteMessage", function (req, res) {
     res.redirect('/loveboxQueue');
   });
 });
-
-
-
-router.post("/saveUserEmail", function (req, res) {
-
-
-  currentUserEmail = req.body.userEmail;
-
-});
-
-
 
 
 

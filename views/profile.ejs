@@ -22,34 +22,22 @@
                 <table class="dl mx-auto">
                     <tr>
                         <td id="rank">
-                            <% for(let i = 0; i < userIDs.length; i++) { %>
-                          <% if(userData.fullName == userIDs[i].fullName) { %>
-                            # <%= i + 1 %>
-                            <% } %>
-                            <% } %>
+                          
                         </td>
                         <td id="points">
-                            <%= userData.points %>
+                        
                         </td>
                     </tr>
                     <tr class="frp">
-                        <td>Rank</td>
+                        <td> Individual Rank</td>
                         <td>Points</td>
                     </tr>
                     <tr>
                         <td id="frank">
-                            <% for(let i = 0; i < teamData.length; i++) { %>
-                            <% if(teamData[i].team == userData.teamName) { %>
-                            <%=(i + 1)%>
-                            <% } %>
-                            <% } %>
+                           
                         </td>
                         <td id="fpoints">
-                            <% for(let i = 0; i < teamData.length; i++) { %>
-                            <% if(teamData[i].team == userData.teamName) { %>
-                            <%=   teamData[i].points %>
-                            <% } %>
-                            <% } %>
+                          
                         </td>
                     </tr>
                     <tr class="frp">
@@ -69,12 +57,6 @@
         aria-expanded="true" aria-controls="scheduleCollapse">
         My SELC Schedule</button>
 
-    <% for(let i = 0; i < teamIDs.length; i++) { %>
-    <div class="hidden" id="teamIDs<%=i%>" value=<%=teamIDs[i].uid %>>
-
-    </div>
-    <% } %>
-    <div class="hidden" id="teamIDsLength" value=<%= teamIDsLength %>></div>
     <div class="collapse dont-collapse-sm d-block" id="scheduleCollapse">
         <div class="row">
             <!-- Friday -->
@@ -141,26 +123,8 @@
         aria-expanded="true" aria-controls="familyCollapse">
         My Family</button>
 
-    <div class="row bg-light collapse dont-collapse-sm" id="familyCollapse">
-
-        <% for(let i = 0; i < teamIDs.length; i++) { %>
-        <% if(userData.fullName != teamIDs[i].fullName) { %>
-        <div class="col-4 text-center">
-            <div class="card bg-light border-0 mob-w">
-                <div class="card-body px-0 pb-0">
-                    <img class="img-fluid team-img-maxSize" id="teamImg<%=i%>">
-                    <p class="card-title font-weight-bold mt-1">
-                        <%= teamIDs[i].fullName %>
-                    </p>
-                    <p class="card-text">
-                    </p>
-                </div>
-            </div>
-        </div>
-        <% } %>
-        <% } %>
-
-
+    <div id = "teamImages" class="row bg-light collapse dont-collapse-sm" id="familyCollapse">
+     
     </div>
 
 
@@ -175,7 +139,7 @@
 <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-storage.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
-
+<script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-firestore.js"></script>
 
 <script>
 
@@ -191,14 +155,104 @@
 
     firebase.initializeApp(firebaseConfig);
 
+    const db = firebase.firestore();
+
+    let currentUser;
+
     firebase.auth().onAuthStateChanged(user => {
         
         if (user) {
-          
+            
             firebase.storage().ref('users/' + user.uid + '/profile.jpg').getDownloadURL().then(imgURL => {
                 document.getElementById("attendeePic").src = imgURL;
             })
-            console.log(201, user.email);
+            db.collection('users').where("uid", "==", user.uid).get().then(snapshot => {
+                snapshot.forEach((doc) => {
+                    currentUser = doc.data();
+                    $("#points").html(`#${currentUser.points}`);
+
+                    db.collection('teams').orderBy("points", "desc").get().then(snapshot => {
+                        let familyRank = 1;
+                        snapshot.forEach((doc) => {
+                            let teamData = doc.data();
+                            if (teamData.team == currentUser.teamName) {
+
+                                $("#frank").html(`#${familyRank}`);
+                                $("#fpoints").html(`#${teamData.points}`);
+
+                                // firebase.storage().ref('users/' + document.getElementById(`teamIDs${i}`).getAttribute("value") + '/profile.jpg').getDownloadURL().then(imgURL => {
+                                //     console.log(202, imgURL);
+                                // })
+                            }
+
+                        })
+                    });
+
+                     db.collection('users').where("teamName", "==", currentUser.teamName).get().then(snapshot => {
+                        let teamImageCounter = 0;
+                        let teamImages = '';
+                        snapshot.forEach((doc) => {
+                            let teamData = doc.data();
+                            console.log(197, snapshot.size);
+                           
+                        
+                            firebase.storage().ref('users/' + teamData.uid + '/profile.jpg').getDownloadURL().then(imgURL => {
+                                    teamImages += `
+                                <div class="col-4 text-center">
+                                    <div class="card bg-light border-0 mob-w">
+                                        <div class="card-body px-0 pb-0">
+                                            <img class="img-fluid team-img-maxSize" src = ${imgURL}>
+                                            <p class="card-title font-weight-bold mt-1">
+                                            ${teamData.fullName}
+                                            </p>
+                                            <p class="card-text">
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                `;
+                                if(teamImageCounter == (snapshot.size)) {
+                                    $("#teamImages").html(teamImages);
+                                }
+                            })
+                            .catch(() => {
+                                teamImages += `
+                                <div class="col-4 text-center">
+                                    <div class="card bg-light border-0 mob-w">
+                                        <div class="card-body px-0 pb-0">
+                                            <img class="img-fluid team-img-maxSize" src ="">
+                                            <p class="card-title font-weight-bold mt-1">
+                                            ${teamData.fullName}
+                                            </p>
+                                            <p class="card-text">
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                `;
+                            })
+                            teamImageCounter++;
+                            
+
+                        })
+                    });
+
+                     db.collection('users').orderBy("points", "desc").get().then(snapshot => {
+                        let individualRank = 1;
+                        snapshot.forEach((doc) => {
+                            let individualData = doc.data();
+                            if (individualData.fullName == currentUser.fullName) {
+                                $("#rank").html(`#${individualRank}`);
+                            }
+                            individualRank++;
+                        })
+                    });
+                })
+            });
+
+         
+
+       
             $("#currentName").html(user.email);
             firebase.storage().ref('users/' + user.uid + '/profile.jpg').getDownloadURL().then(imgURL => {
                 $("#attendeePic").html(`<img class = "img-fluid" src = ${imgURL}`);
@@ -206,14 +260,20 @@
         }
     })
 
+      db.collection('users').get().then(snapshot => {
+      snapshot.forEach((doc) => {
+          if(doc.data().teamName == 'Red') {
 
-    for (let i = 0; i < document.getElementById(`teamIDsLength`).getAttribute("value"); i++) {
-        //console.log(175, document.getElementById(`teamIDs${i}`).getAttribute("value"));
-        firebase.storage().ref('users/' + document.getElementById(`teamIDs${i}`).getAttribute("value") + '/profile.jpg').getDownloadURL().then(imgURL => {
-            document.getElementById("teamImg" + i).src = imgURL;
-            console.log(211, imgURL);
-        })
-    }
+          }
+      })
+    });
+    // for (let i = 0; i < document.getElementById(`teamIDsLength`).getAttribute("value"); i++) {
+    //     //console.log(175, document.getElementById(`teamIDs${i}`).getAttribute("value"));
+    //     firebase.storage().ref('users/' + document.getElementById(`teamIDs${i}`).getAttribute("value") + '/profile.jpg').getDownloadURL().then(imgURL => {
+    //         document.getElementById("teamImg" + i).src = imgURL;
+    //         console.log(211, imgURL);
+    //     })
+    // }
 
 
 
