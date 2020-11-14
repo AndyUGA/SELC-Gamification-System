@@ -218,15 +218,16 @@ router.get("/profile", function (req, res) {
 
 
   console.log(349, isLoggedIn);
-  res.render("profile.ejs", {
-    layout: 'Layout/layout.ejs',
-    pagename: "profile",
-    title: "Profile",
-    isLoggedIn: isUserLoggedIn,
-    userData,
-    teamData,
-    userIDs,
-  });
+  res.redirect("/leaderboard");
+  // res.render("profile.ejs", {
+  //   layout: 'Layout/layout.ejs',
+  //   pagename: "profile",
+  //   title: "Profile",
+  //   isLoggedIn: isUserLoggedIn,
+  //   userData,
+  //   teamData,
+  //   userIDs,
+  // });
 
 
 
