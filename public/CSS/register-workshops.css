@@ -42,15 +42,15 @@ th {
   background-color: #fed766;
 }
 
-.worshop-name {
+.workshop-name {
   font-size: 1.5rem;
 }
 
 .presenter-name {
   color: #009fb7;
   text-align: center;
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
+  font-size: 1.3rem;
+  margin-bottom: .5rem;
   font-weight: bold;
 }
 
@@ -65,19 +65,30 @@ th {
      object-fit: contain;
   height: 200px;
   background-position: center center;
+  margin-top: 15px;
+}
+
+.materials-needed {
+  font-weight: bold;
 }
 
 @media screen and (min-width: 992px) {
   .min-card-height {
-    height: 500px;
+    height: 300px;
   }
   .min-card-body-height {
-    height: 940px;
+    height: 500px;
   }
 }
 
 @media screen and (min-width: 1250px) {
   .min-card-body-height {
-    height: 700px;
+    height: 500px;
   }
+}
+
+.workshop-description {
+  font-size: .90em;
+  overflow: scroll;
+  height: 300px;
 }

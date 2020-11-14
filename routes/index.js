@@ -19,7 +19,6 @@ function getCurrentUserData(email) {
 
   db.collection("users").where("email", "==", email).get().then(function (querySnapshot) {
     querySnapshot.forEach(function (doc) {
-      console.log(22, doc.data());
       return doc.data();
     });
   });
@@ -62,7 +61,6 @@ router.get("/", function (req, res) {
 
 
 });
-
 
 
 router.get("/leaderboard", function (req, res) {
@@ -194,7 +192,7 @@ router.get("/profile", function (req, res) {
       .auth()
       .verifySessionCookie(sessionCookie, true /** checkRevoked */)
       .then(() => {
-        console.log(387, userIDs);
+
 
         let currentTeam = userData.teamName;
         let teamIDs = [];
@@ -204,7 +202,6 @@ router.get("/profile", function (req, res) {
             teamIDs.push(userIDs[i]);
           }
         }
-        console.log(397, teamIDs);
 
         res.render("profile.ejs", {
           layout: 'Layout/layout.ejs',
@@ -238,7 +235,7 @@ router.get("/register-workshops", function (req, res) {
 
     let currentUserInfo = [];
     let dataArray = [];
-    console.log(150, currentUserEmail);
+
     db.collection("users").where("email", "==", currentUserEmail).get().then(function (querySnapshot) {
 
       querySnapshot.forEach(function (doc) {
@@ -255,6 +252,7 @@ router.get("/register-workshops", function (req, res) {
 
         });
 
+        console.log(457, dataArray);
         let tempWorkshops = [...dataArray];
         let userCurrentWorkshops = currentUserInfo[0].workshops;
         let registeredWorkshopNumber = currentUserInfo[0].workshops.length;
@@ -323,7 +321,6 @@ router.post("/registerWorkshop", (req, res) => {
 
 
 });
-
 
 
 
