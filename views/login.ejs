@@ -85,6 +85,7 @@
     document
       .getElementById("login")
       .addEventListener("submit", (event) => {
+        $(".error").hide();
         document.getElementById("loading-spinner").style.display = "block";
         event.preventDefault();
         const login = event.target.login.value;
@@ -114,6 +115,7 @@
             $(".error").show();
             event.target.login.value = "";
             event.target.password.value = "";
+            document.getElementById("loading-spinner").style.display = "none";
           })
           ;
         return false;
