@@ -19,7 +19,6 @@ function getCurrentUserData(email) {
 
   db.collection("users").where("email", "==", email).get().then(function (querySnapshot) {
     querySnapshot.forEach(function (doc) {
-      console.log(22, doc.data());
       return doc.data();
     });
   });
@@ -79,7 +78,6 @@ router.get("/", function (req, res) {
 
             convertToArray(dataArray2, doc);
           });
-
 
           db.collection("teams").get().then(function (querySnapshot) {
             let teamsData = [];
@@ -151,13 +149,12 @@ router.get("/accountOverview", function (req, res) {
 router.get("/history", function (req, res) {
   let isUserLoggedIn = isLoggedIn(req);
 
-  db.collection("history").orderBy("modified", "DESC").get().then(function (querySnapshot) {
+  db.collection("history").orderBy("modifiedDate", "DESC").get().then(function (querySnapshot) {
     let dataArray = [];
     querySnapshot.forEach(function (doc) {
 
       convertToArray(dataArray, doc);
     });
-    console.log(177, dataArray);
     res.render("history.ejs", {
       layout: 'Layout/layout.ejs',
       pagename: "history",
@@ -354,7 +351,7 @@ router.get("/profile", function (req, res) {
       .auth()
       .verifySessionCookie(sessionCookie, true /** checkRevoked */)
       .then(() => {
-        console.log(387, userIDs);
+
 
         let currentTeam = userData.teamName;
         let teamIDs = [];
@@ -364,7 +361,6 @@ router.get("/profile", function (req, res) {
             teamIDs.push(userIDs[i]);
           }
         }
-        console.log(397, teamIDs);
 
         res.render("profile.ejs", {
           layout: 'Layout/layout.ejs',
@@ -440,7 +436,7 @@ router.get("/register-workshops", function (req, res) {
 
     let currentUserInfo = [];
     let dataArray = [];
-    console.log(150, currentUserEmail);
+
     db.collection("users").where("email", "==", currentUserEmail).get().then(function (querySnapshot) {
 
       querySnapshot.forEach(function (doc) {
@@ -457,6 +453,7 @@ router.get("/register-workshops", function (req, res) {
 
         });
 
+        console.log(457, dataArray);
         let tempWorkshops = [...dataArray];
         let userCurrentWorkshops = currentUserInfo[0].workshops;
         let registeredWorkshopNumber = currentUserInfo[0].workshops.length;
@@ -581,7 +578,6 @@ router.post("/updatePositiveSparkCounter/:email", function (req, res) {
 
   const email = req.params.email;
 
-  console.log(570, email);
 
   db.collection("users").where("email", "==", email).get().then(function (querySnapshot) {
     let dataArray = [];
@@ -593,7 +589,7 @@ router.post("/updatePositiveSparkCounter/:email", function (req, res) {
     let currentUserUID = dataArray[0].uid;
     let currentPositiveSparkCounter = dataArray[0].positiveSparkCounter;
 
-    let updatePositiveSparkCounter = currentPositiveSparkCounter + 1;
+   
 
     const currentDB = db.collection("users").doc(currentUserUID);
     currentDB.update({
@@ -626,6 +622,8 @@ router.post("/modifyPoints", function (req, res) {
     email: userEmail,
     points: req.body.points,
     modified: today,
+    modifiedDate: admin.firestore.FieldValue.serverTimestamp(),
+    modifiedBy: req.body.author
   });
 
 
@@ -750,7 +748,6 @@ router.post("/registerWorkshop", (req, res) => {
 router.post("/addMessageToQueue", function (req, res) {
 
   const message = req.body.message;
-  console.log(548, message);
   const firstName = req.body.firstName;
   const lastName = req.body.lastName;
 
@@ -774,7 +771,6 @@ router.post("/addMessageToQueue", function (req, res) {
     })
 
 
-    console.log("Message added to queue");
     res.redirect('/lovebox');
   });
 });
@@ -818,7 +814,7 @@ router.post("/approveMessage", function (req, res) {
       });
 
       let pendingMessages = dataArray[1].pendingMessages;
-      console.log(dataArray[1].pendingMessages[0].message);
+
 
       for (let i = 0; i < pendingMessages.length; i++) {
         if (pendingMessages[i].message == message) {
@@ -830,7 +826,7 @@ router.post("/approveMessage", function (req, res) {
         pendingMessages
       })
 
-      console.log("Message added to lovebox");
+
       res.redirect('/loveboxQueue');
     });
   });
@@ -841,7 +837,7 @@ router.post("/approveMessage", function (req, res) {
 router.post("/deleteMessage", function (req, res) {
 
   const message = req.body.message;
-  console.log(639, message);
+
 
   //Delete approve message from queue
   db.collection("lovebox").get().then(function (querySnapshot) {
@@ -853,7 +849,7 @@ router.post("/deleteMessage", function (req, res) {
     });
 
     let pendingMessages = dataArray[1].pendingMessages;
-    console.log(dataArray[1].pendingMessages[0].message);
+
 
     for (let i = 0; i < pendingMessages.length; i++) {
       if (pendingMessages[i].message == message) {
@@ -865,7 +861,7 @@ router.post("/deleteMessage", function (req, res) {
       pendingMessages
     })
 
-    console.log("Message added to lovebox");
+
     res.redirect('/loveboxQueue');
   });
 });

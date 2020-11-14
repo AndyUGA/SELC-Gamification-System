@@ -68,17 +68,23 @@ th {
   margin-top: 15px;
 }
 
+.materials-needed {
+  font-weight: bold;
+}
+
 @media screen and (min-width: 992px) {
   .min-card-height {
     height: 300px;
   }
   .min-card-body-height {
+
     height: 500px;
   }
 }
 
 @media screen and (min-width: 1200px) {
   .min-card-body-height {
+
     height: 500px;
   }
 }
