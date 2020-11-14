@@ -593,7 +593,7 @@ router.post("/modifyPoints", function (req, res) {
 
   let userEmail = currentUser.substring((startIndexOfEmail + 1), endIndexOfEmail);
 
-  let today = new Date().toLocaleString();
+  let today = new Date().toLocaleString('en-US',{timeZone: 'EST'});
 
   db.collection("history").add({
     attendee: fullName,
