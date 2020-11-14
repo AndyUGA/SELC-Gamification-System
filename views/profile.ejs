@@ -54,6 +54,21 @@
 <!-- SELC Schedule -->
 
 
+
+
+
+
+<div class="container my-5 mobile-center">
+
+        <button class="btn btn-tab mb-2 mobile-width" type="button" data-toggle="collapse" data-target="#workshopCollapse" aria-expanded="true"
+            aria-controls="familyCollapse">
+            My Workshops
+        </button>
+    
+        <div id="registeredWorkshops" class="row bg-light collapse dont-collapse-sm" id="workshopCollapse">
+        </div>
+    </div>
+
 <div class="container mobile-center">
     <button class="btn btn-tab mb-2 mobile-width" type="button" data-toggle="collapse" data-target="#scheduleCollapse" aria-expanded="true"
         aria-controls="scheduleCollapse">
@@ -141,7 +156,7 @@
                                 10:40 - 11:55 AM
                             </td>
 
-                            <td>
+                            <td id = "workshopOne">
                                 Worshop #1
                             </td>
 
@@ -300,7 +315,10 @@
         </div>
     </div>
 </div>
-</div>
+
+
+
+
 <!-- End SELC Schedule -->
 <!-- Family -->
 <div class="container my-5 mobile-center">
@@ -309,13 +327,10 @@
         My Family</button>
 
     <div id="teamImages" class="row bg-light collapse dont-collapse-sm" id="familyCollapse">
-
     </div>
-
-
-
-
 </div>
+
+
 
 
 
@@ -348,14 +363,38 @@
 
         if (user) {
 
+            //Get user's profile image
             firebase.storage().ref('users/' + user.uid + '/profile.jpg').getDownloadURL().then(imgURL => {
                 document.getElementById("attendeePic").src = imgURL;
             })
+
+            //Get current user info
             db.collection('users').where("uid", "==", user.uid).get().then(snapshot => {
                 snapshot.forEach((doc) => {
                     currentUser = doc.data();
+
+                    $("#currentName").html(currentUser.fullName);
                     $("#points").html(`#${currentUser.points}`);
 
+                    //Get workshop info
+                    let workshopContent = ``;
+                    for (let a = 0; a < currentUser.workshops.length; a++) {
+                        workshopContent += `    
+                        
+                        <div class="card col-4">
+                            <div class="card-body m-3 d-flex align-items-center text-center">
+                                <h5 class="card-title">
+                                    ${currentUser.workshops[a]}
+                                </h5>
+                            </div>
+                        </div>                           
+                        `;
+                        $("#workshopOne").html(`${currentUser.workshops[a]}`);
+                    }
+                    $("#registeredWorkshops").html(workshopContent);
+
+
+                    //Get team rank info
                     db.collection('teams').orderBy("points", "desc").get().then(snapshot => {
                         let familyRank = 1;
                         snapshot.forEach((doc) => {
@@ -365,14 +404,13 @@
                                 $("#frank").html(`#${familyRank}`);
                                 $("#fpoints").html(`#${teamData.points}`);
 
-                                // firebase.storage().ref('users/' + document.getElementById(`teamIDs${i}`).getAttribute("value") + '/profile.jpg').getDownloadURL().then(imgURL => {
-                                //     console.log(202, imgURL);
-                                // })
+
                             }
 
                         })
                     });
 
+                    //Get teammate info
                     db.collection('users').where("teamName", "==", currentUser.teamName).get().then(snapshot => {
                         let teamImageCounter = 0;
                         let teamImages = '';
@@ -422,6 +460,7 @@
                         })
                     });
 
+                    //Get leaderboard ranking for individual
                     db.collection('users').orderBy("points", "desc").get().then(snapshot => {
                         let individualRank = 1;
                         snapshot.forEach((doc) => {
@@ -432,13 +471,13 @@
                             individualRank++;
                         })
                     });
+
+
+
                 })
             });
 
 
-
-
-            $("#currentName").html(user.email);
             firebase.storage().ref('users/' + user.uid + '/profile.jpg').getDownloadURL().then(imgURL => {
                 $("#attendeePic").html(`<img class = "img-fluid" src = ${imgURL}`);
             });

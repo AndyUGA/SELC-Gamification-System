@@ -122,10 +122,10 @@
 
         let currentUser = doc.data();
 
-        if (currentUser.workshops.length == 3) {
+        if (currentUser.workshops.length >= 3) {
           $("#workshopMaxNotification").show();
-          for(let j = 0; j < 12; j++) {
-            $("#WorkshopButton"+j).hide();
+          for (let j = 0; j < 12; j++) {
+            $("#WorkshopButton" + j).hide();
           }
         }
 
@@ -134,11 +134,16 @@
           snapshot.forEach((doc) => {
 
             let workshopData = doc.data();
-           
-            if (currentUser.workshops[i] == workshopData.name) {
-              console.log(135, i);
-              $("#WorkshopButton"+i).hide();
+
+            for (let j = 0; j < 12; j++) {
+              console.log(137, currentUser.workshops[i]);
+              console.log(138, workshopData.name);
+              if (currentUser.workshops[j] == workshopData.name) {
+
+                $("#WorkshopButton" + i).hide();
+              }
             }
+
             i++;
 
           })

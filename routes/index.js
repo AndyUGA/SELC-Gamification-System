@@ -170,6 +170,8 @@ router.get("/history", function (req, res) {
 router.get("/leaderboard", function (req, res) {
   let isUserLoggedIn = isLoggedIn(req);
 
+
+
   if (!isUserLoggedIn) {
     res.redirect('/login');
   }
@@ -412,6 +414,7 @@ router.get("/register-workshops", function (req, res) {
     res.redirect("/login");
   } else {
 
+    
     let currentUserInfo = [];
     let dataArray = [];
 
@@ -424,7 +427,6 @@ router.get("/register-workshops", function (req, res) {
 
         });
 
-        console.log(457, dataArray);
         let tempWorkshops = [...dataArray];
       
         res.render("register-workshops.ejs", {
@@ -673,28 +675,33 @@ router.post("/registerWorkshop", (req, res) => {
 
     let currentUserUID = dataArray[0].uid;
 
-    console.log(676, dataArray[0].workshops);
+    let workshopAmount = dataArray[0].workshops.length;
+    
+    if(workshopAmount >= 3) {
+      res.redirect('/register-workshops');
+    } else {
+      const currentDB = db.collection("users").doc(currentUserUID);
+      currentDB.update({
+        workshops: [
+          ...dataArray[0].workshops,
+          req.body.workshopName
+        ]
+      }).then(() => {
+  
+      })
+  
+  
+      db.collection("workshops").doc(req.body.selectedWorkshop).update({
+        attendees: admin.firestore.FieldValue.arrayUnion(`${dataArray[0].firstName} ${dataArray[0].lastName}`)
+      }).then(function () {
+  
+  
+        res.redirect("/Workshops")
+      });
+    }
 
 
-
-    const currentDB = db.collection("users").doc(currentUserUID);
-    currentDB.update({
-      workshops: [
-        ...dataArray[0].workshops,
-        req.body.workshopName
-      ]
-    }).then(() => {
-
-    })
-
-
-    db.collection("workshops").doc(req.body.selectedWorkshop).update({
-      attendees: admin.firestore.FieldValue.arrayUnion(`${dataArray[0].firstName} ${dataArray[0].lastName}`)
-    }).then(function () {
-
-
-      res.redirect("/Workshops")
-    });
+    
   });
 
 
