@@ -67,6 +67,8 @@ th {
   background-position: center center;
   margin-top: 15px;
   border-radius: 3rem;
+  -webkit-box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;
+          box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;
 }
 
 .materials-needed {

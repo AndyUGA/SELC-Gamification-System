@@ -60,21 +60,23 @@
 
 <div class="container my-5 mobile-center">
 
-        <button class="btn btn-tab mb-5 mobile-width " type="button" data-toggle="collapse" data-target="#workshopCollapse" aria-expanded="true"
-            aria-controls="familyCollapse">
-            My Workshops
-        </button>
-    
-        <div id="registeredWorkshops" class="row bg-light collapse dont-collapse-sm" id="workshopCollapse">
+    <button class="btn btn-tab mb-5 mobile-width " type="button" data-toggle="collapse" data-target="#workshopCollapse"
+        aria-expanded="true" aria-controls="workshopCollapse">
+        My Workshops
+    </button>
+
+    <div id="workshopCollapse" class="collapse dont-collapse-sm">
+        <div id="registeredWorkshops" class="dont-collapse-sm">
         </div>
     </div>
+</div>
 
 <div class="container mobile-center">
-    <button class="btn btn-tab mb-2 mobile-width" type="button" data-toggle="collapse" data-target="#scheduleCollapse" aria-expanded="true"
-        aria-controls="scheduleCollapse">
+    <button class="btn btn-tab mb-2 mobile-width" type="button" data-toggle="collapse" data-target="#scheduleCollapse"
+        aria-expanded="true" aria-controls="scheduleCollapse">
         My SELC Schedule</button>
 
-    <div class="collapse dont-collapse-sm d-block" id="scheduleCollapse">
+    <div class="collapse dont-collapse-sm " id="scheduleCollapse">
         <div class="row">
             <!-- Friday -->
             <div class="col-md bg-light px-3 mx-3">
@@ -156,7 +158,7 @@
                                 10:40 - 11:55 AM
                             </td>
 
-                            <td class = "workshop-title-overflow" id = "scheudledWorkshop1">
+                            <td class="workshop-title-overflow" id="scheudledWorkshop1">
                                 Worshop #1
                             </td>
 
@@ -175,7 +177,7 @@
                             <td>
                                 12:10 - 1:25 PM
                             </td>
-                            <td class = "workshop-title-overflow" id = "scheudledWorkshop2">
+                            <td class="workshop-title-overflow" id="scheudledWorkshop2">
                                 Workshop #2
                             </td>
                         </tr>
@@ -263,7 +265,7 @@
                         </tr>
                         <tr>
                             <td>10:45 - 12:00 PM</td>
-                            <td class = "workshop-title-overflow" id = "scheudledWorkshop3">
+                            <td class="workshop-title-overflow" id="scheudledWorkshop3">
                                 Workshop #3
                             </td>
                         </tr>
@@ -322,11 +324,13 @@
 <!-- End SELC Schedule -->
 <!-- Family -->
 <div class="container my-5 mobile-center">
-    <button class="btn btn-tab mb-2 mobile-width" type="button" data-toggle="collapse" data-target="#familyCollapse" aria-expanded="true"
-        aria-controls="familyCollapse">
+    <button class="btn btn-tab mb-2 mobile-width" type="button" data-toggle="collapse" data-target="#familyCollapse"
+        aria-expanded="true" aria-controls="familyCollapse">
         My Family</button>
 
-    <div id="teamImages" class="row bg-light collapse dont-collapse-sm" id="familyCollapse">
+    <div id="familyCollapse" class=" collapse dont-collapse-sm">
+        <div id="teamImages" class="dont-collapse-sm">
+        </div>
     </div>
 </div>
 
@@ -381,15 +385,15 @@
                     for (let a = 0; a < currentUser.workshops.length; a++) {
                         workshopContent += `    
                         
-                        <div class="card col-4 p-3">
+                        <div class="card col col-md-4 p-3">
                             <div class="card-body m-3 d-flex align-items-center text-center">
-                                <h5 class="card-title">
+                                <h5 class="card-title w-100 text-center">
                                     ${currentUser.workshops[a]}
                                 </h5>
                             </div>
                         </div>                           
                         `;
-                        $("#scheudledWorkshop" + (a+1)).html(`${currentUser.workshops[a]}`);
+                        $("#scheudledWorkshop" + (a + 1)).html(`${currentUser.workshops[a]}`);
                     }
                     $("#registeredWorkshops").html(workshopContent);
 
@@ -421,9 +425,9 @@
 
                             firebase.storage().ref('users/' + teamData.uid + '/profile.jpg').getDownloadURL().then(imgURL => {
                                 teamImages += `
-                                <div class="col-4 text-center">
+                                <div class="col col-md-4 text-center">
                                     <div class="card bg-light border-0 mob-w">
-                                        <div class="card-body px-0 pb-0">
+                                        <div class="card-body px-0 pb-0 d-flex flex-column align-items-center">
                                             <img class="img-fluid team-img-maxSize" src = ${imgURL}>
                                             <p class="card-title font-weight-bold mt-1">
                                             ${teamData.fullName}
@@ -440,9 +444,9 @@
                             })
                                 .catch(() => {
                                     teamImages += `
-                                <div class="col-4 text-center">
+                                    <div class="col col-md-4 text-center">
                                     <div class="card bg-light border-0 mob-w">
-                                        <div class="card-body px-0 pb-0">
+                                        <div class="card-body px-0 pb-0 d-flex flex-column align-items-center">
                                             <img class="img-fluid team-img-maxSize" src ="">
                                             <p class="card-title font-weight-bold mt-1">
                                             ${teamData.fullName}
