@@ -114,6 +114,7 @@
             $(".error").show();
             event.target.login.value = "";
             event.target.password.value = "";
+            document.getElementById("loading-spinner").style.display = "none";
           })
           ;
         return false;
