@@ -70,6 +70,10 @@ th {
     background-position: center center;
 }
 
+.materials-needed {
+    font-weight: bold;
+}
+
 
 @media screen and (min-width: 992px) {
     .min-card-height {
@@ -77,7 +81,7 @@ th {
     }
 
     .min-card-body-height {
-        height: 800px;
+        height: 1200px;
     }
 }
 
@@ -85,6 +89,6 @@ th {
 @media screen and (min-width: 1200px) {
 
     .min-card-body-height {
-        height: 600px;
+        height: 950px;
     }
 }

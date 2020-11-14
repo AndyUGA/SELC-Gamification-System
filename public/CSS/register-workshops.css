@@ -67,17 +67,21 @@ th {
   background-position: center center;
 }
 
+.materials-needed {
+  font-weight: bold;
+}
+
 @media screen and (min-width: 992px) {
   .min-card-height {
     height: 400px;
   }
   .min-card-body-height {
-    height: 800px;
+    height: 1200px;
   }
 }
 
 @media screen and (min-width: 1200px) {
   .min-card-body-height {
-    height: 600px;
+    height: 950px;
   }
 }

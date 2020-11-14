@@ -43,8 +43,21 @@
        
             <%= dataArray[i].name %>
           </div>
-          <div class="mb-5">
+          <div>
             <%= dataArray[i].description %>
+            <% if(dataArray[i].notes.length != 0) { %>
+              <div class = "mt-3 materials-needed">
+                  Materials Needed:
+                </div>
+            <ul class = "mt-3">
+             
+              <% for(let j = 0; j < dataArray[i].notes.length; j++) { %>
+                <li>
+                  <%= dataArray[i].notes[j] %>
+                </li>
+                <% } %>
+            </ul>
+            <% } %>
           </div>
           <div class = "row"> 
           <div class = "col-6 d-flex align-items-center justify-content-center remaining-spots">
@@ -52,7 +65,7 @@
           </div>
           <form class = "col-6" id="workshopRegister">
             <% if(registeredWorkshopNumber != 3)  { %>
-            <button type="submit" class="btn btn-lg btn-UVSASE-darkBlue">
+            <button type="submit" class="btn  btn-UVSASE-darkBlue">
               <div class="text-white">
                 Register
               </div>
