@@ -1,7 +1,9 @@
 <div class="container">
     <div class="row mt-5">
         <div class="col">
-
+            <div class = "points-title w-100 text-center"> 
+               Modify Points
+            </div>
             <form onsubmit="test(event)">
                 <div class="form-group">
                     <label for="exampleInputEmail1">
@@ -32,10 +34,56 @@
                     <input id="points" type="number" class="form-control" name="points">
                 </div>
 
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">
+                    Update points
+                </button>
             </form>
 
 
+        </div>
+    </div>
+
+    <div class="row mt-5 flex-column">
+        <div class="col">
+            <div class = "w-100 text-center mb-5 recent-updates">
+               Recent updates
+            </div>
+        </div>
+        <div class="col">
+            <table class="table table-responsive-sm">
+                <thead>
+                    <tr class="text-center">
+                        <th scope="col">Attendee</th>
+                        <th scope="col">Points</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Modified At</th>
+                        <th scope="col">Modified By</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for(let i = 0; i < historyArray.length; i++) { %> 
+                     <tr class = "text-center">
+                        <td>
+                            <%= historyArray[i].attendee %>
+                        </td>
+                        <td>
+                            <%= historyArray[i].points %>
+                        </td>
+                        <td>
+                            <%= historyArray[i].email %>
+                        </td>
+                        <td>
+                            <%= historyArray[i].modified %>
+                        </td>
+                        <td>
+                            <%= historyArray[i].modifiedBy %>
+                        </td>
+                     </tr>   
+                     <% } %>
+                    
+                
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

@@ -13,6 +13,7 @@
                         <th scope="col">Points</th>
                         <th scope="col">Email</th>
                         <th scope="col">Modified At</th>
+                        <th scope="col">Modified By</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -29,6 +30,9 @@
                         </td>
                         <td>
                             <%= dataArray[i].modified %>
+                        </td>
+                        <td>
+                            <%= dataArray[i].modifiedBy %>
                         </td>
                      </tr>   
                      <% } %>

@@ -252,17 +252,23 @@ router.get("/pointsForm", function (req, res) {
         querySnapshot.forEach(function (doc) {
           convertToArray(dataArray, doc);
         });
+
+        db.collection("history").orderBy('modifiedDate', "DESC").limit(5).get().then(function (querySnapshot) {
+          let historyArray = [];
+          querySnapshot.forEach(function (doc) {
+            convertToArray(historyArray, doc);
+          });
+
         res.render("pointsForm.ejs", {
           layout: 'Layout/layout.ejs',
           dataArray,
+          historyArray,
           pagename: "pointsForm",
           title: "Modify Points",
           isLoggedIn: isUserLoggedIn,
         });
       });
-
-
-
+    });
     })
     .catch((error) => {
       console.log(285, error);
@@ -576,7 +582,7 @@ router.post("/modifyPoints", function (req, res) {
 
   let userEmail = currentUser.substring((startIndexOfEmail + 1), endIndexOfEmail);
 
-  let today = new Date().toLocaleString('en-US',{timeZone: 'EST'});
+  let today = new Date().toLocaleString('en-US', {timeZone: 'America/New_York'});
 
   db.collection("history").add({
     attendee: fullName,

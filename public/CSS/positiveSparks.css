@@ -1,7 +1,8 @@
 .team-img-maxSize {
   height: 200px;
   width: 200px;
-  object-fit: contain;
+  -o-object-fit: contain;
+     object-fit: contain;
 }
 
 .tap-icon {
