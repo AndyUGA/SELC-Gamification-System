@@ -72,6 +72,7 @@ router.post("/sessionSignup", (req, res) => {
         fullName: req.body.firstName + " " + req.body.lastName,
         created: admin.firestore.Timestamp.now(),
         workshops: [],
+        positiveSparkCounter: 0,
         points: 0,
     });
 
