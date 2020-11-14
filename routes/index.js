@@ -415,14 +415,7 @@ router.get("/register-workshops", function (req, res) {
     let currentUserInfo = [];
     let dataArray = [];
 
-    db.collection("users").where("email", "==", currentUserEmail).get().then(function (querySnapshot) {
-
-      querySnapshot.forEach(function (doc) {
-
-        convertToArray(currentUserInfo, doc);
-      });
-
-    }).then(function () {
+  
       db.collection("workshops").orderBy("identifier", "ASC").get().then(function (querySnapshot) {
 
         querySnapshot.forEach(function (doc) {
@@ -433,28 +426,16 @@ router.get("/register-workshops", function (req, res) {
 
         console.log(457, dataArray);
         let tempWorkshops = [...dataArray];
-        let userCurrentWorkshops = currentUserInfo[0].workshops;
-        let registeredWorkshopNumber = currentUserInfo[0].workshops.length;
-
-        for (let i = 0; i < userCurrentWorkshops.length; i++) {
-
-          for (let j = 0; j < dataArray.length; j++) {
-
-            if (userCurrentWorkshops[i] == dataArray[j].name) {
-              tempWorkshops[j].show = false;
-            }
-          }
-        }
+      
         res.render("register-workshops.ejs", {
           layout: 'Layout/layout.ejs',
           pagename: "register-workshops",
           title: "Register for Workshops!",
           dataArray: tempWorkshops,
-          registeredWorkshopNumber,
           isLoggedIn: isUserLoggedIn,
         });
       });
-    });
+
   }
 });
 
@@ -691,6 +672,8 @@ router.post("/registerWorkshop", (req, res) => {
     });
 
     let currentUserUID = dataArray[0].uid;
+
+    console.log(676, dataArray[0].workshops);
 
 
 

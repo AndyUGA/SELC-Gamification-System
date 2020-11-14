@@ -72,6 +72,10 @@ th {
   font-weight: bold;
 }
 
+.hideWorkshopNotification {
+  display: none;
+}
+
 @media screen and (min-width: 992px) {
   .min-card-height {
     height: 300px;

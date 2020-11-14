@@ -1,10 +1,9 @@
 <div class="container-fluid mt-5">
 
- 
 
-  <div class="row">
+  <div id="workshopMaxNotification" class="row hideWorkshopNotification">
     <div class="col">
-      <% if(registeredWorkshopNumber == 3)  { %>
+
       <div class="card align-items-center mb-3 confirmation-message">
         <img src="./Images/Workshops/confirmation.svg" class="card-img-top maxIconSize mt-3" alt="...">
         <div class="card-body">
@@ -13,7 +12,6 @@
           </div>
         </div>
       </div>
-      <% } %>
     </div>
 
   </div>
@@ -21,69 +19,68 @@
   <div class="row mb-5">
 
     <% for(var i = 0; i < dataArray.length; i++) { %>
-    <% if(dataArray[i].show != false) { %>
-    <div class="col-12 col-lg-3 mt-5">
-      <div class="card">
-        <!-- 
+      <% if(dataArray[i].show != false) { %>
+        <div class="col-12 col-lg-3 mt-5">
+          <div class="card">
+            <!-- 
         <img src="./Images/Workshops/<%= dataArray[i].presenter %>.jpg" class="img-fluid workshop-presenter-photo" alt="...">
       -->
-        <div class="container">
-          <div class="row yellow-bg py-3 min-card-height">
-        
-            <div class="col d-flex flex-column align-items-center justify-content-around">
-                <img class="img-fluid workshop-presenter-photo" src="./Images/Workshops/<%= dataArray[i].presenter %>.png">
-              <div class="workshop-font-color py-3 py-lg-0">
-                  <%= dataArray[i].presenter %>
+
+            <div class="container">
+              <div class="row yellow-bg py-3 min-card-height">
+
+                <div class="col d-flex flex-column align-items-center justify-content-around">
+                  <img class="img-fluid workshop-presenter-photo" src="./Images/Workshops/<%= dataArray[i].presenter %>.png">
+                  <div class="workshop-font-color py-3 py-lg-0">
+                    <%= dataArray[i].presenter %>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-body min-card-body-height d-flex flex-column justify-content-between">
+              <div class="presenter-name">
+
+                <%= dataArray[i].name %>
+              </div>
+
+              <div class="mb-5 workshop-description">
+
+                <%= dataArray[i].description %>
+                  <% if(dataArray[i].notes.length != 0) { %>
+                    <div class="mt-3 materials-needed">
+                      Materials Needed:
+                    </div>
+                    <ul class="mt-3">
+
+                      <% for(let j = 0; j < dataArray[i].notes.length; j++) { %>
+                        <li>
+                          <%= dataArray[i].notes[j] %>
+                        </li>
+                        <% } %>
+                    </ul>
+                    <% } %>
+              </div>
+              <div class="row">
+                <div class="col-6 d-flex align-items-center justify-content-center remaining-spots">
+                  <%= dataArray[i].max - dataArray[i].attendees.length %> /
+                    <%= dataArray[i].max %>
+                </div>
+                <form class="col-6" id="workshopRegister">
+                  <button id="WorkshopButton<%=i%>" type="submit" class="btn  btn-UVSASE-darkBlue">
+                    <div class="text-white">
+                      Register
+                    </div>
+                  </button>
+
+                  <input id="Workshop<%=(i+1)%>" type="hidden" value="<%= dataArray[i].name %>" />
+
+                </form>
               </div>
             </div>
           </div>
         </div>
-        <div class="card-body min-card-body-height d-flex flex-column justify-content-between">
-          <div class="presenter-name">
-
-            <%= dataArray[i].name %>
-          </div>
-
-          <div class="mb-5 workshop-description">
-
-            <%= dataArray[i].description %>
-            <% if(dataArray[i].notes.length != 0) { %>
-              <div class = "mt-3 materials-needed">
-                  Materials Needed:
-                </div>
-            <ul class = "mt-3">
-             
-              <% for(let j = 0; j < dataArray[i].notes.length; j++) { %>
-                <li>
-                  <%= dataArray[i].notes[j] %>
-                </li>
-                <% } %>
-            </ul>
-            <% } %>
-          </div>
-          <div class = "row"> 
-          <div class = "col-6 d-flex align-items-center justify-content-center remaining-spots">
-            <%= dataArray[i].max - dataArray[i].attendees.length %> / <%= dataArray[i].max %>
-          </div>
-          <form class = "col-6" id="workshopRegister">
-            <% if(registeredWorkshopNumber != 3)  { %>
-            <button type="submit" class="btn  btn-UVSASE-darkBlue">
-              <div class="text-white">
-                Register
-              </div>
-            </button>
-            <% } else { %>
-            <button type="button" class="btn btn-secondary btn-lg" disabled>Register</button>
-            <% } %>
-            <input id="Workshop<%=(i+1)%>" type="hidden" value="<%= dataArray[i].name %>" />
-
-          </form>
-        </div>
-        </div>
-      </div>
-    </div>
-    <% } %>
-    <% } %>
+        <% } %>
+          <% } %>
 
   </div>
 </div>
@@ -92,6 +89,7 @@
 <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-auth.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-firestore.js"></script>
 
 <script>
   const firebaseConfig = {
@@ -106,6 +104,8 @@
 
   firebase.initializeApp(firebaseConfig);
 
+  const db = firebase.firestore();
+
   const auth = firebase.auth();
   let userEmail = "";
   auth.onAuthStateChanged(function (user) {
@@ -116,6 +116,39 @@
     } else {
       console.log(58, "user not signed in");
     }
+
+    db.collection('users').where("uid", "==", user.uid).get().then(snapshot => {
+      snapshot.forEach((doc) => {
+
+        let currentUser = doc.data();
+
+        if (currentUser.workshops.length == 3) {
+          $("#workshopMaxNotification").show();
+          for(let j = 0; j < 12; j++) {
+            $("#WorkshopButton"+j).hide();
+          }
+        }
+
+        let i = 0;
+        db.collection('workshops').get().then(snapshot => {
+          snapshot.forEach((doc) => {
+
+            let workshopData = doc.data();
+           
+            if (currentUser.workshops[i] == workshopData.name) {
+              console.log(135, i);
+              $("#WorkshopButton"+i).hide();
+            }
+            i++;
+
+          })
+        });
+
+
+
+
+      });
+    });
   });
 
   document
