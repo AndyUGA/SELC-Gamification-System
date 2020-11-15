@@ -3,24 +3,42 @@
   <div class="col">
     <div class="card align-items-center mb-3">
       <div class="card-body">
-        <div class="text-center">
-          You will see below that there are four different  options for each workshop time slot. Please select one
-            workshop for each timeslot.
-            <br>
-            The number next to the register button indicates how many slots are remaining out of 45. Please be sure
-            before making your workshop selection.
-            <br>
-            If you have any issues with registration or you need to make workshop selection changes, please email
-            IT@uvsase.org.
-            <br><br>
-            You will also see that there are different workshop tracks. Try to register for 1 workshop in each track.
-            <br>
-            For example, let's say you choose a "fun/casual" track for Workshop#1. For Workshop #2, you should pick a
-            workshop that is "adulting" or "personal development."
-            <br><br>
-            Note: Some workshops have recommended materials to have for the workshop. These are highly encouraged
-            for you to have to follow along in the workshop; however you can still register for such workshops even if
-            you do not/will not have these materials.
+        <div class="text-start">
+          <ul>
+            <li>
+              You will see below that there are 4 different options for each workshop time slot. 
+              <li class = "indent">
+                Please select <b>
+                  one workshop 
+                </b>
+                for each timeslot.
+              </li>
+         
+            </li>
+            <li>
+              The number next to the register button indicates how many slots are remaining out of 45.
+            </li>
+            <li>
+              If you have any issues with registration or you need to make workshop selection changes, please email
+              <a href="mailto:IT@uvsase.org?subject=Workshop%20Registration%20Help">               
+                IT@uvsase.org.
+              </a>
+              
+            </li>
+           
+           
+            <li>
+              Note: Some workshops have recommended materials to have for the workshop. 
+              <li class = "indent">
+                These are highly encouraged
+              for you to have to follow along in the workshop; however you can still register for such workshops even if
+              you do not/will not have these materials.
+              </li>
+            </li>
+          </ul>
+       
+    
+         
         </div>
       </div>
     </div>
@@ -95,11 +113,7 @@
                       
                 </div>
   
-                <!-- <div class="row">
-                      <div class="col d-flex justify-content-center">
-                        <img class = "img-fluid scroll-down-icon" src = "https://cdn2.iconfinder.com/data/icons/arrows-set-8/100/double_down-512.png">
-                      </div>
-                </div> -->
+            
                 <div class="row">
                   <div class="col-6 d-flex align-items-center justify-content-center remaining-spots">
                     <%= dataArray[i].max - dataArray[i].attendees.length %> /
@@ -107,11 +121,13 @@
                   </div>
                   <form class="col-6" id="workshopRegister">
                    
+                    <% if(dataArray[i].attendees.length != 45) { %>
                     <button id="WorkshopButton<%=i%>" type="submit" class="btn btn-UVSASE-darkBlue">
                       <div class="text-white">
                         Register
                       </div>
                     </button>
+                    <% } %>
                     
                     <% if(i == 6) { %> 
                     <input id="Workshop4" type="hidden" value="<%= dataArray[i].name %>" />
@@ -199,12 +215,14 @@
                     <%= dataArray[i].max %>
                 </div>
                 <form class="col-6" id="workshopRegister">
+                  
+                  <% if(dataArray[i].attendees.length != 45) { %>
                   <button id="WorkshopButton<%=i%>" type="submit" class="btn  btn-UVSASE-darkBlue">
                     <div class="text-white">
                       Register
                     </div>
                   </button>
-
+                  <% } %>
                   <% if(i == 2) { %> 
                     <input id="Workshop11" type="hidden" value="<%= dataArray[i].name %>" />
                     <% } %> 
@@ -290,11 +308,14 @@
                   <%= dataArray[i].max %>
               </div>
               <form class="col-6" id="workshopRegister">
+                
+                <% if(dataArray[i].attendees.length != 45) { %>
                 <button id="WorkshopButton<%=i%>" type="submit" class="btn btn-UVSASE-darkBlue">
                   <div class="text-white">
                     Register
                   </div>
                 </button>
+                <% } %>
 
                 <% if(i == 0) { %> 
                   <input id="Workshop1" type="hidden" value="<%= dataArray[i].name %>" />

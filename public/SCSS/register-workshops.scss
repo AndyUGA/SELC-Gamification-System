@@ -102,6 +102,11 @@ th {
     color: $UVSASE-blue;
 }
 
+.indent {
+    margin-left: 30px;
+}
+
+
 @media screen and (min-width: 992px) {
     .min-card-height {
         height: 350px;
