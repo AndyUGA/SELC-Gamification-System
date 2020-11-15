@@ -10,7 +10,8 @@
     "ejs": "^3.0.2",
     "express": "^4.17.1",
     "express-ejs-layouts": "^2.5.0",
-    "firebase-admin": "^8.10.0"
+    "firebase-admin": "^8.10.0",
+    "heroku-ssl-redirect": "^0.1.1"
   },
   "scripts": {
     "start": "node server.js"
