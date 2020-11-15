@@ -25,6 +25,9 @@
                         <th class="text-center" scope="col">
                             Points
                         </th>
+                        <th class="text-center" scope="col">
+                          Workshop Registration
+                      </th>
                       </tr>
                     </thead>
                     <tbody class="workshop-card">
@@ -44,6 +47,14 @@
                         <td class="text-center">
                             <%= dataArray[i].points %>
                         </td>
+
+                        <td class="text-center">
+                          <% if (dataArray[i].workshops.length == 3) { %>
+                          Yes
+                          <% } else { %>
+                            No 
+                            <% } %> 
+                      </td>
                      
                       </tr>
                       <% } %>
