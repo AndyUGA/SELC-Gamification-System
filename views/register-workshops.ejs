@@ -284,7 +284,26 @@
       </div>
       <% } %>
         <% } %>
+
+        
 </div>
+
+
+</div>
+
+<div id="workshopMaxNotification2" class="row hideWorkshopNotification my-5">
+  <div class="col">
+
+    <div class="card align-items-center mb-3 confirmation-message">
+      <img src="./Images/Workshops/confirmation.svg" class="card-img-top maxIconSize mt-3" alt="...">
+      <div class="card-body">
+        <div class="text-center">
+          You have successfully registered for 3 workshops!
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 
@@ -326,6 +345,7 @@
 
         if (currentUser.workshops.length >= 3) {
           $("#workshopMaxNotification").show();
+          $("#workshopMaxNotification2").show();
           for (let j = 0; j < 12; j++) {
             $("#WorkshopButton" + j).hide();
           }
