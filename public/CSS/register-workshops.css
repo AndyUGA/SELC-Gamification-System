@@ -95,6 +95,11 @@ th {
   display: none;
 }
 
+.confirmation-success {
+  font-size: 2rem;
+  color: #009fb7;
+}
+
 @media screen and (min-width: 992px) {
   .min-card-height {
     height: 350px;
