@@ -7,7 +7,7 @@ const express = require("express");
 const admin = require("firebase-admin");
 const expressLayouts = require('express-ejs-layouts');
 
-import sslRedirect from 'heroku-ssl-redirect';
+
 
 const serviceAccount = require("./serviceAccountKey.js").config;
 const serviceAccountConfig = JSON.parse(JSON.stringify(serviceAccount))
@@ -24,7 +24,7 @@ const PORT = process.env.PORT || 3000;
 const app = express();
 
 
-app.use(sslRedirect());
+
 app.engine("html", require("ejs").renderFile);
 app.use(express.static(__dirname + "/public"));
 app.set("view engine", "ejs");
