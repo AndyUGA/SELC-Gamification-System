@@ -77,6 +77,7 @@ router.post("/sessionSignup", (req, res) => {
         workshopTrack1: false,
         workshopTrack2: false,
         workshopTrack3: false,
+        role: 'Attendee'
     });
 
     const idToken = req.body.idToken.toString();
