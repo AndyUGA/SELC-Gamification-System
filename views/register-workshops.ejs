@@ -1,6 +1,31 @@
 <div class="container-fluid mt-5">
 
-
+  <div class="col">
+    <div class="card align-items-center mb-3">
+      <div class="card-body">
+        <div class="text-center">
+          You will see below that there are four different  options for each workshop time slot. Please select one
+            workshop for each timeslot.
+            <br>
+            The number next to the register button indicates how many slots are remaining out of 45. Please be sure
+            before making your workshop selection.
+            <br>
+            If you have any issues with registration or you need to make workshop selection changes, please email
+            IT@vsase.org.
+            <br><br>
+            You will also see that there are different workshop tracks. Try to register for 1 workshop in each track.
+            <br>
+            For example, let's say you choose a "fun/casual" track for Workshop#1. For Workshop #2, you should pick a
+            workshop that is "adulting" or "personal development."
+            <br><br>
+            Note: Some workshops have recommended materials to have for the workshop. These are highly encouraged
+            for you to have to follow along in the workshop; however you can still register for such workshops even if
+            you do not/will not have these materials.
+        </div>
+      </div>
+    </div>
+  </div>
+  
   <div id="workshopMaxNotification" class="row hideWorkshopNotification">
     <div class="col">
 
@@ -43,6 +68,9 @@
                 </div>
               </div>
               <div class="card-body min-card-body-height d-flex flex-column justify-content-between">
+                <div class="workshop-track">
+                  Track: <%= dataArray[i].track %>
+                </div>
                 <div class="presenter-name">
   
                   <%= dataArray[i].name %>
@@ -133,6 +161,9 @@
               </div>
             </div>
             <div class="card-body min-card-body-height d-flex flex-column justify-content-between">
+              <div class="workshop-track">
+                Track: <%= dataArray[i].track %>
+              </div>
               <div class="presenter-name">
 
                 <%= dataArray[i].name %>
@@ -221,6 +252,9 @@
             </div>
           </div>
           <div class="card-body min-card-body-height d-flex flex-column justify-content-between">
+            <div class="workshop-track">
+              Track: <%= dataArray[i].track %>
+            </div>
             <div class="presenter-name">
 
               <%= dataArray[i].name %>

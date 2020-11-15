@@ -115,6 +115,11 @@ th {
   }
 }
 
+.workshop-track {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
 .workshop-description {
   font-size: .90em;
   overflow: scroll;
