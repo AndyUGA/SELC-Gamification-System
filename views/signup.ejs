@@ -12,14 +12,14 @@
                 First Name
                 <img class="label-icons" src="./Images/Account/firstName_icon.svg">
               </label>
-              <input required = "required" id="firstName" type="text" class="form-control" name="firstName">
+              <input required="required" id="firstName" type="text" class="form-control" name="firstName">
             </div>
             <div class="col">
               <label>
                 Last Name
                 <img class="label-icons" src="./Images/Account/firstName_icon.svg">
               </label>
-              <input required = "required" type="text" class="form-control" name="lastName">
+              <input required="required" type="text" class="form-control" name="lastName">
             </div>
           </div>
 
@@ -31,7 +31,7 @@
               Email address
               <img class="label-icons" src="./Images/Account/email_icon.svg">
             </label>
-            <input required = "required" type="email" class="form-control" name="login">
+            <input required="required" type="email" class="form-control" name="login">
 
           </div>
           <div class="form-group">
@@ -39,7 +39,7 @@
               Password
               <img class="label-icons" src="./Images/Account/password_icon.svg">
             </label>
-            <input required = "required" type="password" class="form-control" name="password">
+            <input required="required" type="password" class="form-control" name="password">
           </div>
 
           <div class="form-group mb-5">
@@ -48,7 +48,7 @@
               <img class="label-icons" src="./Images/Account/profile_icon.svg">
             </label>
             <br>
-            <input required = "required" type="file" id="uploadedImage" name="profileImage">
+            <input required="required" type="file" id="uploadedImage" name="profileImage">
 
           </div>
 
@@ -70,9 +70,12 @@
             </div>
           </div>
 
-          <div class="error pt-3">
-            There was an error when registering your account. Please try again.
+          <div class="error">
+            <div class="errorMessage">
+             
+            </div>
           </div>
+        
         </form>
 
 
@@ -155,13 +158,20 @@
                 .catch(function (err) {
                   console.log(126, err.message);
                   $(".error").show();
+                  $(".errorMessage").html(err.message);
                   event.target.login.value = "";
                   event.target.password.value = "";
+                  document.getElementById("loading-spinner").style.display = "none";
                 });
             })
         })
-        .catch(error => {
-          console.log(117, error.message);
+        .catch(err => {
+          $(".error").show();
+          $(".errorMessage").html(err.message);
+          event.target.login.value = "";
+          event.target.password.value = "";
+          console.log(117, err.message);
+          document.getElementById("loading-spinner").style.display = "none";
         })
     })
 
