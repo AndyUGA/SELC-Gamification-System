@@ -5,6 +5,7 @@ $UVSASE-Yellow: #fed766;
 
 .btn-UVSASE-darkBlue {
     background-color: #3E919F;
+    display: none;
 }
 
 .hidden {
@@ -90,6 +91,10 @@ th {
     font-size: 4rem;
     text-align: center;
     color: $UVSASE-blue;
+}
+
+.tempHide {
+    display: none;
 }
 
 @media screen and (min-width: 992px) {
