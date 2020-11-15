@@ -434,7 +434,7 @@ router.get("/register-workshops", function (req, res) {
         });
 
         let tempWorkshops = [...dataArray];
-        console.log(431, dataArray);
+      
         res.render("register-workshops.ejs", {
           layout: 'Layout/layout.ejs',
           pagename: "register-workshops",
@@ -671,6 +671,8 @@ router.post("/modifyTeam", function (req, res) {
 
 router.post("/registerWorkshop", (req, res) => {
 
+  const selectedWorkshop = req.body.workshopName;
+
 
   db.collection("users").where("email", "==", req.body.userEmail).get().then(function (querySnapshot) {
     let dataArray = [];
@@ -678,25 +680,56 @@ router.post("/registerWorkshop", (req, res) => {
 
       convertToArray(dataArray, doc);
     });
-
+    
     let currentUserUID = dataArray[0].uid;
-
     let workshopAmount = dataArray[0].workshops.length;
+
+    const currentDB = db.collection("users").doc(currentUserUID);
+
+    let workshopJSON = {
+      "A Penny Saved is a Dollar Earned: How to Invest in Your Future":"Track1",
+      "It's A Bit Of A Stretch: Relaxing Yoga": "Track1",
+      "How to Shoot Your Shot: A Beginner's Guide to Photography":"Track1",
+      "A Hidden Enemy: Microagressions":"Track1",
+      "Dealing With Burnout":"Track2",
+      "Getting Control of Your Finances":"Track2",
+      "Roll With It":"Track2",
+      "From Tattered Boats to Thriving Communities: Organizing in the Vietnamese Diaspora":"Track2",
+      "The Rocky Road to Success":"Track3",
+      "VSA's Next Top Graphic Designer":"Track3",
+      "Another Workshop Based on a Personality Quiz":"Track3",
+      "Self-Awareness, Discovery, and Identification: A Cognitive Science Workshop":"Track3",
+    }
+
+    if(workshopJSON[selectedWorkshop] == "Track1") {
+      currentDB.update({
+        workshopTrack1: true
+      })
+    } 
+    else if(workshopJSON[selectedWorkshop] == "Track2") {
+      currentDB.update({
+        workshopTrack2: true
+      })
+    }
+    else if(workshopJSON[selectedWorkshop] == "Track3") {
+      currentDB.update({
+        workshopTrack3: true
+      })
+    }
     
     if(workshopAmount >= 3) {
       res.redirect('/register-workshops');
     } else {
-      const currentDB = db.collection("users").doc(currentUserUID);
+     
       currentDB.update({
         workshops: [
           ...dataArray[0].workshops,
           req.body.workshopName
-        ]
-      }).then(() => {
-  
+        ], 
+
       })
   
-  
+      console.log(732, req.body.selectedWorkshop);
       db.collection("workshops").doc(req.body.selectedWorkshop).update({
         attendees: admin.firestore.FieldValue.arrayUnion(`${dataArray[0].firstName} ${dataArray[0].lastName}`)
       }).then(function () {
