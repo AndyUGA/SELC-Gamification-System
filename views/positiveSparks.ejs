@@ -95,7 +95,7 @@
             <div class="col-3 d-flex justify-content-center mb-5">
               <div class="card">
                 <img class="img-fluid team-img-maxSize" src="${imgURL}">
-                <div id="name${doc.data().uid}" class="text-center">
+                <div id="name${doc.data().uid}" class="text-center ">
                 ${doc.data().fullName} ${(currentSparkCounter)}
                 </div>
 
@@ -139,7 +139,7 @@
             <div class="col-3 d-flex justify-content-center mb-5">
               <div class="card">
                 <img class="img-fluid team-img-maxSize" src="./Images/VirtualSparks/default.png">
-                <div id="name${doc.data().uid}" class="text-center">
+                <div id="name${doc.data().uid}" class="text-center ">
                 ${doc.data().fullName} ${(currentSparkCounter)}
                 </div>
 
@@ -197,7 +197,7 @@
 
         if (doc.doc.data().email == user.email) {
           $(`#name${doc.doc.data().uid}`).html(`
-              <div id="name${doc.doc.data().uid}" class="text-center">
+              <div id="name${doc.doc.data().uid}" class="text-center fade-in-test">
                 ${doc.doc.data().fullName} (${doc.doc.data().positiveSparkCounter})
               </div>
             `);
