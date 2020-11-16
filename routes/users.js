@@ -17,14 +17,14 @@ router.get("/login", function (req, res) {
     );
 });
 
-router.get("/signup", function (req, res) {
-    res.render("signup.ejs", {
-        layout: 'Layout/layout.ejs',
-        pagename: "signup",
-        title: "Signup",
-        isLoggedIn: false,
-    });
-});
+// router.get("/signup", function (req, res) {
+//     res.render("signup.ejs", {
+//         layout: 'Layout/layout.ejs',
+//         pagename: "signup",
+//         title: "Signup",
+//         isLoggedIn: false,
+//     });
+// });
 
 router.get("/resetPassword", function (req, res) {
     res.render("resetPassword.ejs", {

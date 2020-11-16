@@ -12,12 +12,14 @@
                     <select id="currentUser" class="form-control" name="currentUser">
 
                         <% for(var i=0; i < dataArray.length; i++) { %>
+                            <% if(dataArray[i].role == "Attendee") { %> 
                             <option>
                                 <%= dataArray[i].firstName %>
                                     <%= dataArray[i].lastName %>
                                         (<%= dataArray[i].email %>) -
                                             <%= dataArray[i].points %> Current Points
                             </option>
+                            <% } %>
                             <% } %>
                     </select>
 
