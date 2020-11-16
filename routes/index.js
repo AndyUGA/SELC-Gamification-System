@@ -328,7 +328,7 @@ router.post("/registerWorkshop", (req, res) => {
       "It's A Bit Of A Stretch: Relaxing Yoga": "Track1",
       "How to Shoot Your Shot: A Beginner's Guide to Photography":"Track1",
       "A Hidden Enemy: Microagressions":"Track1",
-      "Dealing With Burnout":"Track2",
+      "How To Recover From Burnout":"Track2",
       "Getting Control of Your Finances":"Track2",
       "Roll With It":"Track2",
       "From Tattered Boats to Thriving Communities: Organizing in the Vietnamese Diaspora":"Track2",
