@@ -122,7 +122,7 @@ router.get("/accountOverview", function (req, res) {
 
   let isUserLoggedIn = isLoggedIn(req);
 
-  db.collection("users").orderBy("points", "desc").get().then(function (querySnapshot) {
+  db.collection("users").orderBy("firstName").get().then(function (querySnapshot) {
     let dataArray = [];
 
     let columnHeader = ['Name', 'Email', 'Team'];
@@ -456,7 +456,7 @@ router.get("/teamForm", function (req, res) {
     .verifySessionCookie(sessionCookie, true /** checkRevoked */)
     .then(() => {
 
-      db.collection("users").get().then(function (querySnapshot) {
+      db.collection("users").orderBy("firstName").get().then(function (querySnapshot) {
         let dataArray = [];
         querySnapshot.forEach(function (doc) {
           convertToArray(dataArray, doc);

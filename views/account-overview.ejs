@@ -32,6 +32,7 @@
                     </thead>
                     <tbody class="workshop-card">
                       <% for(var i = 0; i < dataArray.length; i++) {  %>
+                        <% if(dataArray[i].role == "Attendee") { %> 
                       <tr class="workshopText">
                         <td class="text-center ">
                             <%= dataArray[i].fullName %>
@@ -57,6 +58,7 @@
                       </td>
                      
                       </tr>
+                      <% } %>
                       <% } %>
                     </tbody>
                   </table>
