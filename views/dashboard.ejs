@@ -6,31 +6,8 @@
     
 
 
-    <!-- Accounts Registered Card Component -->
-    <div class="col-12 col-md-6">
-      <div class="card dashboard-card min-card-height">
-        <div class="row no-gutters pb-2">
-
-          <div class="col-md-7 order-2">
-
-            <div class="account-registered-number">
-              <%= dataArray.length %>
-            </div>
-            <div class="account-registered-title">
-              Accounts Registered
-            </div>
-
-
-          </div>
-          <div class="col col-md-5 order-1 d-flex justify-content-center align-items-center">
-            <img src="./Images/Dashboard/accountRegistered.svg" class="card-img dashboard-card-img" alt="...">
-          </div>
-        </div>
-      </div>
-    </div>
-
     <!-- Edit Teams Card Component -->
-    <div class="col-12 col-md-3 my-5 my-md-0">
+    <div class="col-12 col-md-6 my-5 my-md-0">
       <a href="/teamForm">
         <div class="card dashboard-card card-hover min-card-height">
           <div class="row no-gutters d-flex justify-content-center">
@@ -46,7 +23,7 @@
     </div>
 
     <!-- Edit Points Card Component -->
-    <div class="col-12 col-md-3">
+    <div class="col-12 col-md-6">
       <a href="/pointsForm">
         <div class="card dashboard-card card-hover min-card-height">
           <div class="row no-gutters d-flex justify-content-center">
@@ -314,54 +291,6 @@
   </div>
 
 
-
-  <!-- Table Data for users
-  <div class="row mt-5">
-    <div class="col-12">
-      <div class="table-responsive">
-
-
-        <table class="table">
-          <thead class="thead-blue">
-            <tr class = "border-color">
-
-              <th scope="col">
-                <a class="columnName" href="/?filter=lastName">
-                  Name 
-                  <img class = "img-fluid filterIcon" src = "./Images/Dashboard/filterIcon.svg"> 
-                </a>
-
-              </th>
-              <th scope="col">
-
-                <a class="columnName" href="/?filter=email">
-                  Email
-                  <img class = "img-fluid filterIcon" src = "./Images/Dashboard/filterIcon.svg"> 
-                </a>
-              </th>
-              <th scope="col">
-
-                <a class="columnName" href="/?filter=teamName">
-                  Team
-                  <img class = "img-fluid filterIcon" src = "./Images/Dashboard/filterIcon.svg"> 
-                </a>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <% for(var i = 0; i < dataArray.length; i++) { %>
-            <tr class = "user-info">
-              <td> <%= dataArray[i].firstName %> <%= dataArray[i].lastName %></td>
-              <td> <%= dataArray[i].email %></td>
-              <td> <%= dataArray[i].teamName %></td>
-            </tr>
-            <% } %>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
--->
 </div>
 </div>
 

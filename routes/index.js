@@ -64,13 +64,6 @@ router.get("/", function (req, res) {
     .verifySessionCookie(sessionCookie, true /** checkRevoked */)
     .then(() => {
 
-      db.collection("users").orderBy(filter, "ASC").get().then(function (querySnapshot) {
-        let dataArray = [];
-        querySnapshot.forEach(function (doc) {
-
-          convertToArray(dataArray, doc);
-        });
-
 
         db.collection("workshops").get().then(function (querySnapshot) {
           let dataArray2 = [];
@@ -93,7 +86,6 @@ router.get("/", function (req, res) {
               layout: 'Layout/layout.ejs',
               pagename: "dashboard",
               title: "Dashboard",
-              dataArray,
               dataArray2,
               teamsData,
               isLoggedIn: isUserLoggedIn,
@@ -102,7 +94,7 @@ router.get("/", function (req, res) {
           });
         });
 
-      });
+ 
 
 
 
@@ -118,6 +110,8 @@ router.get("/", function (req, res) {
 
 });
 
+
+/*
 router.get("/accountOverview", function (req, res) {
 
   let isUserLoggedIn = isLoggedIn(req);
@@ -145,6 +139,7 @@ router.get("/accountOverview", function (req, res) {
 
 
 });
+*/
 
 router.get("/history", function (req, res) {
   let isUserLoggedIn = isLoggedIn(req);
