@@ -4,7 +4,11 @@
             <div class = "points-title w-100 text-center"> 
                Modify Points
             </div>
+
+           
             <form onsubmit="test(event)">
+
+                
                 <div class="form-group">
                     <label for="exampleInputEmail1">
                         Name
@@ -125,6 +129,7 @@
 
         let currentPoints = parseInt(document.getElementById("points").value);
         let currentUser = document.getElementById("currentUser").value;
+      
 
         e.preventDefault();
         fetch("/modifyPoints", {
@@ -137,11 +142,12 @@
             body: JSON.stringify({
                 points: currentPoints,
                 currentUser,
-                author
+                author,
+              
             }),
         })
             .then(response => {
-                window.location = "/pointsForm";
+               window.location = "/pointsFormEmpty";
             })
             .catch(function (err) {
                 console.log(61, err);

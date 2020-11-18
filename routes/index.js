@@ -15,29 +15,9 @@ function convertToArray(dataArray, doc) {
   return dataArray.push(doc.data());
 }
 
-function getCurrentUserData(email) {
 
-  db.collection("users").where("email", "==", email).get().then(function (querySnapshot) {
-    querySnapshot.forEach(function (doc) {
-      return doc.data();
-    });
-  });
-}
 
-function getEmail(fullname) {
-  let currentEmail;
-  db.collection("users").where("fullname", "==", fullname).get().then(function (querySnapshot) {
-    let dataArray = [];
-    querySnapshot.forEach(function (doc) {
 
-      convertToArray(dataArray, doc);
-    });
-
-    currentEmail = dataArray[0].email;
-
-  });
-  return currentEmail;
-}
 
 function isLoggedIn(req) {
 
@@ -65,36 +45,43 @@ router.get("/", function (req, res) {
     .then(() => {
 
 
-        db.collection("workshops").get().then(function (querySnapshot) {
-          let dataArray2 = [];
-          querySnapshot.forEach(function (doc) {
+      db.collection("workshops").get().then(function (querySnapshot) {
+        let dataArray2 = [];
+        querySnapshot.forEach(function (doc) {
 
-            convertToArray(dataArray2, doc);
-          });
-
-          db.collection("teams").get().then(function (querySnapshot) {
-            let teamsData = [];
-
-            querySnapshot.forEach(function (doc) {
-
-              convertToArray(teamsData, doc);
-            });
-
-
-
-            res.render("dashboard.ejs", {
-              layout: 'Layout/layout.ejs',
-              pagename: "dashboard",
-              title: "Dashboard",
-              dataArray2,
-              teamsData,
-              isLoggedIn: isUserLoggedIn,
-            });
-
-          });
+          convertToArray(dataArray2, doc);
         });
 
- 
+        var getOptions = {
+          source: 'cache'
+        };
+
+        db.collection("teams").get(getOptions).then(function (querySnapshot) {
+          let teamsData = [];
+
+          querySnapshot.forEach(function (doc) {
+
+            convertToArray(teamsData, doc);
+          });
+
+
+
+          res.render("dashboard.ejs", {
+            layout: 'Layout/layout.ejs',
+            pagename: "dashboard",
+            title: "Dashboard",
+            dataArray2,
+            teamsData,
+            isLoggedIn: isUserLoggedIn,
+          });
+
+        }).catch(function (err) {
+          console.log(79, err);
+        })
+          ;
+      });
+
+
 
 
 
@@ -233,37 +220,77 @@ router.get("/loveboxQueue", function (req, res) {
 
 });
 
-router.get("/pointsForm", function (req, res) {
+router.get("/pointsFormEmpty", function (req, res) {
+
 
   const sessionCookie = req.cookies.session || "";
   let isUserLoggedIn = isLoggedIn(req);
+
+  let showUpdatePointsButton = false;
+
   admin
     .auth()
     .verifySessionCookie(sessionCookie, true /** checkRevoked */)
     .then(() => {
 
-      db.collection("users").orderBy('firstName').get().then(function (querySnapshot) {
+      res.render("pointsFormEmpty.ejs", {
+        layout: 'Layout/layout.ejs',
+        pagename: "pointsForm",
+        title: "Modify Points",
+        isLoggedIn: isUserLoggedIn,
+
+
+      });
+    });
+
+});
+
+
+router.get("/pointsForm/:searchQuery", function (req, res) {
+
+  let userInputtedSearchQuery = req.params.searchQuery;
+  let searchQuery = (userInputtedSearchQuery.substring(0,1)).toLocaleUpperCase() + userInputtedSearchQuery.substring(1);
+  console.log(253, searchQuery);
+  const sessionCookie = req.cookies.session || "";
+  let isUserLoggedIn = isLoggedIn(req);
+
+  let showUpdatePointsButton = false;
+
+  admin
+    .auth()
+    .verifySessionCookie(sessionCookie, true /** checkRevoked */)
+    .then(() => {
+
+      db.collection("users").where("fullName", ">=", searchQuery).where("fullName", "<=", `${searchQuery}\uf8ff`).get().then(function (querySnapshot) {
         let dataArray = [];
         querySnapshot.forEach(function (doc) {
           convertToArray(dataArray, doc);
         });
+
+        if (dataArray.length >= 1) {
+          showUpdatePointsButton = true;
+        }
+
+        console.log(238, dataArray);
 
         db.collection("history").orderBy('modifiedDate', "DESC").limit(5).get().then(function (querySnapshot) {
           let historyArray = [];
           querySnapshot.forEach(function (doc) {
             convertToArray(historyArray, doc);
           });
+          console.log(279, "Rendering points form");
+          res.render("pointsForm.ejs", {
+            layout: 'Layout/table-layout.ejs',
+            dataArray,
+            historyArray,
+            pagename: "pointsForm",
+            title: "Modify Points",
+            isLoggedIn: isUserLoggedIn,
+            showUpdatePointsButton,
 
-        res.render("pointsForm.ejs", {
-          layout: 'Layout/layout.ejs',
-          dataArray,
-          historyArray,
-          pagename: "pointsForm",
-          title: "Modify Points",
-          isLoggedIn: isUserLoggedIn,
+          });
         });
       });
-    });
     })
     .catch((error) => {
       console.log(285, error);
@@ -272,6 +299,8 @@ router.get("/pointsForm", function (req, res) {
 
 
 });
+
+
 
 router.get("/positiveSparks", function (req, res) {
 
@@ -366,48 +395,6 @@ router.get("/profile", function (req, res) {
 
 });
 
-router.get("/profile/:fullName", function (req, res) {
-  let isUserLoggedIn = isLoggedIn(req);
-  let currentUser = req.params.fullName;
-
-  db.collection("users").where("fullName", "==", currentUser).get().then(function (querySnapshot) {
-    let dataArray = [];
-    querySnapshot.forEach(function (doc) {
-
-      convertToArray(dataArray, doc);
-    });
-
-
-
-    const currentDB = db.collection("users").doc(dataArray[0].uid);
-    currentDB.update({
-      notes: [
-        ...dataArray[0].notes,
-        currentUser,
-      ]
-
-    })
-
-
-    res.render("publicProfile.ejs", {
-      layout: 'Layout/table-layout.ejs',
-      pagename: "publicProfile",
-      title: "Profile",
-      dataArray,
-      isLoggedIn: isUserLoggedIn,
-    });
-
-  });
-
-
-
-
-
-
-
-
-
-});
 
 router.get("/register-workshops", function (req, res) {
   let isUserLoggedIn = isLoggedIn(req);
@@ -415,29 +402,29 @@ router.get("/register-workshops", function (req, res) {
     res.redirect("/login");
   } else {
 
-    
+
     let currentUserInfo = [];
     let dataArray = [];
 
-  
-      db.collection("workshops").orderBy("identifier", "ASC").get().then(function (querySnapshot) {
 
-        querySnapshot.forEach(function (doc) {
+    db.collection("workshops").orderBy("identifier", "ASC").get().then(function (querySnapshot) {
 
-          convertToArray(dataArray, doc);
+      querySnapshot.forEach(function (doc) {
 
-        });
+        convertToArray(dataArray, doc);
 
-        let tempWorkshops = [...dataArray];
-      
-        res.render("register-workshops.ejs", {
-          layout: 'Layout/layout.ejs',
-          pagename: "register-workshops",
-          title: "Register for Workshops!",
-          dataArray: tempWorkshops,
-          isLoggedIn: isUserLoggedIn,
-        });
       });
+
+      let tempWorkshops = [...dataArray];
+
+      res.render("register-workshops.ejs", {
+        layout: 'Layout/layout.ejs',
+        pagename: "register-workshops",
+        title: "Register for Workshops!",
+        dataArray: tempWorkshops,
+        isLoggedIn: isUserLoggedIn,
+      });
+    });
 
   }
 });
@@ -471,7 +458,7 @@ router.get("/teamForm", function (req, res) {
     })
     .catch((error) => {
       console.log(320, error);
-      res.redirect("/");
+      //res.redirect("/");
     });
 
 
@@ -551,7 +538,7 @@ router.post("/updatePositiveSparkCounter/:email", function (req, res) {
     let currentUserUID = dataArray[0].uid;
     let currentPositiveSparkCounter = dataArray[0].positiveSparkCounter;
 
-   
+
 
     const currentDB = db.collection("users").doc(currentUserUID);
     currentDB.update({
@@ -577,7 +564,7 @@ router.post("/modifyPoints", function (req, res) {
 
   let userEmail = currentUser.substring((startIndexOfEmail + 1), endIndexOfEmail);
 
-  let today = new Date().toLocaleString('en-US', {timeZone: 'America/New_York'});
+  let today = new Date().toLocaleString('en-US', { timeZone: 'America/New_York' });
 
   db.collection("history").add({
     attendee: fullName,
@@ -649,11 +636,13 @@ router.post("/modifyTeam", function (req, res) {
     currentDB.update({
       teamName: req.body.teamName,
     }).then(() => {
-
+      console.log(597, "Updating " + dataArray[0].fullName + " to " + req.body.teamName);
       const teamDB = db.collection("teams").doc(req.body.teamName)
 
       teamDB.update({
         attendees: admin.firestore.FieldValue.arrayUnion(`${dataArray[0].firstName} ${dataArray[0].lastName}`)
+      }).then(() => {
+        console.log(603, "Adding " + dataArray[0].fullName + " to " + req.body.teamName);
       })
     });
 
@@ -675,67 +664,67 @@ router.post("/registerWorkshop", (req, res) => {
 
       convertToArray(dataArray, doc);
     });
-    
+
     let currentUserUID = dataArray[0].uid;
     let workshopAmount = dataArray[0].workshops.length;
 
     const currentDB = db.collection("users").doc(currentUserUID);
 
     let workshopJSON = {
-      "A Penny Saved is a Dollar Earned: How to Invest in Your Future":"Track1",
+      "A Penny Saved is a Dollar Earned: How to Invest in Your Future": "Track1",
       "It's A Bit Of A Stretch: Relaxing Yoga": "Track1",
-      "How to Shoot Your Shot: A Beginner's Guide to Photography":"Track1",
-      "A Hidden Enemy: Microagressions":"Track1",
-      "Dealing With Burnout":"Track2",
-      "Getting Control of Your Finances":"Track2",
-      "Roll With It":"Track2",
-      "From Tattered Boats to Thriving Communities: Organizing in the Vietnamese Diaspora":"Track2",
-      "The Rocky Road to Success":"Track3",
-      "VSA's Next Top Graphic Designer":"Track3",
-      "Another Workshop Based on a Personality Quiz":"Track3",
-      "Self-Awareness, Discovery, and Identification: A Cognitive Science Workshop":"Track3",
+      "How to Shoot Your Shot: A Beginner's Guide to Photography": "Track1",
+      "A Hidden Enemy: Microagressions": "Track1",
+      "Dealing With Burnout": "Track2",
+      "Getting Control of Your Finances": "Track2",
+      "Roll With It": "Track2",
+      "From Tattered Boats to Thriving Communities: Organizing in the Vietnamese Diaspora": "Track2",
+      "The Rocky Road to Success": "Track3",
+      "VSA's Next Top Graphic Designer": "Track3",
+      "Another Workshop Based on a Personality Quiz": "Track3",
+      "Self-Awareness, Discovery, and Identification: A Cognitive Science Workshop": "Track3",
     }
 
-    if(workshopJSON[selectedWorkshop] == "Track1") {
+    if (workshopJSON[selectedWorkshop] == "Track1") {
       currentDB.update({
         workshopTrack1: true
       })
-    } 
-    else if(workshopJSON[selectedWorkshop] == "Track2") {
+    }
+    else if (workshopJSON[selectedWorkshop] == "Track2") {
       currentDB.update({
         workshopTrack2: true
       })
     }
-    else if(workshopJSON[selectedWorkshop] == "Track3") {
+    else if (workshopJSON[selectedWorkshop] == "Track3") {
       currentDB.update({
         workshopTrack3: true
       })
     }
-    
-    if(workshopAmount >= 3) {
+
+    if (workshopAmount >= 3) {
       res.redirect('/register-workshops');
     } else {
-     
+
       currentDB.update({
         workshops: [
           ...dataArray[0].workshops,
           req.body.workshopName
-        ], 
+        ],
 
       })
-  
+
       console.log(732, req.body.selectedWorkshop);
       db.collection("workshops").doc(req.body.selectedWorkshop).update({
         attendees: admin.firestore.FieldValue.arrayUnion(`${dataArray[0].firstName} ${dataArray[0].lastName}`)
       }).then(function () {
-  
-  
+
+
         res.redirect("/Workshops")
       });
     }
 
 
-    
+
   });
 
 

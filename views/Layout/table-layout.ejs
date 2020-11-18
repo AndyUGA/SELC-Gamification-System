@@ -32,42 +32,64 @@
         <ul class="navbar-nav mr-auto">
 
             <% if(isLoggedIn == true) { %>
-            <li class="nav-item">
-                <a class="nav-link" href="/leaderboard">Leaderboard</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/profile">Profile</a>
-            </li>
-
 
             <li class="nav-item">
-                <a class="nav-link" href="/Workshops">
-                    Workshops
+                <a class="nav-link" href="./pointsForm">
+                    Modify Points
                 </a>
             </li>
 
-            <li class="nav-item">
-                <a class="nav-link" href="/loveboxQueue">
-                    LoveBox Queue
+            <!-- <li class="nav-item">
+                <a class="nav-link" href="./accountOverview">
+                   Account Overview
                 </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/lovebox">
-                    LoveBox
+            </li> -->
+            <li class="nav-item dropdown">
+
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    Admin
                 </a>
-            </li>
-            <li class="nav-item">
-                    <a class="nav-link" href="/history">
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                    <a class="dropdown-item" href="./teamForm">
+                        Modify teams
+                    </a>
+                    <a class="dropdown-item" href="/history">
                         History
                     </a>
-                </li>
-            <% } %>
 
-            <li class="nav-item">
-                    <a class="nav-link" href="/positiveSparks">
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="./lovebox">
+                        Lovebox
+                    </a>
+                    <a class="dropdown-item" href="./loveboxQueue">
+                        Lovebox Queue
+                    </a>
+                </div>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    Attendee
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="./leaderboard">
+                        Leaderboard
+                    </a>
+                    <a class="dropdown-item" href="./profile">
+                        Profile
+                    </a>
+                    <a class="dropdown-item" href="/register-workshops">
+                        Workshops
+                    </a>
+                    <a class="dropdown-item" href="/positiveSparks">
                         Positive Sparks
                     </a>
-                </li>
+                </div>
+            </li>
+            <% } %>
 
             <% if(isLoggedIn != true) { %>
             <li class="nav-item">
@@ -75,15 +97,14 @@
                     Login
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/signup">Signup</a>
-            </li>
+           
+
             <% } %>
+
 
 
         </ul>
         <ul class="navbar-nav ml-auto">
-
             <% if(isLoggedIn == true) { %>
             <li class="nav-item">
                 <a class="nav-link" href="/sessionLogout">Logout</a>
