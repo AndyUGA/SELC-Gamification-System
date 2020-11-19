@@ -192,41 +192,14 @@ router.get("/profile", function (req, res) {
     res.redirect('/login');
   }
 
-
-
-  let userData;
-  let teamData = [];
-  let userIDs = [];
-
-  db.collection("users").orderBy("points", "DESC").get().then(function (querySnapshot) {
-
-    querySnapshot.forEach(function (doc) {
-
-      convertToArray(userIDs, doc);
-    });
-
-  });
-
-
-  db.collection("teams").orderBy("points", "DESC").get().then(function (querySnapshot) {
-
-    querySnapshot.forEach(function (doc) {
-
-      convertToArray(teamData, doc);
-    });
-  });
-
-
-  console.log(349, isLoggedIn);
-  res.redirect("/leaderboard");
+  res.redirect("/");
   // res.render("profile.ejs", {
   //   layout: 'Layout/layout.ejs',
   //   pagename: "profile",
   //   title: "Profile",
   //   isLoggedIn: isUserLoggedIn,
-  //   userData,
-  //   teamData,
-  //   userIDs,
+   
+  
   // });
 
 

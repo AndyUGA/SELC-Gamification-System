@@ -69,7 +69,7 @@
     </button>
 
     <div id="workshopCollapse" class="collapse dont-collapse-sm">
-        <div id="registeredWorkshops" class="dont-collapse-sm">
+        <div id="registeredWorkshops" class="dont-collapse-sm row">
         </div>
     </div>
 </div>
@@ -332,7 +332,7 @@
         My Family</button>
 
     <div id="familyCollapse" class=" collapse dont-collapse-sm">
-        <div id="teamImages" class="dont-collapse-sm">
+        <div id="teamImages" class="dont-collapse-sm row">
         </div>
     </div>
 </div>
@@ -388,13 +388,15 @@
                     for (let a = 0; a < currentUser.workshops.length; a++) {
                         workshopContent += `    
                         
-                        <div class="card col col-md-4 p-3">
-                            <div class="card-body m-3 d-flex align-items-center text-center">
-                                <h5 class="card-title w-100 text-center">
+                        <div class="card col-12 col-md ">
+                           
+                            <div class="card-body d-flex align-items-center justify-content-centern">
+                         
+                                <h5 class="card-title">
                                     ${currentUser.workshops[a]}
                                 </h5>
                             </div>
-                        </div>                           
+                            </div>
                         `;
                         $("#scheudledWorkshop" + (a + 1)).html(`${currentUser.workshops[a]}`);
                     }
