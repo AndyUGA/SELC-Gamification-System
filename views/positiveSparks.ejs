@@ -1,6 +1,30 @@
 <div class="container mt-5">
 
 
+  <div class="row mb-5">
+    <div class = "col-12">
+      <div class = "w-100 text-center positiveSparksTitle">
+        Welcome to Positive Sparks!
+      </div>
+      <div class = "text-center warning">
+          DO NOT REFRESH page! It will update automatically.
+      </div>
+      <div>
+       
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-5">
+    <div class = "col-12">
+      <div id = "currentUserProfile">
+      
+      </div>
+    </div>
+  </div>
+
+
+
 
   <div id="loading" class="row">
 
@@ -44,17 +68,6 @@
 
 <script>
 
-
-
-
-
-
-
-
-
-
-
-
   const firebaseConfig = {
     apiKey: "AIzaSyCic5UWC0fXladccjESHt2eEUFR3GCpu7k",
     authDomain: "test-73b01.firebaseapp.com",
@@ -79,24 +92,28 @@
     let i = 0;
     let tempProfileImgURL;
 
-    db.collection('users').orderBy("firstName").get().then(snapshot => {
-      snapshot.forEach((doc) => {
-
-        console.log(85, doc.data().uid);
 
 
-        firebase.storage().ref('users/' + `${doc.data().uid}` + '/profile.jpg').getDownloadURL()
+
+
+    db.collection('users').orderBy("firstName").onSnapshot(snapshot => {
+      snapshot.docChanges().forEach((doc) => {
+
+        console.log(85, doc.doc.data().fullName + " : " + doc.doc.data().uid);
+
+
+        firebase.storage().ref('users/' + `${doc.doc.data().uid}` + '/profile.jpg').getDownloadURL()
           .then(imgURL => {
-            if (doc.data().email == user.email) {
-              currentSparkCounter = `(${doc.data().positiveSparkCounter})`;
-            }
+            if (doc.doc.data().email != user.email) {
+          
+         
 
             updatedCount += `
             <div class="col-3 d-flex justify-content-center mb-5">
               <div class="card">
                 <img class="img-fluid team-img-maxSize" src="${imgURL}">
-                <div id="name${doc.data().uid}" class="text-center ">
-                ${doc.data().fullName} ${(currentSparkCounter)}
+                <div id="name${doc.doc.data().uid}" class="text-center ">
+                ${doc.doc.data().fullName}
                 </div>
 
                 <form class = "positiveSparkForm ">
@@ -104,34 +121,35 @@
                     Tap
                     <img class="tap-icon" src="./Images/VirtualSparks/tap.svg">
                   </button>
-                  <input hidden value = "${doc.data().email}" />
+                  <input hidden value = "${doc.doc.data().email}" />
                 </form>
 
               </div>
            </div>
-           `;
-           currentSparkCounter = '';
+           `
+          };
+            currentSparkCounter = '';
             i++;
             if (i == snapshot.size) {
               document.querySelector('#loading').innerHTML = updatedCount;
               updatedCount = '';
 
               $(".positiveSparkForm").click(function (e) {
-              e.preventDefault();
-
-      
-              let email = e.currentTarget[1].value;
+                e.preventDefault();
 
 
-              return fetch("/updatePositiveSparkCounter/" + email, {
-                method: "POST",
-                headers: {
-                  Accept: "application/json",
-                  "Content-Type": "application/json",
-                  "CSRF-Token": Cookies.get("XSRF-TOKEN"),
-                }
+                let email = e.currentTarget[1].value;
+
+
+                return fetch("/updatePositiveSparkCounter/" + email, {
+                  method: "POST",
+                  headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                    "CSRF-Token": Cookies.get("XSRF-TOKEN"),
+                  }
+                });
               });
-            });
             }
           })
           .catch(err => {
@@ -139,8 +157,8 @@
             <div class="col-3 d-flex justify-content-center mb-5">
               <div class="card">
                 <img class="img-fluid team-img-maxSize" src="./Images/VirtualSparks/default.png">
-                <div id="name${doc.data().uid}" class="text-center ">
-                ${doc.data().fullName} ${(currentSparkCounter)}
+                <div id="name${doc.doc.data().uid}" class="text-center ">
+                ${doc.doc.data().fullName} ${(currentSparkCounter)}
                 </div>
 
                 <form class = "positiveSparkForm ">
@@ -148,41 +166,41 @@
                     Tap
                     <img class="tap-icon" src="./Images/VirtualSparks/tap.svg">
                   </button>
-                  <input hidden value = "${doc.data().email}" />
+                  <input hidden value = "${doc.doc.data().email}" />
                 </form>
 
               </div>
            </div>
            `;
-           currentSparkCounter = '';
+            currentSparkCounter = '';
             i++;
-           
+
             if (i == snapshot.size) {
               document.querySelector('#loading').innerHTML = updatedCount;
               updatedCount = '';
 
               $(".positiveSparkForm").click(function (e) {
-              e.preventDefault();
-
-      
-              let email = e.currentTarget[1].value;
+                e.preventDefault();
 
 
-              return fetch("/updatePositiveSparkCounter/" + email, {
-                method: "POST",
-                headers: {
-                  Accept: "application/json",
-                  "Content-Type": "application/json",
-                  "CSRF-Token": Cookies.get("XSRF-TOKEN"),
-                }
+                let email = e.currentTarget[1].value;
+
+
+                return fetch("/updatePositiveSparkCounter/" + email, {
+                  method: "POST",
+                  headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                    "CSRF-Token": Cookies.get("XSRF-TOKEN"),
+                  }
+                });
               });
-            });
             }
-            
+
           });
 
 
-    
+
 
       });
 
@@ -192,15 +210,20 @@
     });
 
 
-    db.collection('users').onSnapshot(snapshot => {
+    db.collection('users').where("uid", "==", user.uid).onSnapshot(snapshot => {
       snapshot.docChanges().forEach((doc) => {
 
         if (doc.doc.data().email == user.email) {
-          $(`#name${doc.doc.data().uid}`).html(`
-              <div id="name${doc.doc.data().uid}" class="text-center fade-in-test">
-                ${doc.doc.data().fullName} (${doc.doc.data().positiveSparkCounter})
+
+          
+
+          $(`#currentUserProfile`).html(`
+              <div id="name${doc.doc.data().uid}" class="text-center fade-in-test nameCounter">
+                ${doc.doc.data().fullName} - Number of taps: ${doc.doc.data().positiveSparkCounter}!
               </div>
             `);
+
+       
         }
       })
     });

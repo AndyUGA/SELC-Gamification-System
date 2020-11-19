@@ -249,7 +249,7 @@ router.get("/pointsFormEmpty", function (req, res) {
 router.get("/pointsForm/:searchQuery", function (req, res) {
 
   let userInputtedSearchQuery = req.params.searchQuery;
-  let searchQuery = (userInputtedSearchQuery.substring(0,1)).toLocaleUpperCase() + userInputtedSearchQuery.substring(1);
+  let searchQuery = (userInputtedSearchQuery.substring(0, 1)).toLocaleUpperCase() + userInputtedSearchQuery.substring(1);
   console.log(253, searchQuery);
   const sessionCookie = req.cookies.session || "";
   let isUserLoggedIn = isLoggedIn(req);
@@ -321,27 +321,19 @@ router.get("/positiveSparks", function (req, res) {
   // });
 
 
-  db.collection("users").orderBy("firstName").get().then(function (querySnapshot) {
 
 
-    querySnapshot.forEach(function (doc) {
 
-      convertToArray(userInfo, doc);
-    });
+  //console.log(385, userInfo);
 
-    //console.log(385, userInfo);
-
-    res.render("positiveSparks.ejs", {
-      layout: 'Layout/layout.ejs',
-      pagename: "positiveSparks",
-      title: "Positive Sparks",
-      isLoggedIn: isUserLoggedIn,
-      userInfo,
-      userInfoLength: userInfo.length,
-    });
-
+  res.render("positiveSparks.ejs", {
+    layout: 'Layout/layout.ejs',
+    pagename: "positiveSparks",
+    title: "Positive Sparks",
+    isLoggedIn: isUserLoggedIn,
+    userInfo,
+    userInfoLength: userInfo.length,
   });
-
 
 });
 
