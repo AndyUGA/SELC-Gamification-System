@@ -21,16 +21,18 @@
             <div class="row my-4">
                 <table class="dl mx-auto">
                     <tr>
-                        <td id="rank">
+                        <td>
 
                         </td>
-                        <td id="points">
+                        <td  class = "text-center w-100" id="points">
 
                         </td>
                     </tr>
                     <tr class="frp">
-                        <td> Individual Rank</td>
-                        <td>Points</td>
+                        <td></td>
+                        <td>
+                            Individual Points
+                        </td>
                     </tr>
                     <tr>
                         <td id="frank">
@@ -623,17 +625,18 @@
                         })
                     });
 
-                    //Get leaderboard ranking for individual
-                    db.collection('users').orderBy("points", "desc").get().then(snapshot => {
-                        let individualRank = 1;
-                        snapshot.forEach((doc) => {
-                            let individualData = doc.data();
-                            if (individualData.fullName == currentUser.fullName) {
-                                $("#rank").html(`#${individualRank}`);
-                            }
-                            individualRank++;
-                        })
-                    });
+                    // //Get leaderboard ranking for individual
+                    // db.collection('users').orderBy("points", "desc").get().then(snapshot => {
+                    //     let individualRank = 1;
+                    //     snapshot.forEach((doc) => {
+                    //         console.log(630, individualRank);
+                    //         let individualData = doc.data();
+                    //         if (individualData.fullName == currentUser.fullName) {
+                    //             $("#rank").html(`#${individualRank}`);
+                    //         }
+                    //         individualRank++;
+                    //     })
+                    // });
 
 
 

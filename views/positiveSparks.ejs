@@ -99,7 +99,7 @@
     db.collection('users').orderBy("firstName").onSnapshot(snapshot => {
       snapshot.docChanges().forEach((doc) => {
 
-        console.log(85, doc.doc.data().fullName + " : " + doc.doc.data().uid);
+       
 
 
         firebase.storage().ref('users/' + `${doc.doc.data().uid}` + '/profile.jpg').getDownloadURL()
@@ -117,11 +117,12 @@
                 </div>
 
                 <form class = "positiveSparkForm ">
-                  <button class="btn btn-info w-100">
+                  <button class="btn btn-info w-100 tapButton${doc.doc.data().uid}">
                     Tap
                     <img class="tap-icon" src="./Images/VirtualSparks/tap.svg">
                   </button>
                   <input hidden value = "${doc.doc.data().email}" />
+                  <input hidden value = "${doc.doc.data().uid}" />
                 </form>
 
               </div>
@@ -139,8 +140,13 @@
 
 
                 let email = e.currentTarget[1].value;
+                let generatedUID = e.currentTarget[2].value;
+                console.log(143, e.currentTarget[2].value);
+                $(`.tapButton${generatedUID}`).addClass("fade-in-test");
 
-
+                setTimeout(() => {
+                  $(`.tapButton${generatedUID}`).removeClass("fade-in-test");
+                }, 1500);
                 return fetch("/updatePositiveSparkCounter/" + email, {
                   method: "POST",
                   headers: {
@@ -148,10 +154,11 @@
                     "Content-Type": "application/json",
                     "CSRF-Token": Cookies.get("XSRF-TOKEN"),
                   }
-                });
+                })
               });
             }
           })
+       
           .catch(err => {
             updatedCount += `
             <div class="col-3 d-flex justify-content-center mb-5">
