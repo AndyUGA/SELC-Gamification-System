@@ -141,24 +141,24 @@ router.get("/leaderboard", function (req, res) {
 
 
 
-router.get("/positiveSparks", function (req, res) {
+// router.get("/positiveSparks", function (req, res) {
 
-  const sessionCookie = req.cookies.session || "";
-  let isUserLoggedIn = isLoggedIn(req);
+//   const sessionCookie = req.cookies.session || "";
+//   let isUserLoggedIn = isLoggedIn(req);
 
-  let userInfo = [];
-  let userIDs = [];
+//   let userInfo = [];
+//   let userIDs = [];
 
-  res.render("positiveSparks.ejs", {
-    layout: 'Layout/layout.ejs',
-    pagename: "positiveSparks",
-    title: "Positive Sparks",
-    isLoggedIn: isUserLoggedIn,
-    userInfo,
-    userInfoLength: userInfo.length,
-  });
+//   res.render("positiveSparks.ejs", {
+//     layout: 'Layout/layout.ejs',
+//     pagename: "positiveSparks",
+//     title: "Positive Sparks",
+//     isLoggedIn: isUserLoggedIn,
+//     userInfo,
+//     userInfoLength: userInfo.length,
+//   });
 
-});
+// });
 
 
 router.get("/profile", function (req, res) {
