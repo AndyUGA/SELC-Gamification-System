@@ -1,6 +1,10 @@
 
 
 
+$UVSASE-blue: #009fb7;
+$UVSASE-dark-blue: #114b5f;
+$UVSAE-Yellow: #fed766;
+
 .team-img-maxSize {
     height: 200px; 
     width: 200px;
@@ -12,12 +16,26 @@
     height: 20px;
 }
 
+.positiveSparksTitle {
+  font-size: 3rem;
+  color: $UVSASE-blue;
+}
+
+.warning {
+
+  font-weight: bold;
+}
+
+.nameCounter {
+  font-size: 2rem;
+}
+
 @keyframes slideInFromLeft {
     0% {
-      transform: translateX(-100%);
+      transform: translateY(-100%);
     }
     100% {
-      transform: translateX(0);
+      transform: translateY(0);
     }
   }
   

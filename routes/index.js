@@ -149,58 +149,35 @@ router.get("/positiveSparks", function (req, res) {
   let userInfo = [];
   let userIDs = [];
 
-
-  // db.collection('users').onSnapshot(docSnapshot => {
-  //   docSnapshot.forEach((doc) => {
-  //     console.log("Docs data: ", doc.data());
-  //   })
-  //   // ...
-  // }, err => {
-  //   console.log(`Encountered error: ${err}`);
-  // });
-
-
-  db.collection("users").orderBy("firstName").get().then(function (querySnapshot) {
-
-
-    querySnapshot.forEach(function (doc) {
-
-      convertToArray(userInfo, doc);
-    });
-
-    //console.log(385, userInfo);
-
-    res.render("positiveSparks.ejs", {
-      layout: 'Layout/layout.ejs',
-      pagename: "positiveSparks",
-      title: "Positive Sparks",
-      isLoggedIn: isUserLoggedIn,
-      userInfo,
-      userInfoLength: userInfo.length,
-    });
-
+  res.render("positiveSparks.ejs", {
+    layout: 'Layout/layout.ejs',
+    pagename: "positiveSparks",
+    title: "Positive Sparks",
+    isLoggedIn: isUserLoggedIn,
+    userInfo,
+    userInfoLength: userInfo.length,
   });
 
-
 });
+
 
 router.get("/profile", function (req, res) {
 
   let isUserLoggedIn = isLoggedIn(req);
 
-  if (!isUserLoggedIn) {
-    res.redirect('/login');
-  }
+  // if (!isUserLoggedIn) {
+  //   res.redirect('/login');
+  // }
 
-  res.redirect("/");
-  // res.render("profile.ejs", {
-  //   layout: 'Layout/layout.ejs',
-  //   pagename: "profile",
-  //   title: "Profile",
-  //   isLoggedIn: isUserLoggedIn,
+  // res.redirect("/");
+  res.render("profile.ejs", {
+    layout: 'Layout/layout.ejs',
+    pagename: "profile",
+    title: "Profile",
+    isLoggedIn: isUserLoggedIn,
    
   
-  // });
+  });
 
 
 
