@@ -271,14 +271,14 @@ router.get("/pointsForm/:searchQuery", function (req, res) {
           showUpdatePointsButton = true;
         }
 
-        console.log(238, dataArray);
+      
 
-        db.collection("history").orderBy('modifiedDate', "DESC").limit(5).get().then(function (querySnapshot) {
+        db.collection("history").limit(5).get().then(function (querySnapshot) {
           let historyArray = [];
           querySnapshot.forEach(function (doc) {
             convertToArray(historyArray, doc);
           });
-          console.log(279, "Rendering points form");
+          console.log(281, historyArray[0].data[0]);
           res.render("pointsForm.ejs", {
             layout: 'Layout/table-layout.ejs',
             dataArray,
@@ -321,7 +321,7 @@ router.get("/positiveSparks", function (req, res) {
   // });
 
 
-  
+
 
 
   //console.log(385, userInfo);
@@ -558,13 +558,10 @@ router.post("/modifyPoints", function (req, res) {
 
   let today = new Date().toLocaleString('en-US', { timeZone: 'America/New_York' });
 
-  db.collection("history").add({
-    attendee: fullName,
-    email: userEmail,
-    points: req.body.points,
-    modified: today,
-    modifiedDate: admin.firestore.FieldValue.serverTimestamp(),
-    modifiedBy: req.body.author
+  const historyDB = db.collection("history").doc("historyArray");
+
+  historyDB.update({
+    data: admin.firestore.FieldValue.arrayUnion(`${req.body.points} - ${fullName} - ${userEmail} - ${today} - ${req.body.author}`)
   });
 
 

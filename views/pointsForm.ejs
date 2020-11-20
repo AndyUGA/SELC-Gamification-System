@@ -59,31 +59,17 @@
             <table class="table table-responsive-sm">
                 <thead>
                     <tr class="text-center">
-                        <th scope="col">Attendee</th>
-                        <th scope="col">Points</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Modified At</th>
-                        <th scope="col">Modified By</th>
+                        <th scope="col">Points - Name - Email - Date Modified - Modified By</th>
+                        
                     </tr>
                 </thead>
                 <tbody>
-                    <% for(let i = 0; i < historyArray.length; i++) { %> 
+                    <% for(let i = 0; i < historyArray[0].data.length; i++) { %> 
                      <tr class = "text-center">
                         <td>
-                            <%= historyArray[i].attendee %>
+                            <%= historyArray[0].data[i] %>
                         </td>
-                        <td>
-                            <%= historyArray[i].points %>
-                        </td>
-                        <td>
-                            <%= historyArray[i].email %>
-                        </td>
-                        <td>
-                            <%= historyArray[i].modified %>
-                        </td>
-                        <td>
-                            <%= historyArray[i].modifiedBy %>
-                        </td>
+                        
                      </tr>   
                      <% } %>
                     
