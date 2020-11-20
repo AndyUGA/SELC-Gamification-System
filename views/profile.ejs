@@ -500,6 +500,38 @@
                     //Get workshop info
                     let workshopContent = ``;
                     for (let a = 0; a < currentUser.workshops.length; a++) {
+
+                        let workshopLink = "";
+                        let currentWorkshop = currentUser.workshops[a];
+                        if(currentWorkshop == "How to Shoot Your Shot: A Beginner's Guide to Photography") {
+                            workshopLink = "https://uga.zoom.us/j/7189005497";
+                        } else if(currentWorkshop == "A Hidden Enemy: Microagressions") {
+                            workshopLink = "https://zoom.us/j/98783216422";
+                        } else if(currentWorkshop == "It's A Bit Of A Stretch: Relaxing Yoga") {
+                            workshopLink = "https://uga.zoom.us/j/93545799565?pwd=ZVdsczdtRkMyc051MGp3WEE2VE41UT09";
+                        } else if(currentWorkshop == "A Penny Saved is a Dollar Earned: How to Invest in Your Future") {
+                            workshopLink = "https://mercer.zoom.us/j/6787047760";
+                        } 
+                        
+                        else if(currentWorkshop == "How To Recover From Burnout") {
+                            workshopLink = "https://mercer.zoom.us/j/6787047760";
+                        } else if(currentWorkshop == "Roll With It") {
+                            workshopLink = "https://uga.zoom.us/j/7189005497";
+                        } else if(currentWorkshop == "Getting Control of Your Finances") {
+                            workshopLink = "https://zoom.us/j/92746901013";
+                        } else if(currentWorkshop == "From Tattered Boats to Thriving Communities: Organizing in the Vietnamese Diaspora") {
+                            workshopLink = "https://uga.zoom.us/j/92721191639?pwd=ZzQwelZNZVlzSWNENW0yQlR4d0Z2UT09";
+                        }
+
+                        else if(currentWorkshop == "The Rocky Road to Success") {
+                            workshopLink = "https://uga.zoom.us/j/7189005497";
+                        } else if(currentWorkshop == "Roll With It") {
+                            workshopLink = "Self-Awareness, Discovery, and Identification: A Cognitive Science Workshop";
+                        } else if(currentWorkshop == "VSA's Next Top Graphic Designer") {
+                            workshopLink = "https://uga.zoom.us/j/99863743232?pwd=cDdQdHluY0dHdEE2VTQrQ2ZIREVOdz09";
+                        } else if(currentWorkshop == "Another Workshop Based on a Personality Quiz") {
+                            workshopLink = "https://mercer.zoom.us/j/6787047760";
+                        }
                         workshopContent += `    
                         
                         <div class="card col-12 col-md ">
@@ -507,17 +539,20 @@
                             <div class="card-body d-flex align-items-center justify-content-centern">
                          
                                 <h5 class="card-title">
-                                  
-                                    ${currentUser.workshops[a]}
-                                
+                                   
+                                       ${currentUser.workshops[a]}
+                                 
                                 </h5>
                             </div>
                             </div>
                         `;
                         $("#scheudledWorkshop" + (a + 1)).html(`
-                        
-                        ${currentUser.workshops[a]}
+
+                        <a target = "_blank" href = ${workshopLink}>
+                            ${currentUser.workshops[a]}
+                        </a>
                         `);
+                        workshopLink = "";
                     }
                     $("#registeredWorkshops").html(workshopContent);
 
