@@ -235,7 +235,7 @@ router.get("/pointsFormEmpty", function (req, res) {
 
       res.render("pointsFormEmpty.ejs", {
         layout: 'Layout/layout.ejs',
-        pagename: "pointsForm",
+        pagename: "pointsFormEmpty",
         title: "Modify Points",
         isLoggedIn: isUserLoggedIn,
 
@@ -321,7 +321,7 @@ router.get("/positiveSparks", function (req, res) {
   // });
 
 
-
+  
 
 
   //console.log(385, userInfo);
