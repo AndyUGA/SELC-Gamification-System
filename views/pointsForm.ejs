@@ -64,7 +64,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <% for(let i = 0; i < historyArray[0].data.length; i++) { %> 
+                    <% for(let i = historyArray[0].data.length - 1; i > 0 ; i--) { %>
                      <tr class = "text-center">
                         <td>
                             <%= historyArray[0].data[i] %>
