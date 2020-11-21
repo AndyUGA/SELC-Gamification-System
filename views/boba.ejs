@@ -1,0 +1,48 @@
+<div id="blink-bg">
+    <div id="button-div">
+        <button class="animation-button" onclick="pause()">PLEASE STOP THE MADNESS</button>
+    </div>
+    <div id="button-div">
+        <button class="animation-button" onclick="run()">OKAY GO</button>
+    </div>
+
+    <div class="my-4">
+        <img class="mx-auto" style="width: 20%; display: block;" src="./Images/SelcBreaksInternet/SELC_Breaks_Logo_black.png">
+    </div>
+
+    <div id="button-div">
+        &#8594;<a target = "_blank" href="https://tinyurl.com/SELC20PRORoomAssignments"><button>CLICK HERE FOR ROOM ASSIGNMENTS</button></a>&#8592;
+    </div>
+
+    <div id="bounce">
+        <div class="my-4">
+            free boba for ROOM 1
+            <a target = "_blank" href="https://uga.zoom.us/j/91545941509?pwd=UFpFWVA4cVVVazI1NVF4SUpzYWdSdz09">
+                <img class="mx-auto" style="width: 50%; display: block;" src="./Images/SelcBreaksInternet/Room 1 Coupon.png">
+            </a>
+        </div>
+        <div class="my-4">
+            free boba for ROOM 2
+            <a target = "_blank" href="https://uga.zoom.us/j/7189005497">
+                <img class="mx-auto" style="width: 50%; display: block;" src="./Images/SelcBreaksInternet/Room 2 Coupon.png">
+            </a>
+        </div>
+        <div class="my-4">
+            free boba for ROOM 3
+            <a target = "_blank" href="https://mercer.zoom.us/j/6787047760">
+                <img class="mx-auto" style="width: 50%; display: block;" src="./Images/SelcBreaksInternet/Room 3 Coupon.png">
+            </a>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var pause = function(){
+        document.getElementById("bounce").style.animationPlayState = "paused";
+        document.getElementById("blink-bg").style.animationPlayState = "paused";
+    }
+    var run = function(){
+        document.getElementById("bounce").style.animationPlayState = "running";
+        document.getElementById("blink-bg").style.animationPlayState = "running";
+    }
+</script>

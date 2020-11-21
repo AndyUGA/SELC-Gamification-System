@@ -322,7 +322,7 @@ router.post("/registerWorkshop", (req, res) => {
       }).then(function () {
 
 
-        res.redirect("/Workshops")
+        res.redirect("/profile")
       });
     }
 
@@ -370,7 +370,20 @@ router.post("/addMessageToQueue", function (req, res) {
 });
 
 
+router.get("/fReeB0ba", function (req, res) {
 
+  let isUserLoggedIn = isLoggedIn(req);
+
+  if (!isUserLoggedIn) {
+    res.redirect('/login');
+  }
+  res.render("boba.ejs", {
+    layout: 'Layout/layout.ejs',
+    pagename: "boba",
+    title: "fReeB0ba",
+    isLoggedIn: isUserLoggedIn,
+  });
+});
 
 
 module.exports = router;

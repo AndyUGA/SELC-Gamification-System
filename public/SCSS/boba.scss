@@ -1,0 +1,62 @@
+#bounce {
+  text-align: center;
+  font-size: 2em;
+  font-weight: bold;
+  font-family: "Comic Sans MS", cursive, sans-serif;
+
+  animation: bounce 1s infinite;
+  -webkit-animation: bounce 1s infinite;
+  -moz-animation: bounce 1s infinite;
+  -o-animation: bounce 1s infinite;
+}
+
+@-webkit-keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {-webkit-transform: translateY(0);}
+  40% {-webkit-transform: translateY(-50px);}
+  60% {-webkit-transform: translateY(-25px);}
+}
+
+@-moz-keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {-moz-transform: translateY(0);}
+  40% {-moz-transform: translateY(-50px);}
+  60% {-moz-transform: translateY(-25px);}
+}
+
+@-o-keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {-o-transform: translateY(0);}
+  40% {-o-transform: translateY(-50px);}
+  60% {-o-transform: translateY(-25px);}
+}
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+  40% {transform: translateY(-50px);}
+  60% {transform: translateY(-25px);}
+}
+
+#blink-bg{
+  color: #fff;
+  padding: 10px;
+  display: inline-block;
+  border-radius: 5px;
+  animation: blinkingBackground 1s infinite;
+  width: 100%;
+}
+@keyframes blinkingBackground{
+  0%		{ background-color: #10c018;}
+  25%		{ background-color: #1056c0;}
+  50%		{ background-color: #ef0a1a;}
+  75%		{ background-color: #254878;}
+  100%	{ background-color: #04a1d5;}
+}
+
+#button-div {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  margin-bottom: 10px;
+  font-size: 1.2em;
+}
+
+.animation-button {
+  background-color: transparent;
+}
