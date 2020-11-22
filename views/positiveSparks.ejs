@@ -92,6 +92,8 @@
     let i = 0;
     let tempProfileImgURL;
 
+    let team;
+
 
 
 
@@ -105,15 +107,19 @@
         firebase.storage().ref('users/' + `${doc.doc.data().uid}` + '/profile.jpg').getDownloadURL()
           .then(imgURL => {
             if (doc.doc.data().email != user.email) {
-          
-         
+
+              if (typeof doc.doc.data().teamName !== 'undefined') {
+                team = '- ' + doc.doc.data().teamName;
+              } else {
+                team = ''
+              }
 
             updatedCount += `
             <div class="col-3 d-flex justify-content-center mb-5">
               <div class="card">
                 <img class="img-fluid team-img-maxSize" src="${imgURL}">
                 <div id="name${doc.doc.data().uid}" class="text-center ">
-                ${doc.doc.data().fullName}
+                ${doc.doc.data().fullName} ${team}
                 </div>
 
                 <form class = "positiveSparkForm ">
