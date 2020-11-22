@@ -106,7 +106,7 @@
 
         firebase.storage().ref('users/' + `${doc.doc.data().uid}` + '/profile.jpg').getDownloadURL()
           .then(imgURL => {
-            if (doc.doc.data().email != user.email) {
+            if (doc.doc.data().email != user.email && doc.doc.data().fullName != "Andy A") {
 
               if (typeof doc.doc.data().teamName !== 'undefined') {
                 team = '- ' + doc.doc.data().teamName;
