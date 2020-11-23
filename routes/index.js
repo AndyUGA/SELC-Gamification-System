@@ -807,7 +807,7 @@ router.post("/approveMessage", function (req, res) {
       })
 
 
-      res.redirect('/loveboxQueue');
+      res.redirect('/loveboxqueue');
     });
   });
 });
@@ -842,7 +842,7 @@ router.post("/deleteMessage", function (req, res) {
     })
 
 
-    res.redirect('/loveboxQueue');
+    res.redirect('/loveboxqueue');
   });
 });
 
