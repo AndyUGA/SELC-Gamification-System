@@ -197,7 +197,7 @@ router.get("/lovebox", function (req, res) {
   });
 });
 
-router.get("/loveboxqueue", function (req, res) {
+router.get("/loveboxQueue", function (req, res) {
   let isUserLoggedIn = isLoggedIn(req);
 
   db.collection("lovebox").get().then(function (querySnapshot) {
@@ -208,9 +208,9 @@ router.get("/loveboxqueue", function (req, res) {
     });
 
 
-    res.render("loveboxqueue.ejs", {
+    res.render("loveboxQueue.ejs", {
       layout: 'Layout/layout.ejs',
-      pagename: "loveboxqueue",
+      pagename: "loveboxQueue",
       title: "Lovebox Queue",
       dataArray,
       isLoggedIn: isUserLoggedIn,
