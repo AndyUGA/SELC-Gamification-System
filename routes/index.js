@@ -221,7 +221,27 @@ router.get("/register-workshops", function (req, res) {
 
 
 
+router.get("/lovebox", function (req, res) {
+  let isUserLoggedIn = isLoggedIn(req);
 
+  db.collection("lovebox").get().then(function (querySnapshot) {
+    let dataArray = [];
+    querySnapshot.forEach(function (doc) {
+
+      convertToArray(dataArray, doc);
+    });
+
+    res.render("lovebox.ejs", {
+      layout: 'Layout/layout.ejs',
+      pagename: "lovebox",
+      title: "Lovebox",
+      dataArray: dataArray[0].message,
+      isLoggedIn: isUserLoggedIn,
+    });
+
+  });
+});
+  
 
 
 
