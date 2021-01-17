@@ -18,6 +18,16 @@ ___
 - HTML5
 - CSS3
 - JavaScript
-### Features
-- TBD
+### Attendee Features
+- Ability to login and register for an account
+- Ability to reset password
+- Ability to register for workshops
+- Ability to view team points on leaderboard
+- Ability to view schedule with personalized links
 
+___
+
+### Admin Features
+- Ability to modify points for teams
+- Ability to assign attendees to specific teams
+- Ability to view history of point modifications
