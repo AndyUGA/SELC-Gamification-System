@@ -4,6 +4,9 @@
 
 ### SELC's Gamification System takes the Southeast Leadership Camp and turns it into a friendly, interactive system, grasping the attention of its campers. Through scoreboards, minigames, and tasks, campers are able to stay engaged in activities and workshops. 
 ___
+
+![Login Screenshot](Login_Screenshot.png)
+
 ### Contributors
 - [Andy Truong](https://github.com/AndyUGA)
 - [Hyemi Byun](https://github.com/hyemi777)
