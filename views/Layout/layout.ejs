@@ -31,64 +31,47 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
 
-            <% if(isLoggedIn == true) { %>
+            <% if(isLoggedIn==true) { %>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="./loveboxQueue">
-                        Lovebox Queue
-                    </a>
-                </li>
-         
-                <li class="nav-item">
-                    <a class="nav-link" href="./Lovebox">
-                        Lovebox 
-                    </a>
-                </li>
-         
-
-        
-
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
-                    Attendee
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="./leaderboard">
+                    <a class="nav-link" href="./leaderboard">
                         Leaderboard
                     </a>
-                    <a class="dropdown-item" href="./profile">
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="./profile">
                         Profile
                     </a>
-                    <a class="dropdown-item" href="/register-workshops">
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="./register-workshops">
                         Workshops
                     </a>
-                    <a class="dropdown-item" href="/positiveSparks">
-                        Positive Sparks
-                    </a>
-                </div>
-            </li>
-            <% } %>
+                </li>
 
-            <% if(isLoggedIn != true) { %>
-            <li class="nav-item">
-                <a class="nav-link" href="/login">
-                    Login
-                </a>
-            </li>
-           
 
-            <% } %>
+
+                <% } %>
+
+                    <% if(isLoggedIn !=true) { %>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/login">
+                                Login
+                            </a>
+                        </li>
+
+
+                        <% } %>
 
 
 
         </ul>
         <ul class="navbar-nav ml-auto">
-            <% if(isLoggedIn == true) { %>
-            <li class="nav-item">
-                <a class="nav-link" href="/sessionLogout">Logout</a>
-            </li>
-            <% } %>
+            <% if(isLoggedIn==true) { %>
+                <li class="nav-item">
+                    <a class="nav-link" href="/sessionLogout">Logout</a>
+                </li>
+                <% } %>
         </ul>
 
     </div>
